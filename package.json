@@ -18,5 +18,15 @@
   "bugs": {
     "url": "https://github.com/infectnet/infectnet-browser-frontend/issues"
   },
-  "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme"
+  "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme",
+  "devDependencies": {
+    "jspm": "^0.16.45"
+  },
+  "jspm": {
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
 }
