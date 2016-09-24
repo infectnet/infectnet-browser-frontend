@@ -1,1 +1,1 @@
-# Game Broser Frontend
+# InfectNet Browser Frontend
