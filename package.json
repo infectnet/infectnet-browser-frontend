@@ -1,0 +1,22 @@
+{
+  "name": "infectnet-browser-frontend",
+  "version": "0.1.0",
+  "description": "InfectNet Browser Frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infectnet/infectnet-browser-frontend.git"
+  },
+  "keywords": [
+    "infectnet"
+  ],
+  "author": "InfectNet",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/infectnet/infectnet-browser-frontend/issues"
+  },
+  "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme"
+}
