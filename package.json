@@ -4,6 +4,8 @@
   "description": "InfectNet Browser Frontend",
   "main": "index.js",
   "scripts": {
+    "serve": "gulp",
+    "build": "gulp build",
     "test": "echo \"No test specified yet. Exiting with 0\" && exit 0"
   },
   "repository": {
