@@ -23,7 +23,7 @@ const paths = {
 const javascriptSettings = {
   main: {
     src: 'main.js',
-    dist: 'main.min.js'
+    dist: 'main.bundle.js'
   },
   jspm: {
     selfExecutingBundle: true,
@@ -32,9 +32,16 @@ const javascriptSettings = {
   }
 };
 
-const htmlSettings = {
-  js: javascriptSettings.main
-};
+const htmlSettings = (function settings() {
+  const dist = `${paths.dist.js.replace(paths.dist.base, '.')}/${javascriptSettings.main.dist}`;
+
+  return {
+    js: {
+      dist,
+      src: javascriptSettings.main.src
+    }
+  };
+}());
 
 const serverSettings = {
   root: paths.dist.base,

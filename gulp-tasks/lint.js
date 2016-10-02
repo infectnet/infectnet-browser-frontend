@@ -3,7 +3,6 @@ module.exports = function lint(gulp, plugins, paths) {
 
   return function () {
     return gulp.src(`${paths.src.js}/**/*.js`)
-      .pipe(plugins.debug())
       .pipe(eslint())
       .pipe(eslint.format());
   };
