@@ -1,9 +1,5 @@
-'use strict'
-
-module.exports = function(gulp, plugins, paths, settings) {
-    const connect = plugins.connect;
-
-    return function() {
-        connect.server(settings);
-    }
-}
+module.exports = function connect(gulp, plugins, paths, settings) {
+  return function () {
+    plugins.connect.server(settings);
+  };
+};

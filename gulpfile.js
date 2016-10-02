@@ -4,45 +4,45 @@ const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 
 const paths = {
-    gulpTasks: './gulp-tasks',
-    src: {
-        html: './src',
-        js:   './src/js',
-        css:  './src/assets/css',
-        img:  './src/assets/img'
-    },
-    dist: {
-        base: './dist',
-        html: './dist',
-        js:   './dist/js',
-        css:  './dist/assets/css',
-        img:  './dist/assets/img'
-    }
+  gulpTasks: './gulp-tasks',
+  src: {
+    html: './src',
+    js: './src/js',
+    css: './src/assets/css',
+    img: './src/assets/img'
+  },
+  dist: {
+    base: './dist',
+    html: './dist',
+    js: './dist/js',
+    css: './dist/assets/css',
+    img: './dist/assets/img'
+  }
 };
 
 const javascriptSettings = {
-    main: {
-        src: 'main.js',
-        dist: 'main.min.js'
-    },
-    jspm: {
-        selfExecutingBundle: true,
-        inject: true,
-        minify: true
-    }
+  main: {
+    src: 'main.js',
+    dist: 'main.min.js'
+  },
+  jspm: {
+    selfExecutingBundle: true,
+    inject: true,
+    minify: true
+  }
 };
 
 const htmlSettings = {
-    js: javascriptSettings.main
+  js: javascriptSettings.main
 };
 
 const serverSettings = {
-    root: paths.dist.base,
-    port: 8080
+  root: paths.dist.base,
+  port: 8080
 };
 
-const getTask = function(task, extraArgs = {}) {
-    return require(`${paths.gulpTasks}/${task}`)(gulp, plugins, paths, extraArgs);
+const getTask = function (task, extraArgs = {}) {
+  return require(`${paths.gulpTasks}/${task}`)(gulp, plugins, paths, extraArgs);
 };
 
 gulp.task('clean', getTask('clean'));
