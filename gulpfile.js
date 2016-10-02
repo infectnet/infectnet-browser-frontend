@@ -1,5 +1,3 @@
-'use strict'
-
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 
@@ -48,7 +46,8 @@ const serverSettings = {
   port: 8080
 };
 
-const getTask = function (task, extraArgs = {}) {
+const getTask = function getTask(task, extraArgs = {}) {
+  // eslint-disable-next-line global-require
   return require(`${paths.gulpTasks}/${task}`)(gulp, plugins, paths, extraArgs);
 };
 

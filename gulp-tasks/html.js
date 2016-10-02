@@ -1,7 +1,7 @@
 module.exports = function html(gulp, plugins, paths, settings) {
   const replace = plugins.replace;
 
-  return function () {
+  return function task() {
     return gulp.src(`${paths.src.html}/*.html`)
       .pipe(replace('jspm_packages/system.js', settings.js.dist))
       .pipe(replace('<script src="config.js"></script>', ''))
