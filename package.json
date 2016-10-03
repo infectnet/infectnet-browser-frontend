@@ -25,6 +25,7 @@
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-airbnb": "^11.2.0",
+    "eslint-import-resolver-jspm": "^2.1.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
@@ -40,6 +41,9 @@
     "run-sequence": "^1.2.2"
   },
   "jspm": {
+    "dependencies": {
+      "mithril": "npm:mithril@^0.2.5"
+    },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
