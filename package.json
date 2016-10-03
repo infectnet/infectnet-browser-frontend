@@ -40,6 +40,9 @@
     "run-sequence": "^1.2.2"
   },
   "jspm": {
+    "dependencies": {
+      "mithril": "npm:mithril@^0.2.5"
+    },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
