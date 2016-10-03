@@ -7,13 +7,13 @@
 
 First of all, make sure you have `node.js` installed. You can get it from [nodejs.org](https://nodejs.org/).
 
-### Dependencies:
+### Dependencies
 
 You can install the dependencies using the following commands:
 
 ~~~~
     npm install
-    jspm install
+    node_modules/.bin/jspm install
 ~~~~
 
 ## Development
