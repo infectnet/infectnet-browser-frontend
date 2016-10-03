@@ -7,21 +7,33 @@
 
 First of all, make sure you have `node.js` installed. You can get it from [nodejs.org](https://nodejs.org/).
 
-Install the dependencies:
+### Dependencies:
+
+You can install the dependencies using the following commands:
 
 ~~~~
     npm install
     jspm install
 ~~~~
 
-Build the project into thge `dist` folder:
+## Development
+
+### Build
+
+Build the project (default destination is `dist`):
 
 ~~~~
     npm run build
 ~~~~
+
+### Development server
 
 Use the following command to spin-up a development server at `localhost:8080` with watch:
 
 ~~~~
     npm run serve
 ~~~~
+
+### Configuration
+
+The project uses `gulp`. Please see the `gulp-config.js` and `gulpfile.js` to configure the development and build process.
