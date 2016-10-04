@@ -23,7 +23,7 @@ const IpField = {
           IpField.vm.isPristine(false);
         }
 
-        return str;
+        return IpField.vm.ipAddress;
       },
       submit() {
         args.onsave(IpField.vm.ipAddress);
