@@ -7,7 +7,7 @@ import ServerIp from './server-ip';
 const Home = {
   controller() {
     return {
-      save(ip) {
+      commitIp(ip) {
         ServerIp.set(ip);
 
         m.route('/server');
@@ -15,7 +15,7 @@ const Home = {
     };
   },
   view(ctrl) {
-    return [Menu, m.component(IpField, { onsave: ctrl.save })];
+    return [Menu, m.component(IpField, { onsave: ctrl.commitIp })];
   }
 };
 

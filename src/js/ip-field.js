@@ -1,37 +1,38 @@
 import m from 'mithril';
 
+import ServerIp from './server-ip';
+
 const IpField = {
   vm: {
     init() {
       IpField.vm.isValid = m.prop('false');
       IpField.vm.isPristine = m.prop('true');
-      IpField.vm.ipAddress = m.prop('');
+      IpField.vm.ipAddress = '';
     }
   },
   controller(args) {
     IpField.vm.init();
 
-    const ipRegex =
-      /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
-
     return {
-      validate(str) {
-        IpField.vm.isValid(ipRegex.test(str));
+      ip(str) {
+        if (arguments.length > 0) {
+          IpField.vm.ipAddress = str;
 
-        IpField.vm.isPristine(false);
+          IpField.vm.isValid(ServerIp.validate(str));
 
-        if (IpField.vm.isValid()) {
-          IpField.vm.ipAddress(str);
+          IpField.vm.isPristine(false);
         }
+
+        return str;
       },
       submit() {
-        args.onsave(IpField.vm.ipAddress());
+        args.onsave(IpField.vm.ipAddress);
       }
     };
   },
   view(ctrl) {
     return m('div', [
-      m('input', { type: 'text', placeholder: 'Enter the IP address', onchange: m.withAttr('value', ctrl.validate) }),
+      m('input', { type: 'text', placeholder: 'Enter the IP address', onchange: m.withAttr('value', ctrl.ip) }),
       m('div', { style: { display: displayError() } }, 'The IP address is invalid!'),
       m('button', { disabled: isSubmitDisabled(), onclick: ctrl.submit }, 'Go!')
     ]);

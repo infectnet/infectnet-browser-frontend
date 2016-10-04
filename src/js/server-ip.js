@@ -1,7 +1,20 @@
 let ip = null;
 
+const ipRegex =
+      /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
+
 const set = function set(value) {
-  ip = value;
+  if (validate(value)) {
+    ip = value;
+
+    return true;
+  }
+
+  return false;
+};
+
+const validate = function validate(value) {
+  return ipRegex.test(value);
 };
 
 const isSet = function isSet() {
@@ -15,5 +28,6 @@ const retrieve = function retrieve() {
 export default {
   set,
   isSet,
-  retrieve
+  retrieve,
+  validate
 };
