@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import ServerIp from './server-ip';
+import ServerIp from '../server-ip';
 
 const IpField = {
   vm: {
