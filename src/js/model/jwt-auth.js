@@ -17,13 +17,20 @@ const createJwtAuth = function createJwtAuth(request) {
       localStorage.setItem(storageKey(), args[0]);
     }
 
-    const storedToken = localStorage.getItem(storageKey());
+    let storedToken = localStorage.getItem(storageKey());
 
     // every time the token changes (or on startup) the expiration time gets cached
-    if (expirationTime === null) {
+    if (expirationTime === null && storedToken !== null) {
       const tokenData = jwtDecode(storedToken);
 
       expirationTime = tokenData.exp;
+
+      if (isExpired()) {
+        expirationTime = null;
+        storedToken = null;
+
+        localStorage.removeItem(storageKey());
+      }
     }
 
     return storedToken;
