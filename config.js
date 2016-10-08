@@ -14,6 +14,7 @@ System.config({
   },
 
   map: {
+    "auth0/jwt-decode": "github:auth0/jwt-decode@2.1.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",

@@ -15,19 +15,29 @@ export const fromProvider = function fromProvider(addressProvider) {
     return m.request(optionsCopy);
   };
 
-  const withToken = function withToken(tokenProvider, options) {
-    const authHeaderConfig = function authHeaderConfig(xhr) {
-      xhr.setRequestHeader('Authorization', `Bearer ${tokenProvider()}`);
+  const withAuth = function withToken(authProvider, options) {
+    // We don't want to lose the original config
+    const extendedConfig = function extendedConfig(xhr) {
+      authProvider.authFunc(xhr);
+
+      options.config(xhr);
     };
 
-    const extendedOptions = Object.assign({ config: authHeaderConfig }, options);
+    const extendedOptions = Object.assign({}, options);
+
+    extendedOptions.config = extendedConfig;
 
     return req(extendedOptions);
   };
 
+  const getAddress = function getAddress() {
+    return addressProvider();
+  };
+
   return {
     req,
-    withToken
+    withAuth,
+    getAddress
   };
 };
 

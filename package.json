@@ -47,6 +47,7 @@
   },
   "jspm": {
     "dependencies": {
+      "auth0/jwt-decode": "github:auth0/jwt-decode@^2.1.0",
       "mithril": "npm:mithril@^0.2.5"
     },
     "devDependencies": {
