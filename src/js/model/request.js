@@ -6,11 +6,21 @@ const ofAddress = function ofAddress(address) {
   return fromProvider(() => address);
 };
 
-const fromProvider = function fromProvider(addressProvider) {
+const fromProvider = function fromProvider(addressProvider, useHttps = false) {
+  const getAddress = function getAddress() {
+    let address = addressProvider();
+
+    if (!address.startsWith('http://') && !address.startsWith('https://')) {
+      address = `${useHttps ? 'https' : 'http'}://${address}`;
+    }
+
+    return address;
+  };
+
   const req = function req(options) {
     const optionsCopy = Object.assign({}, options);
 
-    optionsCopy.url = `${addressProvider()}${options.url}`;
+    optionsCopy.url = `${getAddress()}${options.url}`;
 
     return m.request(optionsCopy);
   };
@@ -28,10 +38,6 @@ const fromProvider = function fromProvider(addressProvider) {
     extendedOptions.config = extendedConfig;
 
     return req(extendedOptions);
-  };
-
-  const getAddress = function getAddress() {
-    return addressProvider();
   };
 
   return {

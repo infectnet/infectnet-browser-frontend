@@ -35,7 +35,7 @@ LoginForm.controller = function controller(options) {
       validate();
     },
     password(value) {
-      LoginForm.vm.username(value);
+      LoginForm.vm.password(value);
 
       validate();
     },

@@ -37,11 +37,11 @@ const createJwtAuth = function createJwtAuth(request) {
   };
 
   const isExpired = function isExpired() {
-    return expirationTime <= Date.now();
+    return expirationTime < (Date.now() / 1000);
   };
 
-  const login = function login(credetials) {
-    return request.req({ method: 'POST', url: LOGIN_URL, data: credetials })
+  const login = function login(credentials) {
+    return request.req({ method: 'POST', url: LOGIN_URL, data: credentials })
             .then(function success(data) {
               token(data.token);
 

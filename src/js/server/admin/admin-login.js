@@ -3,30 +3,35 @@ import m from 'mithril';
 import AdminRealm from './admin-realm';
 import LoginForm from '../../shared-components/login-form';
 
+import ServerIp from '../../model/server-ip';
+import JwtAuth from '../../model/jwt-auth';
+
 const AdminLogin = Object.create(AdminRealm);
 
 AdminLogin.controller = function controller() {
-  AdminLogin.checkRedirect();
+  if (!ServerIp.isSet()) {
+    m.route('/');
+  }
 
   return {
-    validateCredentials(username) {
-      if (username.length < 8) {
-        return {
-          isValid: false,
-          errorMessage: 'The username is too short'
-        };
-      }
-
+    validateCredentials() {
       return {
         isValid: true,
         errorMessage: ''
       };
+    },
+    login(credentials) {
+      JwtAuth.login(credentials).then(function asd() {
+        // console.log(JwtAuth.token());
+      });
     }
   };
 };
 
 AdminLogin.view = function view(ctrl) {
-  return this.constructView(m.component(LoginForm, { validate: ctrl.validateCredentials }));
+  return this.constructView(m.component(LoginForm, {
+    validate: ctrl.validateCredentials, login: ctrl.login
+  }));
 };
 
 export default AdminLogin;
