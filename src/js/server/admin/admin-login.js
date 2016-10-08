@@ -6,6 +6,8 @@ import LoginForm from '../../shared-components/login-form';
 const AdminLogin = Object.create(AdminRealm);
 
 AdminLogin.controller = function controller() {
+  AdminLogin.checkRedirect();
+
   return {
     validateCredentials(username) {
       if (username.length < 8) {

@@ -1,6 +1,6 @@
-import jwtDecode from 'jwt-decode';
+import jwtDecode from 'auth0/jwt-decode';
 
-import { Request } from './request';
+import Request from './request';
 
 const LOGIN_URL = '/admin/login';
 const RENEW_URL = '/admin/renew';
