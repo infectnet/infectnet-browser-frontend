@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import SiteRealm from './site-realm';
 import IpField from './ip-field';
-import { ServerIp } from '../model/server-ip';
+import ServerIp from '../model/server-ip';
 
 const Home = Object.create(SiteRealm);
 
