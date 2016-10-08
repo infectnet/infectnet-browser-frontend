@@ -5,6 +5,7 @@ import Home from './site/home';
 import About from './site/about';
 
 import ServerDashboard from './server/server-dashboard';
+import AdminLogin from './server/admin/admin-login';
 
 import Play from './play/play';
 
@@ -14,7 +15,8 @@ Routes.addRoutes({
 });
 
 Routes.addRoutes({
-  '/server': ServerDashboard
+  '/server': ServerDashboard,
+  '/server/admin/login': AdminLogin
 });
 
 Routes.addRoutes({

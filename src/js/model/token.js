@@ -23,7 +23,7 @@ const createTokenService = function createTokenService(authProvider, request) {
     }, []);
   };
 
-  const requestNew = function requestNew() {    
+  const requestNew = function requestNew() {
     return request.withAuth(authProvider, {
       method: 'POST',
       url: REQUEST_NEW_URL

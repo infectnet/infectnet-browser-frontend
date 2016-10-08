@@ -39,5 +39,3 @@ const ServerIp = createServerIp();
 ServerIp.create = createServerIp;
 
 export default ServerIp;
-
-

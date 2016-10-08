@@ -47,5 +47,3 @@ Request.fromProvider = fromProvider;
 Request.ofAddress = ofAddress;
 
 export default Request;
-
-
