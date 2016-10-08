@@ -1,19 +1,34 @@
 import m from 'mithril';
 
-const req = function req(options) {
-  return m.request(options);
+import { ServerIp } from './server-ip';
+
+export const ofAddress = function ofAddress(address) {
+  return fromProvider(() => address);
 };
 
-const request = req;
+export const fromProvider = function fromProvider(addressProvider) {
+  const req = function req(options) {
+    const optionsCopy = Object.assign({}, options);
 
-request.authenticated = function authenticated(token, options) {
-  const authHeaderConfig = function authHeaderConfig(xhr) {
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    optionsCopy.url = `${addressProvider()}${options.url}`;
+
+    return m.request(optionsCopy);
   };
 
-  const extendedOptions = Object.assign({ config: authHeaderConfig }, options);
+  const withToken = function withToken(tokenProvider, options) {
+    const authHeaderConfig = function authHeaderConfig(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${tokenProvider()}`);
+    };
 
-  return req(extendedOptions);
+    const extendedOptions = Object.assign({ config: authHeaderConfig }, options);
+
+    return req(extendedOptions);
+  };
+
+  return {
+    req,
+    withToken
+  };
 };
 
-export default request;
+export const Request = fromProvider(ServerIp.retrieve);
