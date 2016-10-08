@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import ServerIp from '../server-ip';
+import { serverIp } from '../model/server-ip';
 
 const IpField = {
   vm: {
@@ -18,7 +18,7 @@ const IpField = {
         if (arguments.length > 0) {
           IpField.vm.ipAddress = str;
 
-          IpField.vm.isValid(ServerIp.validate(str));
+          IpField.vm.isValid(serverIp.validate(str));
 
           IpField.vm.isPristine(false);
         }
