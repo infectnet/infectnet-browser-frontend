@@ -2,7 +2,7 @@ import request from './request';
 import ServerIp from './server-ip';
 
 const addToken = function addToken(ip, token) {
-  localStorage.setItem(`${ip}_token`, token); 
+  localStorage.setItem(`${ip}_token`, token);
 };
 
 const JwtAuth = {

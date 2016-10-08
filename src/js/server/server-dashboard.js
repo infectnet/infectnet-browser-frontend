@@ -1,18 +1,18 @@
 import m from 'mithril';
 
 import ServerRealm from './server-realm';
-import { serverIp } from '../model/server-ip';
+import { ServerIp } from '../model/server-ip';
 
 const ServerDashboard = Object.create(ServerRealm);
 
 ServerDashboard.controller = function controller() {
-  if (!serverIp.isSet()) {
+  if (!ServerIp.isSet()) {
     m.route('/');
   }
 
   return {
     getIp() {
-      return serverIp.retrieve();
+      return ServerIp.retrieve();
     }
   };
 };

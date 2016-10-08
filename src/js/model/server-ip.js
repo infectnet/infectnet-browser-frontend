@@ -34,4 +34,4 @@ export const newServerIp = function newServerIp() {
   };
 };
 
-export const serverIp = newServerIp();
+export const ServerIp = newServerIp();

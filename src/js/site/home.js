@@ -2,14 +2,14 @@ import m from 'mithril';
 
 import SiteRealm from './site-realm';
 import IpField from './ip-field';
-import { serverIp } from '../model/server-ip';
+import { ServerIp } from '../model/server-ip';
 
 const Home = Object.create(SiteRealm);
 
 Home.controller = function controller() {
   return {
     commitIp(ip) {
-      serverIp.set(ip);
+      ServerIp.set(ip);
 
       m.route('/server');
     }
