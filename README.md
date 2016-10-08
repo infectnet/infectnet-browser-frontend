@@ -34,6 +34,18 @@ Use the following command to spin-up a development server at `localhost:8080` wi
     npm run serve
 ~~~~
 
+### Mock backend
+
+A mock backend server can be launched on `127:0.0.1:3000` using:
+
+~~~~
+    npm run json-server
+~~~~
+
+This way the frontend can be tested with real requests to a mock server. JS and JSON files related to the mock server can be found in the `json-server` directory.
+
+For more information on the mock server configuration please read the `json-server/README.md` file. 
+
 ### Configuration
 
 The project uses `gulp`. Please see the `gulp-config.js` and `gulpfile.js` to configure the development and build process.
