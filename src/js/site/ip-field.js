@@ -10,15 +10,15 @@ const IpField = {
       IpField.vm.ipAddress = '';
     }
   },
-  controller(args) {
+  controller(options) {
     IpField.vm.init();
 
     return {
-      ip(str) {
-        if (arguments.length > 0) {
-          IpField.vm.ipAddress = str;
+      ip(...args) {
+        if (args.length > 0) {
+          IpField.vm.ipAddress = args[0];
 
-          IpField.vm.isValid(ServerIp.validate(str));
+          IpField.vm.isValid(ServerIp.validate(args[0]));
 
           IpField.vm.isPristine(false);
         }
@@ -26,7 +26,7 @@ const IpField = {
         return IpField.vm.ipAddress;
       },
       submit() {
-        args.onsave(IpField.vm.ipAddress);
+        options.onsave(IpField.vm.ipAddress);
       }
     };
   },
