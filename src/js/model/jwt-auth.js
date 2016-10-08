@@ -60,17 +60,22 @@ const createJwtAuth = function createJwtAuth(request) {
   };
 
   const authFunc = function authFunc(xhr) {
-    if (isExpired()) {
+    if (expirationTime !== null && isExpired()) {
       renew();
     }
 
     xhr.setRequestHeader('Authorization', `Bearer ${token()}`);
   };
 
+  const isAuthenticated = function isAuthenticated() {
+    return token() !== null;
+  };
+
   return {
     token: function tokenView() { return token(); },
     login,
     renew,
+    isAuthenticated,
     authFunc
   };
 };
