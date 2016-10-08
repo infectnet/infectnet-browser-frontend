@@ -1,13 +1,13 @@
 import tape from 'tape';
 
-import { newServerIp } from '../src/js/model/server-ip';
+import ServerIp from '../src/js/model/server-ip';
 
 const malformedIps = ['asd', '1.1.1.1.', '256.1.0.1', '0.1', ''];
 
 const correctIps = ['1.1.1.1', '127.0.0.1', '255.255.1.2'];
 
 tape('isSet() should return false when there is no stored IP', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   assert.equal(serverIp.isSet(), false);
 
@@ -15,7 +15,7 @@ tape('isSet() should return false when there is no stored IP', (assert) => {
 });
 
 tape('validate() should not accept malformed IP address', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   malformedIps.forEach(ip => assert.equal(serverIp.validate(ip), false));
 
@@ -23,7 +23,7 @@ tape('validate() should not accept malformed IP address', (assert) => {
 });
 
 tape('IPs rejected by validate() should also be rejected by set()', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   malformedIps.forEach(ip => assert.equal(serverIp.set(ip), false));
 
@@ -31,7 +31,7 @@ tape('IPs rejected by validate() should also be rejected by set()', (assert) => 
 });
 
 tape('validate() should accept correct IP address', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   correctIps.forEach(ip => assert.equal(serverIp.validate(ip), true));
 
@@ -39,7 +39,7 @@ tape('validate() should accept correct IP address', (assert) => {
 });
 
 tape('IPs accepted by validate() should also be accepted by set()', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   correctIps.forEach(ip => assert.equal(serverIp.set(ip), true));
 
@@ -47,7 +47,7 @@ tape('IPs accepted by validate() should also be accepted by set()', (assert) => 
 });
 
 tape('IP stored with set() should be returned by retrieve()', (assert) => {
-  const serverIp = newServerIp();
+  const serverIp = ServerIp.create();
 
   const dummyIp = '127.0.0.1';
 

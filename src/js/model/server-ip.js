@@ -1,7 +1,7 @@
 const ipRegex =
       /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-export const newServerIp = function newServerIp() {
+const createServerIp = function createServerIp() {
   let ip = null;
 
   const set = function set(value) {
@@ -34,4 +34,10 @@ export const newServerIp = function newServerIp() {
   };
 };
 
-export const ServerIp = newServerIp();
+const ServerIp = createServerIp();
+
+ServerIp.create = createServerIp;
+
+export default ServerIp;
+
+

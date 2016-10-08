@@ -2,11 +2,11 @@ import m from 'mithril';
 
 import { ServerIp } from './server-ip';
 
-export const ofAddress = function ofAddress(address) {
+const ofAddress = function ofAddress(address) {
   return fromProvider(() => address);
 };
 
-export const fromProvider = function fromProvider(addressProvider) {
+const fromProvider = function fromProvider(addressProvider) {
   const req = function req(options) {
     const optionsCopy = Object.assign({}, options);
 
@@ -41,4 +41,11 @@ export const fromProvider = function fromProvider(addressProvider) {
   };
 };
 
-export const Request = fromProvider(ServerIp.retrieve);
+const Request = fromProvider(ServerIp.retrieve);
+
+Request.fromProvider = fromProvider;
+Request.ofAddress = ofAddress;
+
+export default Request;
+
+

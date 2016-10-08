@@ -5,7 +5,7 @@ import { Request } from './request';
 const LOGIN_URL = '/admin/login';
 const RENEW_URL = '/admin/renew';
 
-export const createJwtAuth = function createJwtAuth(request) {
+const createJwtAuth = function createJwtAuth(request) {
   let expirationTime = null;
 
   const storageKey = function storageKey() {
@@ -68,4 +68,8 @@ export const createJwtAuth = function createJwtAuth(request) {
   };
 };
 
-export const JwtAuth = createJwtAuth(Request);
+const JwtAuth = createJwtAuth(Request);
+
+JwtAuth.create = createJwtAuth;
+
+export default JwtAuth;
