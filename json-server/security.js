@@ -25,7 +25,7 @@ module.exports = function security(server, options) {
 
       res.json({ token: token });
     } else {
-      res.boom.unauthorized();
+      res.boom.forbidden();
     }
   });
 };
