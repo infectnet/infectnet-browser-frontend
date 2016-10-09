@@ -36,3 +36,30 @@ On success:
     "token": String
   }
 ~~~~
+
+****
+
+~~~~
+  GET /admin/tokens
+~~~~
+
+Returns the list of active tokens.
+
+#### Response
+
+~~~~
+  [
+    {
+      "token": String,
+      "expDate": String
+    }
+  ]
+~~~~
+
+****
+
+~~~~
+  POST /admin/tokens
+~~~~
+
+Creates a new token. The created token is **not** returned. 

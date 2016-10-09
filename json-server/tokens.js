@@ -15,9 +15,6 @@ const tokens = [];
 
 function createToken() {
   function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
@@ -30,8 +27,6 @@ function createToken() {
 };
 
 module.exports = function(server) {
-  tokens.push(createToken());
-
   server.get('/admin/tokens', function(req, res) {
     res.json(tokens);
   });
@@ -39,6 +34,7 @@ module.exports = function(server) {
   server.post('/admin/tokens', function(req, res) {
     tokens.push(createToken());
 
+    // dummy output
     res.json({});
   });
 };
