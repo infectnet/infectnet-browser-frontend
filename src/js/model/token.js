@@ -5,12 +5,14 @@ export const Token = {
   init(tokenString, expirationDate) {
     this.tokenString = () => tokenString;
     this.expirationDate = () => expirationDate;
+
+    return this;
   }
 };
 
 const createTokenService = function createTokenService(authProvider, request) {
-  const LIST_URL = '/admin/token';
-  const REQUEST_NEW_URL = '/admin/token';
+  const LIST_URL = '/admin/tokens';
+  const REQUEST_NEW_URL = '/admin/tokens';
 
   const list = function list() {
     return request.withAuth(authProvider, {

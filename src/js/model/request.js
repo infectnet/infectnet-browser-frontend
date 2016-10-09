@@ -30,7 +30,9 @@ const fromProvider = function fromProvider(addressProvider, useHttps = false) {
     const extendedConfig = function extendedConfig(xhr) {
       authProvider.authFunc(xhr);
 
-      options.config(xhr);
+      if (typeof options.config === 'function') {
+        options.config(xhr);
+      }
     };
 
     const extendedOptions = Object.assign({}, options);

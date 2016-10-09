@@ -1,5 +1,7 @@
 import m from 'mithril';
 
+import AdminMenu from './admin-menu';
+
 import ServerIp from '../../model/server-ip';
 import JwtAuth from '../../model/jwt-auth';
 
@@ -14,7 +16,7 @@ const AdminRealm = {
     }
   },
   constructView(childContent) {
-    return [m('div', childContent)];
+    return [AdminMenu, m('div', childContent)];
   }
 };
 

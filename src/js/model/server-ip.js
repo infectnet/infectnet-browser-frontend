@@ -29,11 +29,16 @@ const createServerIp = function createServerIp() {
     return ip;
   };
 
+  const discard = function discard() {
+    ip = null;
+  };
+
   return {
     set,
     isSet,
     retrieve,
-    validate
+    validate,
+    discard
   };
 };
 
