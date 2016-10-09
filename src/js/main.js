@@ -1,31 +1,15 @@
 import m from 'mithril';
 import Routes from './routes';
 
-import Home from './site/home';
-import About from './site/about';
-
-import ServerDashboard from './server/server-dashboard';
-import AdminDashboard from './server/admin/admin-dashboard';
-import AdminLogin from './server/admin/admin-login';
-import TokenManagement from './server/admin/token-management';
-
+import Site from './site/site.js';
+import Server from './server/server.js';
 import Play from './play/play';
 
-Routes.addRoutes({
-  '/': Home,
-  '/about': About
-});
+Routes.addRoutes(Site.getRoutes());
 
-Routes.addRoutes({
-  '/server': ServerDashboard,
-  '/server/admin': AdminDashboard,
-  '/server/admin/login': AdminLogin,
-  '/server/admin/tokens': TokenManagement
-});
+Routes.addRoutes(Server.getRoutes());
 
-Routes.addRoutes({
-  '/play': Play
-});
+Routes.addRoutes(Play.getRoutes());
 
 m.route.mode = 'hash';
 

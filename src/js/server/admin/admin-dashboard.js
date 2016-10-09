@@ -6,7 +6,9 @@ import AdminMenu from './admin-menu';
 const AdminDashboard = Object.create(AdminRealm);
 
 AdminDashboard.controller = function controller() {
-  AdminDashboard.checkRedirect();
+  if (AdminDashboard.checkRedirect()) {
+    return;
+  }
 };
 
 AdminDashboard.view = function view() {
