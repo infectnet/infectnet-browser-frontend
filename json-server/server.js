@@ -16,6 +16,10 @@ var jwtSecret = "secret";
 server.use(bodyParser.json());
 server.use(middlewares);
 
+var tokens = require('./tokens');
+
+tokens(server);
+
 server.post('/admin/login', function login(req, res) {
   var credentials = req.body;
 
