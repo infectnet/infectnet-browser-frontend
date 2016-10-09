@@ -21,8 +21,8 @@ AdminLogin.controller = function controller() {
       };
     },
     login(credentials) {
-      JwtAuth.login(credentials).then(function asd() {
-        // console.log(JwtAuth.token());
+      JwtAuth.login(credentials).then(function redirect() {
+        m.route('/server/admin/');
       });
     }
   };

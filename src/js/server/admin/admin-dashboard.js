@@ -1,6 +1,7 @@
 import m from 'mithril';
 
 import AdminRealm from './admin-realm';
+import AdminMenu from './admin-menu';
 
 const AdminDashboard = Object.create(AdminRealm);
 
@@ -9,7 +10,7 @@ AdminDashboard.controller = function controller() {
 };
 
 AdminDashboard.view = function view() {
-  return this.constructView(m('h1', 'Hello!'));
+  return this.constructView([m('h1', 'Hello!'), AdminMenu]);
 };
 
 export default AdminDashboard;

@@ -7,6 +7,7 @@ import About from './site/about';
 import ServerDashboard from './server/server-dashboard';
 import AdminDashboard from './server/admin/admin-dashboard';
 import AdminLogin from './server/admin/admin-login';
+import TokenManagement from './server/admin/token-management';
 
 import Play from './play/play';
 
@@ -18,7 +19,8 @@ Routes.addRoutes({
 Routes.addRoutes({
   '/server': ServerDashboard,
   '/server/admin': AdminDashboard,
-  '/server/admin/login': AdminLogin
+  '/server/admin/login': AdminLogin,
+  '/server/admin/tokens': TokenManagement
 });
 
 Routes.addRoutes({
