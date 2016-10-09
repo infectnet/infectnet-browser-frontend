@@ -1,20 +1,16 @@
 import m from 'mithril';
+import Routes from './routes';
 
-const Component = {
-  vm: {
-    init(text) {
-      Component.vm.description = m.prop(text);
-    }
-  },
-  controller() {
-    Component.vm.init('Change this text!');
-  },
-  view() {
-    return m('div', [
-      m('input', { onchange: m.withAttr('value', Component.vm.description), value: Component.vm.description() }),
-      m('h2', Component.vm.description())
-    ]);
-  }
-};
+import Site from './site/site.js';
+import Server from './server/server.js';
+import Play from './play/play';
 
-m.mount(document.body, Component);
+Routes.addRoutes(Site.getRoutes());
+
+Routes.addRoutes(Server.getRoutes());
+
+Routes.addRoutes(Play.getRoutes());
+
+m.route.mode = 'hash';
+
+m.route(document.body, '/', Routes.getRoutes());
