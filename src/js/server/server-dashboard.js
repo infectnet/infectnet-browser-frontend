@@ -10,7 +10,7 @@ ServerDashboard.vm = {
     ServerDashboard.vm.options = [
       {
         name: 'Login',
-        path: '/undefined'
+        path: '/login'
       },
       {
         name: 'Register',
@@ -27,6 +27,8 @@ ServerDashboard.vm = {
 ServerDashboard.controller = function controller() {
   if (!ServerIp.isSet()) {
     m.route('/');
+
+    return null;
   }
 
   ServerDashboard.vm.init();
