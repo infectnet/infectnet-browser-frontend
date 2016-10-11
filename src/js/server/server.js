@@ -1,5 +1,6 @@
 import ServerDashboard from './server-dashboard';
 import PlayerLogin from './player-login';
+import PlayerRegister from './player-register';
 
 import AdminDashboard from './admin/admin-dashboard';
 import AdminLogin from './admin/admin-login';
@@ -10,6 +11,7 @@ const Server = {
     return {
       '/server': ServerDashboard,
       '/server/login': PlayerLogin,
+      '/server/register': PlayerRegister,
       '/server/admin': AdminDashboard,
       '/server/admin/login': AdminLogin,
       '/server/admin/tokens': TokenManagement
