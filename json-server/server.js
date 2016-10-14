@@ -11,9 +11,9 @@ server.use(bodyParser.json());
 server.use(middlewares);
 server.use(boom());
 
-require('./security')(server, { jwtSecret: 'secret' });
-require('./tokens')(server);
-require('./register')(server);
+require('./modules/security')(server, { jwtSecret: 'secret' });
+require('./modules/tokens')(server);
+require('./modules/register')(server);
 
 server.listen(port, function serverStarted() {
   console.log('JSON Server is running on port ' + port);
