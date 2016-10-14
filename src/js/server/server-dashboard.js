@@ -1,28 +1,11 @@
 import m from 'mithril';
 
-import ServerRealm from './server-realm';
+import ServerLayout from './layout/server-layout';
 import ServerIp from '../model/server-ip';
 
-const ServerDashboard = Object.create(ServerRealm);
+const ServerDashboard = Object.create(ServerLayout);
 
-ServerDashboard.vm = {
-  init() {
-    ServerDashboard.vm.options = [
-      {
-        name: 'Login',
-        path: '/login'
-      },
-      {
-        name: 'Register',
-        path: '/register'
-      },
-      {
-        name: 'Admin Dashboard',
-        path: '/admin'
-      }
-    ];
-  }
-};
+ServerDashboard.vm = {};
 
 ServerDashboard.controller = function controller() {
   if (!ServerIp.isSet()) {
@@ -30,8 +13,6 @@ ServerDashboard.controller = function controller() {
 
     return null;
   }
-
-  ServerDashboard.vm.init();
 
   return {
     getIp() {
@@ -44,13 +25,8 @@ ServerDashboard.view = function view(ctrl) {
   return this.constructView(
     m('div', [
       m('h1', `Connected to ${ctrl.getIp()}`),
-      m('ul', ServerDashboard.vm.options.map(mapOption))
     ]
   ));
-
-  function mapOption(option) {
-    return m('li', m('a', { config: m.route, href: `/server${option.path}` }, option.name));
-  }
 };
 
 export default ServerDashboard;

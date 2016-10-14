@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import AdminRealm from './admin-realm';
-import LoginForm from '../../shared-components/login-form';
+import LoginForm from '../../common/login-form';
 
 import ServerIp from '../../model/server-ip';
 import JwtAuth from '../../model/jwt-auth';

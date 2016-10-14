@@ -5,12 +5,16 @@ const Menu = {
     init() {
       Menu.vm.routes = [
         {
-          name: 'Home',
-          path: '/'
+          name: 'Login',
+          path: '/server/login'
         },
         {
-          name: 'About',
-          path: '/about'
+          name: 'Register',
+          path: '/server/register'
+        },
+        {
+          name: 'Admin Dashboard',
+          path: '/server/admin'
         }
       ];
     }

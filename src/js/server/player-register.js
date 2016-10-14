@@ -1,10 +1,10 @@
 import m from 'mithril';
 
 import ServerIp from '../model/server-ip';
-import ServerRealm from './server-realm';
+import ServerLayout from './layout/server-layout';
 import Register from '../model/register';
 
-const PlayerRegister = Object.create(ServerRealm);
+const PlayerRegister = Object.create(ServerLayout);
 
 PlayerRegister.vm = {
   init() {
