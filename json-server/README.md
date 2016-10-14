@@ -63,3 +63,19 @@ Returns the list of active tokens.
 ~~~~
 
 Creates a new token. The created token is **not** returned. 
+
+~~~~
+  POST /register
+~~~~
+
+Registration endpoint for players. Stores the user data on the server.
+
+#### Request
+~~~~
+  {
+    "username": String,
+    "password": String,
+    "email": String,
+    "token": String
+  }
+~~~~
