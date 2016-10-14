@@ -48,7 +48,7 @@ PlayerRegister.controller = function controller() {
       Register.register(userData).then(function success() {
         m.route('/server/login?freshRegistration');
       }, function error() {
-        console.log('error');
+        // report error
       });
     }
   };
