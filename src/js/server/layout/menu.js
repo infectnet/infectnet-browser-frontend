@@ -1,4 +1,4 @@
-import TopMenu from '../../common/top-menu';
+import TopMenu from '../../common/components/top-menu';
 
 const Menu = {
   vm: {

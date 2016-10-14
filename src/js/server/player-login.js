@@ -1,9 +1,8 @@
 import m from 'mithril';
 
 import ServerLayout from './layout/server-layout';
-import LoginForm from '../common/login-form';
-
-import ServerIp from '../model/server-ip';
+import LoginForm from '../common/components/login-form';
+import ServerIp from '../common/services/server-ip';
 
 const PlayerLogin = Object.create(ServerLayout);
 

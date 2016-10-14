@@ -1,10 +1,10 @@
 import m from 'mithril';
-import AdminRealm from '../admin-realm';
-import { TokenService } from '../../../model/token.js';
+import AdminLayout from '../layout/admin-layout';
+import { TokenService } from './token.js';
 
 import TokenList from './token-list';
 
-const TokenManagement = Object.create(AdminRealm);
+const TokenManagement = Object.create(AdminLayout);
 
 TokenManagement.controller = function controller() {
   if (TokenManagement.checkRedirect()) {

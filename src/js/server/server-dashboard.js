@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import ServerLayout from './layout/server-layout';
-import ServerIp from '../model/server-ip';
+import ServerIp from '../common/services/server-ip';
 
 const ServerDashboard = Object.create(ServerLayout);
 

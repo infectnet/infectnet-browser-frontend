@@ -1,16 +1,18 @@
 import m from 'mithril';
 
-import AdminRealm from './admin-realm';
-import LoginForm from '../../common/login-form';
+import AdminLayout from './layout/admin-layout';
 
-import ServerIp from '../../model/server-ip';
-import JwtAuth from '../../model/jwt-auth';
+import LoginForm from '../../common/components/login-form';
+import ServerIp from '../../common/services/server-ip';
+import JwtAuth from '../../common/services/jwt-auth';
 
-const AdminLogin = Object.create(AdminRealm);
+const AdminLogin = Object.create(AdminLayout);
 
 AdminLogin.controller = function controller() {
   if (!ServerIp.isSet()) {
     m.route('/');
+
+    return null;
   }
 
   return {

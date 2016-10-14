@@ -1,6 +1,6 @@
 import ServerDashboard from './server-dashboard';
 import PlayerLogin from './player-login';
-import PlayerRegister from './player-register';
+import PlayerRegister from './player-register/player-register';
 
 import AdminDashboard from './admin/admin-dashboard';
 import AdminLogin from './admin/admin-login';

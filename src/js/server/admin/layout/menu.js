@@ -1,16 +1,16 @@
-import TopMenu from '../../common/components/top-menu';
+import TopMenu from '../../../common/components/top-menu';
 
 const Menu = {
   vm: {
     init() {
       Menu.vm.routes = [
         {
-          name: 'Home',
-          path: '/'
+          name: 'Dashboard',
+          path: '/server/admin'
         },
         {
-          name: 'About',
-          path: '/about'
+          name: 'Manage Tokens',
+          path: '/server/admin/tokens'
         }
       ];
     }

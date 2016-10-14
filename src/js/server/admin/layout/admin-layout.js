@@ -1,9 +1,9 @@
 import m from 'mithril';
 
-import AdminMenu from './admin-menu';
+import Menu from './menu';
 
-import ServerIp from '../../model/server-ip';
-import JwtAuth from '../../model/jwt-auth';
+import ServerIp from '../../../common/services/server-ip';
+import JwtAuth from '../../../common/services/jwt-auth';
 
 const AdminRealm = {
   checkRedirect() {
@@ -22,7 +22,7 @@ const AdminRealm = {
     return false;
   },
   constructView(childContent) {
-    return [AdminMenu, m('div', childContent)];
+    return [Menu, m('div', childContent)];
   }
 };
 

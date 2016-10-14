@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import SiteLayout from '../layout/site-layout';
 import IpField from './ip-field';
-import ServerIp from '../../model/server-ip';
+import ServerIp from '../../common/services/server-ip';
 
 const Home = Object.create(SiteLayout);
 
