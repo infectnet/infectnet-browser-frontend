@@ -1,10 +1,10 @@
 import m from 'mithril';
 import Menu from './menu';
 
-const SiteRealm = {
+const SiteLayout = {
   constructView(childContent) {
     return [Menu, m('div', childContent)];
   }
 };
 
-export default SiteRealm;
+export default SiteLayout;
