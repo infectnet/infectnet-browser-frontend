@@ -1,6 +1,6 @@
 import tape from 'tape';
 
-import ServerIp from '../src/js/model/server-ip';
+import ServerIp from '../src/js/common/services/server-ip';
 
 const malformedIps = ['asd', '1.1.1.1.', '256.1.0.1', '0.1', ''];
 
