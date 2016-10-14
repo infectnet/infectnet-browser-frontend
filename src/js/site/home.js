@@ -17,7 +17,7 @@ Home.controller = function controller() {
 };
 
 Home.view = function view(ctrl) {
-  return this.constructView(m.component(IpField, { onsave: ctrl.commitIp }));
+  return this.constructView(m.component(IpField, { validator: ServerIp.validate, onsave: ctrl.commitIp }));
 };
 
 export default Home;
