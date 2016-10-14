@@ -14,7 +14,7 @@ ServerDashboard.vm = {
       },
       {
         name: 'Register',
-        path: '/undefined'
+        path: '/register'
       },
       {
         name: 'Admin Dashboard',
