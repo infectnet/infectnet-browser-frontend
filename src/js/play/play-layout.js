@@ -1,9 +1,9 @@
 import m from 'mithril';
 
-const PlayRealm = {
+const PlayLayout = {
   constructView(childContent) {
     return [m('div', childContent)];
   }
 };
 
-export default PlayRealm;
+export default PlayLayout;
