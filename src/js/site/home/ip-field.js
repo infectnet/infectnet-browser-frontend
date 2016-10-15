@@ -23,23 +23,26 @@ const IpField = {
 
         return IpField.vm.ipAddress;
       },
-      submit() {
+      submit(e) {
+        e.preventDefault();
+
         options.onsave(IpField.vm.ipAddress);
       }
     };
   },
   view(ctrl) {
-    return m('div', [
-      m('input', { type: 'text', placeholder: 'Enter the IP address', onchange: m.withAttr('value', ctrl.ip) }),
-      m('div', { style: { display: displayError() } }, 'The IP address is invalid!'),
-      m('button', { disabled: isSubmitDisabled(), onclick: ctrl.submit }, 'Go!')
+    return m('form.control.has-addons.has-addons-centered', [
+      m('input.input', { type: 'text', placeholder: 'Server IP address', onchange: m.withAttr('value', ctrl.ip) }),
+      // m('div', { style: { display: displayError() } }, 'The IP address is invalid!'),
+      m('button.button.is-success', { disabled: isSubmitDisabled(), onclick: ctrl.submit }, 'Play!')
     ]);
 
+    /*
     function displayError() {
       const status = !IpField.vm.isValid() && !IpField.vm.isPristine();
 
       return (status ? '' : 'none');
-    }
+    }*/
 
     function isSubmitDisabled() {
       return !IpField.vm.isValid() || IpField.vm.isPristine();
