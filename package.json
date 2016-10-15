@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme",
   "dependencies": {
+    "bulma": "^0.2.1",
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-airbnb": "^11.2.0",
@@ -37,8 +38,10 @@
     "gulp-jspm": "^0.5.13",
     "gulp-load-plugins": "^1.3.0",
     "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "i": "^0.3.5",
     "jspm": "^0.16.45",
     "run-sequence": "^1.2.2"
   },

@@ -3,7 +3,7 @@ const paths = {
   src: {
     html: './src',
     js: './src/js',
-    css: './src/assets/css',
+    sass: './src/assets/sass',
     img: './src/assets/img'
   },
   dist: {
