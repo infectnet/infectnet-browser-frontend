@@ -18,7 +18,9 @@ const TopMenu = {
     function routeToOption(route) {
       const anchorClass = ctrl.isSelected(route.path) ? 'selected' : '';
 
-      return m('span', m('a', { config: m.route, href: route.path, class: anchorClass }, route.name));
+      return m('span', m('a', {
+        config: m.route, href: route.path, class: anchorClass
+      }, route.name));
     }
   }
 };
