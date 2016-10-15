@@ -4,9 +4,7 @@ The mock server uses `json-server` which is based on `express`. By default the s
 
 ## Routes
 
-~~~~
-  POST /admin/login
-~~~~
+###  `POST` /admin/login
 
 Login using a username-password pair. If the credentials are valid, a new JWT is returned.
 
@@ -39,9 +37,7 @@ On success:
 
 ****
 
-~~~~
-  GET /admin/tokens
-~~~~
+### `GET` /admin/tokens
 
 Returns the list of active tokens.
 
@@ -58,8 +54,22 @@ Returns the list of active tokens.
 
 ****
 
-~~~~
-  POST /admin/tokens
-~~~~
+### `POST` /admin/tokens
 
 Creates a new token. The created token is **not** returned. 
+
+****
+
+### `POST` /register
+
+Registration endpoint for players. Stores the user data on the server.
+
+#### Request
+~~~~
+  {
+    "username": String,
+    "password": String,
+    "email": String,
+    "token": String
+  }
+~~~~

@@ -1,10 +1,10 @@
 import m from 'mithril';
 
-import ServerIp from '../model/server-ip';
-import ServerRealm from './server-realm';
-import Register from '../model/register';
+import ServerIp from '../../common/services/server-ip';
+import ServerLayout from '../layout/server-layout';
+import Register from './register';
 
-const PlayerRegister = Object.create(ServerRealm);
+const PlayerRegister = Object.create(ServerLayout);
 
 PlayerRegister.vm = {
   init() {
@@ -55,14 +55,14 @@ PlayerRegister.controller = function controller() {
 };
 
 PlayerRegister.view = function view(ctrl) {
-  return m('div', binding(ctrl), [
+  return this.constructView(m('div', binding(ctrl), [
     m('div', m('input[required]', { name: 'username', type: 'text' })),
     m('div', m('input[required]', { name: 'email', type: 'email' })),
     m('div', m('input[required]', { name: 'token', type: 'text' })),
     m('div', m('input[required]', { name: 'password', type: 'password' })),
     m('div', m('input[required]', { name: 'passwordConfirmation', type: 'password' })),
     m('div', m('input', { type: 'submit', onclick: ctrl.submit }, 'Register'))
-  ]);
+  ]));
 
   function binding(data) {
     return {

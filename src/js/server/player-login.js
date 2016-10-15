@@ -1,11 +1,10 @@
 import m from 'mithril';
 
-import ServerRealm from './server-realm';
-import LoginForm from '../shared-components/login-form';
+import ServerLayout from './layout/server-layout';
+import LoginForm from '../common/components/login-form';
+import ServerIp from '../common/services/server-ip';
 
-import ServerIp from '../model/server-ip';
-
-const PlayerLogin = Object.create(ServerRealm);
+const PlayerLogin = Object.create(ServerLayout);
 
 PlayerLogin.controller = function controller() {
   if (!ServerIp.isSet()) {

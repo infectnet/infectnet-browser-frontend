@@ -1,4 +1,4 @@
-import Request from './request';
+import Request from '../../common/services/request';
 
 const createRegister = function createRegister(request) {
   const REGISTER_URL = '/register';

@@ -1,8 +1,8 @@
 import m from 'mithril';
 
-import SiteRealm from './site-realm';
+import SiteLayout from './layout/site-layout';
 
-const About = Object.create(SiteRealm);
+const About = Object.create(SiteLayout);
 
 About.view = function view() {
   return this.constructView([

@@ -1,5 +1,5 @@
-import Request from './request';
-import JwtAuth from './jwt-auth';
+import Request from '../../../common/services/request';
+import JwtAuth from '../../../common/services/jwt-auth';
 
 export const Token = {
   init(tokenString, expirationDate) {

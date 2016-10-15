@@ -1,8 +1,8 @@
 import m from 'mithril';
 
-import PlayRealm from './play-realm';
+import PlayLayout from './play-layout';
 
-const Play = Object.create(PlayRealm);
+const Play = Object.create(PlayLayout);
 
 Play.getRoutes = function getRoutes() {
   return {
