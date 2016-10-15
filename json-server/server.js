@@ -14,6 +14,7 @@ server.use(boom());
 require('./modules/security')(server, { jwtSecret: 'secret' });
 require('./modules/tokens')(server);
 require('./modules/register')(server);
+require('./modules/info')(server);
 
 server.listen(port, function serverStarted() {
   console.log('JSON Server is running on port ' + port);

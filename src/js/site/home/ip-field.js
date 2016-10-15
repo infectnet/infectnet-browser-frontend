@@ -8,6 +8,7 @@ const IpField = {
       IpField.vm.isIpValid = m.prop(false);
       IpField.vm.ipAddress = '';
       IpField.vm.isFormErroneous = m.prop(false);
+      IpField.vm.isLoading = m.prop(false);
     }
   },
   controller(options) {
@@ -29,7 +30,15 @@ const IpField = {
         e.preventDefault();
 
         if (IpField.vm.isIpValid()) {
-          options.onsave(IpField.vm.ipAddress);
+          IpField.vm.isLoading(true);
+
+          m.redraw.strategy('diff');
+
+          m.redraw(true);
+
+          options.onsave(IpField.vm.ipAddress, function done() {
+            IpField.vm.isLoading(false);
+          });
         } else {
           IpField.vm.isFormErroneous(true);
         }
@@ -38,6 +47,7 @@ const IpField = {
   },
   view(ctrl) {
     const errCond = Cond(IpField.vm.isFormErroneous());
+    const loadCond = Cond(IpField.vm.isLoading());
 
     return m('form.control.has-addons.has-addons-centered', [
       m('input.input.is-medium', {
@@ -47,7 +57,8 @@ const IpField = {
         class: errCond.ifTrue('is-danger')
       }),
       m('button.button.is-medium', {
-        onclick: ctrl.submit, class: errCond.cond('is-danger', 'is-success')
+        onclick: ctrl.submit,
+        class: [errCond.cond('is-danger', 'is-success'), loadCond.ifTrue('is-loading')].join(' ')
       }, errCond.cond('Invalid Address!', 'Play'))
     ]);
   }
