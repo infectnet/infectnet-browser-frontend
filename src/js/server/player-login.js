@@ -43,7 +43,9 @@ PlayerLogin.view = function view(ctrl) {
           m('.level',
             m('.level-item',
               m('.box.custom-centered.custom-fixed-box', [
-                m.component(LoginForm, { login: ctrl.login })
+                m.component(LoginForm, {
+                  login: ctrl.login,
+                  validate: ctrl.validateCredentials })
               ])))
         ]))
     ])

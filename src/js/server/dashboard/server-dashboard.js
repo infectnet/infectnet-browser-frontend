@@ -45,7 +45,7 @@ ServerDashboard.view = function view(ctrl) {
             ])),
           m('.columns', m('.column')),
           m('.columns', [
-            columnMenuChoice('Login', 'If you know your way', '/server/login'),
+            columnMenuChoice('Login & Play', 'If you know your way', '/server/login'),
             columnMenuChoice('Register', 'If you\'re new', '/server/register'),
             columnMenuChoice('Admin', 'If you own this place', '/server/admin'),
             m('.column.has-text-centered', [
@@ -65,13 +65,6 @@ ServerDashboard.view = function view(ctrl) {
     ]),
     ServerInfo
   ]);
-    /* m('section.section', [
-      m('.container',
-        ),
-      m('hr'),
-      ServerInfo
-    ])
-  ]);*/
 
   function columnMenuChoice(title, subtitle, link) {
     return m('.column.has-text-centered', [

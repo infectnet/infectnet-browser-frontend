@@ -1,6 +1,7 @@
 import m from 'mithril';
 
 import AdminLayout from './layout/admin-layout';
+import Menu from './layout/menu';
 
 import LoginForm from '../../common/components/login-form';
 import ServerIp from '../../common/services/server-ip';
@@ -22,18 +23,34 @@ AdminLogin.controller = function controller() {
         errorMessage: ''
       };
     },
-    login(credentials) {
+    login(credentials, error) {
       JwtAuth.login(credentials).then(function redirect() {
         m.route('/server/admin/');
-      });
-    }
+      }, error);
+    },
+    getIp: ServerIp.retrieve
   };
 };
 
 AdminLogin.view = function view(ctrl) {
-  return this.constructView(m.component(LoginForm, {
-    validate: ctrl.validateCredentials, login: ctrl.login
-  }));
+  return m('div', [
+    m('section.hero.is-fullheight', [
+      m('.hero-head', m('.container', Menu)),
+      m('.hero-body.custom-no-hero-center',
+        m('.container', [
+          m('nav.level',
+            m('.level-item.has-text-centered',
+              m('p.title.is-3', `Admin log in to ${ctrl.getIp()}`))),
+          m('.level',
+            m('.level-item',
+              m('.box.custom-centered.custom-fixed-box', [
+                m.component(LoginForm, {
+                  login: ctrl.login,
+                  validate: ctrl.validateCredentials })
+              ])))
+        ]))
+    ])
+  ]);
 };
 
 export default AdminLogin;
