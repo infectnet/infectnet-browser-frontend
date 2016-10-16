@@ -1,5 +1,6 @@
 import m from 'mithril';
 
+import Menu from './layout/menu';
 import AdminLayout from './layout/admin-layout';
 
 const AdminDashboard = Object.create(AdminLayout);
@@ -11,7 +12,15 @@ AdminDashboard.controller = function controller() {
 };
 
 AdminDashboard.view = function view() {
-  return this.constructView([m('h1', 'Hello!')]);
+  return m('section.hero.is-fullheight', [
+    m('.hero-head', m('.container', Menu)),
+    m('.hero-body', m('.container', [
+      m('.heading', [
+        m('h1.title', 'Admin page'),
+        m('h2.subtitle', 'Under development')
+      ])
+    ])
+  )]);
 };
 
 export default AdminDashboard;
