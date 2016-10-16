@@ -12,6 +12,8 @@ const createDetector = function createDetector(request) {
         if (fp.name && fp.version) {
           if (fp.name === 'InfectNet' && fp.version === '0.1.0') {
             success();
+
+            return;
           }
         }
       }
