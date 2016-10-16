@@ -1,5 +1,8 @@
 import m from 'mithril';
+
 import Animation from '../../common/util/animation';
+import Cond from '../../common/util/cond';
+
 import ServerIp from '../../common/services/server-ip';
 
 import SiteLayout from '../layout/site-layout';
@@ -22,7 +25,9 @@ Home.controller = function controller() {
         error(message);
       });
     },
-    validate: ServerIp.validate
+    validate: ServerIp.validate,
+    hasIp: ServerIp.isSet,
+    getIp: ServerIp.retrieve
   };
 };
 
@@ -33,9 +38,11 @@ Home.view = function view(ctrl) {
     validator: ctrl.validate, onsave: ctrl.commitIp
   }));
 
+  const ipSetCond = Cond(ctrl.hasIp());
+
   return m('section.hero.is-dark.is-fullheight', [
     m('.hero-head',
-      m('header', Menu)),
+      m('.container', Menu)),
     m('.hero-body',
       m('.container.has-text-centered', [
         m('h1.title', 'The most infectious browser-game ever!'),
@@ -43,13 +50,19 @@ Home.view = function view(ctrl) {
           m('a.button.is-danger.is-large', {
             onclick: Animation.fromEvent(Animation.fadesOut, function callback() {
               Animation.fadesIn(null, ipFormContainer.domElement);
-            })
+            }),
+            class: ipSetCond.ifTrue('is-hidden')
           }, 'Play Now!'),
+          m('a.button.is-danger.is-large', {
+            config: m.route,
+            href: '/server',
+            class: ipSetCond.ifFalse('is-hidden')
+          }, `Back to ${ctrl.getIp()}`),
           ipFormContainer
         ]),
       ])),
     m('.hero-footer',
-      m('.tabs..is-boxed.is-centered',
+      m('.tabs.is-boxed.is-centered',
         m('.container',
           m('ul',
             m('li.is-active',

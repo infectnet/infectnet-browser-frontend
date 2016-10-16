@@ -3,7 +3,7 @@ import Menu from './menu';
 
 const SiteLayout = {
   constructView(childContent) {
-    return [m('header', Menu), childContent];
+    return [m('div', Menu), childContent];
   }
 };
 

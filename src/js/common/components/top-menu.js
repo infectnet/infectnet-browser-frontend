@@ -13,7 +13,7 @@ const TopMenu = {
     };
   },
   view(ctrl) {
-    return m('nav.nav.has-shadow', [
+    return m('nav.nav', [
       m('div.nav-left',
         m('a.nav-item', { config: m.route, href: '/' },
           m('h1.title', 'InfectNet'))),

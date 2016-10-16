@@ -1,4 +1,4 @@
-import ServerDashboard from './server-dashboard';
+import ServerDashboard from './dashboard/server-dashboard';
 import PlayerLogin from './player-login';
 import PlayerRegister from './player-register/player-register';
 
