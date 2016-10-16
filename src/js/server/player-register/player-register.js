@@ -9,20 +9,6 @@ import RegisterForm from './register-form';
 
 const PlayerRegister = Object.create(ServerLayout);
 
-PlayerRegister.vm = {
-  init() {
-    PlayerRegister.vm.username = m.prop('');
-
-    PlayerRegister.vm.password = m.prop('');
-
-    PlayerRegister.vm.passwordConfirmation = m.prop('');
-
-    PlayerRegister.vm.token = m.prop('');
-
-    PlayerRegister.vm.email = m.prop('');
-  }
-};
-
 PlayerRegister.controller = function controller() {
   if (!ServerIp.isSet()) {
     m.route('/');
@@ -30,29 +16,15 @@ PlayerRegister.controller = function controller() {
     return null;
   }
 
-  PlayerRegister.vm.init();
-
   return {
-    username: PlayerRegister.vm.username,
-    password: PlayerRegister.vm.password,
-    passwordConfirmation: PlayerRegister.vm.passwordConfirmation,
-    token: PlayerRegister.vm.token,
-    email: PlayerRegister.vm.email,
-    submit(e) {
-      e.preventDefault();
+    register(userData, error) {
+      error('Always error for now.');
 
-      const userData = {
-        username: PlayerRegister.vm.username,
-        password: PlayerRegister.vm.password,
-        token: PlayerRegister.vm.token,
-        email: PlayerRegister.vm.email,
-      };
-
-      Register.register(userData).then(function success() {
+      /* Register.register(userData).then(function success() {
         m.route('/server/login?freshRegistration');
-      }, function error() {
-        // report error
-      });
+      }, function err(message) {
+        error(message);
+      }); */
     }
   };
 };
@@ -69,7 +41,8 @@ PlayerRegister.view = function view(ctrl) {
         ]),
         m('hr'),
         m('.columns', [
-          m('.column.is-offset-2.is-4', RegisterForm),
+          m('.column.is-offset-2.is-4',
+            m.component(RegisterForm, { register: ctrl.register })),
           m('.column.is-offset-1.is-3',
             m('.container', [
               m('p.title.is-4', 'Register? Again?'),
