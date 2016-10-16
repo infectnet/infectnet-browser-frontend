@@ -17,12 +17,6 @@ AdminLogin.controller = function controller() {
   }
 
   return {
-    validateCredentials() {
-      return {
-        isValid: true,
-        errorMessage: ''
-      };
-    },
     login(credentials, error) {
       JwtAuth.login(credentials).then(function redirect() {
         m.route('/server/admin/');
@@ -44,9 +38,7 @@ AdminLogin.view = function view(ctrl) {
           m('.level',
             m('.level-item',
               m('.box.custom-centered.custom-fixed-box', [
-                m.component(LoginForm, {
-                  login: ctrl.login,
-                  validate: ctrl.validateCredentials })
+                m.component(LoginForm, { login: ctrl.login })
               ])))
         ]))
     ])

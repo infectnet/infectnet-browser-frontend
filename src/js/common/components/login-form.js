@@ -22,29 +22,7 @@ LoginForm.vm = {
 LoginForm.controller = function controller(options) {
   LoginForm.vm.init();
 
-  const validate = function validate() {
-    const result = options.validate(LoginForm.vm.username(), LoginForm.vm.password());
-
-    LoginForm.vm.isValid(result.isValid);
-    LoginForm.vm.shouldDisplayError(result.isValid);
-
-    LoginForm.vm.errorMessage(result.errorMessage);
-  };
-
   return {
-    errorMessage() {
-      return LoginForm.vm.errorMessage();
-    },
-    username(value) {
-      LoginForm.vm.username(value);
-
-      validate();
-    },
-    password(value) {
-      LoginForm.vm.password(value);
-
-      validate();
-    },
     login() {
       LoginForm.vm.isLoading(true);
 
@@ -71,7 +49,7 @@ LoginForm.controller = function controller(options) {
 };
 
 LoginForm.view = function view(ctrl) {
-  return m('div', binds(ctrl), [
+  return m('div', [
     m('.notification.is-danger', {
       config: (element) => { LoginForm.vm.notificationHandle = element; },
       class: Cond(LoginForm.vm.shouldDisplayError()).ifFalse('is-hidden')
@@ -87,24 +65,24 @@ LoginForm.view = function view(ctrl) {
     ]),
     m('label.label', 'Username'),
     m('p.control',
-      m('input.input', { name: 'username', type: 'text' })),
+      m('input.input', {
+        name: 'username',
+        type: 'text',
+        onchange: m.withAttr('value', LoginForm.vm.username)
+      })),
     m('label.label', 'Password'),
     m('p.control',
-      m('input.input', { name: 'password', type: 'password' })),
+      m('input.input', {
+        name: 'password',
+        type: 'password',
+        onchange: m.withAttr('value', LoginForm.vm.password)
+      })),
     m('p.control',
       m('button.button.is-success.is-medium.custom-max-width', {
         onclick: ctrl.login,
         class: Cond(LoginForm.vm.isLoading()).ifTrue('is-loading')
       }, 'Login'))
   ]);
-
-  function binds(data) {
-    return {
-      onchange(e) {
-        data[e.target.name](e.target.value);
-      }
-    };
-  }
 };
 
 export default LoginForm;
