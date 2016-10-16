@@ -4,6 +4,21 @@ The mock server uses `json-server` which is based on `express`. By default the s
 
 ## Routes
 
+### `GET` /info
+
+Returns general information about the server. Currently only responds with fingerprint data.
+
+#### Response
+
+~~~~
+  {
+    "fingerprint": {
+      "name": "InfectNet"
+      "version": "0.1.0"
+    }
+  }
+~~~~
+
 ###  `POST` /admin/login
 
 Login using a username-password pair. If the credentials are valid, a new JWT is returned.
