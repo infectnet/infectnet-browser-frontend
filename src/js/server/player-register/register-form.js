@@ -2,6 +2,7 @@ import m from 'mithril';
 
 import Animation from '../../common/util/animation';
 import Cond from '../../common/util/cond';
+import mx from '../../common/util/mx';
 
 const RegisterForm = {};
 
@@ -87,8 +88,8 @@ RegisterForm.controller = function controller(options) {
 RegisterForm.view = function view(ctrl) {
   return m('.container', binds(), [
     m('p.title.is-4', 'Create your account at this server'),
-    m('.notification.is-danger.is-hidden', {
-      config(element) { RegisterForm.vm.notificationHandle(element); }
+    mx.getElement('.notification.is-danger.is-hidden', {
+      elementProp: RegisterForm.vm.notificationHandle
     }, [
       m('button.delete', {
         onclick() { Animation.fadesOut(null, RegisterForm.vm.notificationHandle()); }

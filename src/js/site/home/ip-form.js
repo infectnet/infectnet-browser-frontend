@@ -2,6 +2,7 @@ import m from 'mithril';
 
 import Animation from '../../common/util/animation';
 import Cond from '../../common/util/cond';
+import mx from '../../common/util/mx';
 
 const IpForm = {
   vm: {
@@ -60,10 +61,8 @@ const IpForm = {
     const errCond = Cond(IpForm.vm.isFormErroneous());
     const loadCond = Cond(IpForm.vm.isLoading());
 
-    const messageContainer = m('.container.is-hidden', {
-      config: function attach(element) {
-        IpForm.vm.messageElementHandle(element);
-      }
+    const messageContainer = mx.getElement('.container.is-hidden', {
+      elementProp: IpForm.vm.messageElementHandle
     },
       [
         m('.columns', m('.column')), // kind of a hack, but we need some space

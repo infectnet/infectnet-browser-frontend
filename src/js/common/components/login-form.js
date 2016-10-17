@@ -2,6 +2,7 @@ import m from 'mithril';
 
 import Cond from '../util/cond';
 import Animation from '../util/animation';
+import mx from '../util/mx';
 
 const LoginForm = {};
 
@@ -50,8 +51,8 @@ LoginForm.controller = function controller(options) {
 
 LoginForm.view = function view(ctrl) {
   return m('div', [
-    m('.notification.is-danger', {
-      config: (element) => { LoginForm.vm.notificationHandle = element; },
+    mx.getElement('.notification.is-danger', {
+      elementProp: LoginForm.vm.notificationHandle,
       class: Cond(LoginForm.vm.shouldDisplayError()).ifFalse('is-hidden')
     }, [
       m('button.delete', {
