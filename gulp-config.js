@@ -4,14 +4,16 @@ const paths = {
     html: './src',
     js: './src/js',
     sass: './src/assets/sass',
-    img: './src/assets/img'
+    img: './src/assets/img',
+    locales: './src/locales'
   },
   dist: {
     base: './dist',
     html: './dist',
     js: './dist/js',
     css: './dist/assets/css',
-    img: './dist/assets/img'
+    img: './dist/assets/img',
+    locales: './dist/locales'
   }
 };
 
