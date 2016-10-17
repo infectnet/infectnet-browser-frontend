@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "gulp",
     "build": "gulp build",
-    "test": "tape -r babel-register ./test/*.js | faucet",
+    "test": "tape -r ./test/mocks/session-storage.js -r babel-register ./test/*.js | faucet",
     "json-server": "node ./json-server/server.js"
   },
   "repository": {

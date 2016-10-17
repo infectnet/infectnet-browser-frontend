@@ -5,12 +5,11 @@ import Cond from '../../common/util/cond';
 
 import ServerIp from '../../common/services/server-ip';
 
-import SiteLayout from '../layout/site-layout';
 import IpForm from './ip-form';
 import Menu from '../layout/menu';
 import Detector from './detector';
 
-const Home = Object.create(SiteLayout);
+const Home = {};
 
 Home.controller = function controller() {
   return {

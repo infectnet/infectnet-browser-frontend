@@ -1,13 +1,13 @@
 import m from 'mithril';
 
 import ServerIp from '../../common/services/server-ip';
-import ServerLayout from '../layout/server-layout';
 import Menu from '../layout/menu';
 
+// eslint-disable-next-line no-unused-vars
 import Register from './register';
 import RegisterForm from './register-form';
 
-const PlayerRegister = Object.create(ServerLayout);
+const PlayerRegister = {};
 
 PlayerRegister.controller = function controller() {
   if (!ServerIp.isSet()) {

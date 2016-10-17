@@ -1,11 +1,9 @@
 import m from 'mithril';
 
-import Menu from './menu';
-
 import ServerIp from '../../../common/services/server-ip';
 import JwtAuth from '../../../common/services/jwt-auth';
 
-const AdminRealm = {
+const AdminLayout = {
   checkRedirect() {
     if (!ServerIp.isSet()) {
       m.route('/');
@@ -20,10 +18,7 @@ const AdminRealm = {
     }
 
     return false;
-  },
-  constructView(childContent) {
-    return [Menu, m('div', childContent)];
   }
 };
 
-export default AdminRealm;
+export default AdminLayout;

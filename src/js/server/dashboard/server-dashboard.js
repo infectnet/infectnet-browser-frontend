@@ -2,14 +2,11 @@ import m from 'mithril';
 
 import ServerIp from '../../common/services/server-ip';
 
-import ServerLayout from '../layout/server-layout';
 import Menu from '../layout/menu';
 
 import ServerInfo from './server-info';
 
-const ServerDashboard = Object.create(ServerLayout);
-
-ServerDashboard.vm = {};
+const ServerDashboard = {};
 
 ServerDashboard.controller = function controller() {
   if (!ServerIp.isSet()) {

@@ -1,11 +1,10 @@
 import m from 'mithril';
 
 import Menu from './layout/menu';
-import ServerLayout from './layout/server-layout';
 import LoginForm from '../common/components/login-form';
 import ServerIp from '../common/services/server-ip';
 
-const PlayerLogin = Object.create(ServerLayout);
+const PlayerLogin = {};
 
 PlayerLogin.controller = function controller() {
   if (!ServerIp.isSet()) {

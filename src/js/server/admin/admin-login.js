@@ -1,13 +1,12 @@
 import m from 'mithril';
 
-import AdminLayout from './layout/admin-layout';
 import Menu from './layout/menu';
 
 import LoginForm from '../../common/components/login-form';
 import ServerIp from '../../common/services/server-ip';
 import JwtAuth from '../../common/services/jwt-auth';
 
-const AdminLogin = Object.create(AdminLayout);
+const AdminLogin = {};
 
 AdminLogin.controller = function controller() {
   if (!ServerIp.isSet()) {
