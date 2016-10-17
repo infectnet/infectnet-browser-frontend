@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "gulp",
     "build": "gulp build",
-    "test": "tape -r babel-register ./test/*.js | faucet",
+    "test": "tape -r ./test/mocks/session-storage.js -r babel-register ./test/*.js | faucet",
     "json-server": "node ./json-server/server.js"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme",
   "dependencies": {
+    "bulma": "^0.2.1",
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-airbnb": "^11.2.0",
@@ -37,8 +38,10 @@
     "gulp-jspm": "^0.5.13",
     "gulp-load-plugins": "^1.3.0",
     "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "i": "^0.3.5",
     "jspm": "^0.16.45",
     "run-sequence": "^1.2.2"
   },
@@ -57,7 +60,8 @@
   "jspm": {
     "dependencies": {
       "auth0/jwt-decode": "github:auth0/jwt-decode@^2.1.0",
-      "mithril": "npm:mithril@^0.2.5"
+      "mithril": "npm:mithril@^0.2.5",
+      "velocity": "github:julianshapiro/velocity@^1.3.1"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",

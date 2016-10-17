@@ -1,5 +1,5 @@
 import Home from './home/home';
-import About from './about';
+import About from './about/about';
 
 const Site = {
   getRoutes() {

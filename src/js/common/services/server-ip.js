@@ -4,12 +4,22 @@ const ipRegex =
                   /(:\d{1,5})?$/
                  ].map(exp => exp.source).join(''));
 
-const createServerIp = function createServerIp() {
-  let ip = null;
+const createServerIp = function createServerIp(storage) {
+  const ITEM_KEY = 'currentIp';
+
+  const ip = function ip(...args) {
+    if (args.length === 0) {
+      return storage.getItem(ITEM_KEY);
+    }
+
+    storage.setItem(ITEM_KEY, args[0]);
+
+    return args[0];
+  };
 
   const set = function set(value) {
     if (validate(value)) {
-      ip = value;
+      ip(value);
 
       return true;
     }
@@ -22,15 +32,15 @@ const createServerIp = function createServerIp() {
   };
 
   const isSet = function isSet() {
-    return ip !== null;
+    return ip() !== null;
   };
 
   const retrieve = function retrieve() {
-    return ip;
+    return ip();
   };
 
   const discard = function discard() {
-    ip = null;
+    storage.removeItem(ITEM_KEY);
   };
 
   return {
@@ -42,7 +52,7 @@ const createServerIp = function createServerIp() {
   };
 };
 
-const ServerIp = createServerIp();
+const ServerIp = createServerIp(sessionStorage);
 
 ServerIp.create = createServerIp;
 

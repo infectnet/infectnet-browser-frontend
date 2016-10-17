@@ -13,14 +13,19 @@ const TopMenu = {
     };
   },
   view(ctrl) {
-    return m('header', m('nav', ctrl.routes.map(routeToOption)));
+    return m('nav.nav', [
+      m('div.nav-left',
+        m('a.nav-item', { config: m.route, href: '/' },
+          m('h1.title', 'InfectNet'))),
+      m('div.nav-right.nav-menu', ctrl.routes.map(routeToOption))
+    ]);
 
     function routeToOption(route) {
-      const anchorClass = ctrl.isSelected(route.path) ? 'selected' : '';
+      const anchorClass = ctrl.isSelected(route.path) ? 'is-active' : '';
 
-      return m('span', m('a', {
+      return m('a.nav-item', {
         config: m.route, href: route.path, class: anchorClass
-      }, route.name));
+      }, route.name);
     }
   }
 };

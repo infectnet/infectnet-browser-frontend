@@ -10,12 +10,12 @@ const getTask = function getTask(task, extraArgs = {}) {
 
 gulp.task('clean', getTask('clean'));
 gulp.task('lint', getTask('lint'));
-gulp.task('css', getTask('css'));
+gulp.task('sass', getTask('sass'));
 gulp.task('html', getTask('html', config.htmlSettings));
 gulp.task('img', getTask('img'));
 gulp.task('javascript', getTask('javascript', config.javascriptSettings));
 
-gulp.task('watch', ['lint', 'javascript', 'css', 'html'], getTask('watch'));
+gulp.task('watch', ['lint', 'javascript', 'sass', 'html'], getTask('watch'));
 
 gulp.task('build', getTask('build'));
 

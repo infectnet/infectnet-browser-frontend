@@ -7,7 +7,7 @@ module.exports = function watch(gulp, plugins, paths) {
 
   return function task() {
     gulp.watch([`${paths.src.js}/**/*.js`], ['lint', 'javascript']).on('change', logChanges);
-    gulp.watch([`${paths.src.css}/*.css`], ['css']).on('change', logChanges);
+    gulp.watch([`${paths.src.sass}/**/*.sass`], ['sass']).on('change', logChanges);
     gulp.watch([`${paths.src.html}/*.html`], ['html']).on('change', logChanges);
   };
 };

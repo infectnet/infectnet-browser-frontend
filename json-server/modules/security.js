@@ -13,7 +13,7 @@ function credentialsMatch(credentials) {
 
 module.exports = function security(server, options) {
   server.use(expressJwt({ secret: options.jwtSecret})
-              .unless({path: ['/admin/login', '/register']}));
+              .unless({path: ['/admin/login', '/register', '/info']}));
 
   server.post('/admin/login', function login(req, res) {
     var credentials = req.body;
