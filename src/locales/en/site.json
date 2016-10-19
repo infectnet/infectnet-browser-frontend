@@ -1,0 +1,27 @@
+{
+  "Home": {
+    "Welcome message": "The most infectious browser-game ever!",
+    "Play Now": "Play Now!",
+    "Back to server": "Back to {{ip}}",
+    "Scroll down for more": "Scroll down for more!"
+  },
+  "About": {
+    "About": "About",
+    "The people behind InfectNet": "The people behind InfectNet",
+    "About Description": "InfectNet is developed by a small team of Computer Science students from the University of Debrecen.",
+    "Marianna Szabó": {
+      "name": "Marianna Szabó",
+      "info": "As a wizard of AI and Java, Marianna spends most of her time developing the business logic behind InfectNet on the backend."
+    },
+    "István Lakatos": {
+      "name": "István Lakatos",
+      "info": "Passionate Java developer who guarantees the stability of our API. When not implementing the next killer feature, István is writing some great tests, the way every dev should do."
+    },
+    "Attila Bagossy": {
+      "name": "Attila Bagossy",
+      "info": "The only frontend developer and JavaScript enthusiast on the project. Interested in functional programming and all kinds of JS libraries."
+    },
+    "Backend Developer": "Backend Developer",
+    "Frontend Developer": "Frontend Developer"
+  }
+}

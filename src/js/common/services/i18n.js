@@ -9,8 +9,10 @@ const initInternationalization = function initInternationalization(callback) {
       lng: 'en',
       fallbackLng: 'en',
       ns: [
-        'home',
-        'common'
+        'common',
+        'site',
+        'server',
+        'admin'
       ],
       defaultNS: 'common',
       backend: {

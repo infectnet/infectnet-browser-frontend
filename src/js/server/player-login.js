@@ -3,6 +3,7 @@ import m from 'mithril';
 import Menu from './layout/menu';
 import LoginForm from '../common/components/login-form';
 import ServerIp from '../common/services/server-ip';
+import { i18n } from '../common/services/i18n';
 
 const PlayerLogin = {};
 
@@ -32,7 +33,7 @@ PlayerLogin.view = function view(ctrl) {
         m('.container', [
           m('nav.level',
             m('.level-item.has-text-centered',
-              m('p.title.is-3', `Log in to ${ctrl.getIp()}`))),
+              m('p.title.is-3', i18n.t('server:Log in to ip', { ip: ctrl.getIp() })))),
           m('.level',
             m('.level-item',
               m('.box.custom-centered.custom-fixed-box', [

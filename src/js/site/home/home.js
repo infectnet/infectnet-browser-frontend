@@ -45,19 +45,19 @@ Home.view = function view(ctrl) {
       m('.container', Menu)),
     m('.hero-body',
       m('.container.has-text-centered', [
-        m('h1.title', i18n.t('home:Welcome message')),
+        m('h1.title', i18n.t('site:Home.Welcome message')),
         m('.container', [
           m('a.button.is-danger.is-large', {
             onclick: Animation.fromEvent(Animation.fadesOut, function callback() {
               Animation.fadesIn(null, ipFormContainer.domElement);
             }),
             class: ipSetCond.ifTrue('is-hidden')
-          }, 'Play Now!'),
+          }, i18n.t('site:Home.Play Now')),
           m('a.button.is-danger.is-large', {
             config: m.route,
             href: '/server',
             class: ipSetCond.ifFalse('is-hidden')
-          }, `Back to ${ctrl.getIp()}`),
+          }, i18n.t('site:Home.Back to server', { ip: ctrl.getIp() })),
           ipFormContainer
         ]),
       ])),
@@ -66,7 +66,7 @@ Home.view = function view(ctrl) {
         m('.container',
           m('ul',
             m('li.is-active',
-              m('a', m('strong', 'Scroll down for more!')))))))
+              m('a', m('strong', i18n.t('site:Home.Scroll down for more'))))))))
   ]);
 };
 

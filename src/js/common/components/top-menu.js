@@ -1,4 +1,5 @@
 import m from 'mithril';
+import { i18n } from '../services/i18n';
 
 const TopMenu = {
   controller(options) {
@@ -25,7 +26,7 @@ const TopMenu = {
 
       return m('a.nav-item', {
         config: m.route, href: route.path, class: anchorClass
-      }, route.name);
+      }, i18n.t(`common:Menu.${route.name}`));
     }
   }
 };

@@ -4,6 +4,8 @@ import Cond from '../util/cond';
 import Animation from '../util/animation';
 import mx from '../util/mx';
 
+import { i18n } from '../services/i18n';
+
 const LoginForm = {};
 
 LoginForm.vm = {
@@ -64,14 +66,14 @@ LoginForm.view = function view(ctrl) {
       }),
       m.trust(LoginForm.vm.errorMessage())
     ]),
-    m('label.label', 'Username'),
+    m('label.label', { for: 'username' }, i18n.t('common:Login.Username')),
     m('p.control',
       m('input.input', {
         name: 'username',
         type: 'text',
         onchange: m.withAttr('value', LoginForm.vm.username)
       })),
-    m('label.label', 'Password'),
+    m('label.label', { for: 'password' }, i18n.t('common:Login.Password')),
     m('p.control',
       m('input.input', {
         name: 'password',
@@ -82,7 +84,7 @@ LoginForm.view = function view(ctrl) {
       m('button.button.is-success.is-medium.custom-max-width', {
         onclick: ctrl.login,
         class: Cond(LoginForm.vm.isLoading()).ifTrue('is-loading')
-      }, 'Login'))
+      }, i18n.t('common:Login.Login')))
   ]);
 };
 

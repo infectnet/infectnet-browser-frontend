@@ -2,6 +2,7 @@ import m from 'mithril';
 
 import Menu from '../layout/menu';
 import memberView from './member-view';
+import { i18n } from '../../common/services/i18n';
 
 const About = {};
 
@@ -10,36 +11,32 @@ About.view = function view() {
     m('.hero-head', m('.container', Menu)),
     m('.hero-body', m('.container', [
       m('.heading', [
-        m('h1.title', 'About'),
-        m('h2.subtitle', 'The people behind InfectNet')
+        m('h1.title', i18n.t('site:About.About')),
+        m('h2.subtitle', i18n.t('site:About.The people behind InfectNet'))
       ]),
       m('hr'),
-      m('h2.subtitle', `
-        InfectNet is developed by a small team of Computer Science students from the University of Debrecen.`),
+      m('h2.subtitle', i18n.t('site:About.About Description')),
       m('container', [
         memberView({
-          name: 'Marianna Szabó',
+          name: i18n.t('site:About.Marianna Szabó.name'),
           github: 'szabom5',
           img: 'assets/img/marianna-szabo.jpg',
-          title: 'Backend Developer',
-          info: `As a wizard of AI and Java, Marianna spends most of her time developing the business logic
-                  behind InfectNet on the backend.`
+          title: i18n.t('site:About.Backend Developer'),
+          info: i18n.t('site:About.Marianna Szabó.info')
         }),
         memberView({
-          name: 'István Lakatos',
+          name: i18n.t('site:About.István Lakatos.name'),
           github: 'daergoth',
           img: 'assets/img/istvan-lakatos.jpg',
-          title: 'Backend Developer',
-          info: `Passionate Java developer who guarantees the stability of our API. When not implementing
-                  the next killer feature, István is writing some great tests, the way every dev should do.`
+          title: i18n.t('site:About.Backend Developer'),
+          info: i18n.t('site:About.István Lakatos.info')
         }),
         memberView({
-          name: 'Attila Bagossy',
+          name: i18n.t('site:About.Attila Bagossy.name'),
           github: 'battila7',
           img: 'assets/img/attila-bagossy.jpg',
-          title: 'Frontend Developer',
-          info: `The only frontend developer and JavaScript enthusiast on the project. Interested in functional
-                  programming and all kinds of JS libraries.`
+          title: i18n.t('site:About.Frontend Developer'),
+          info: i18n.t('site:About.Attila Bagossy.info')
         }),
       ])
     ]))
