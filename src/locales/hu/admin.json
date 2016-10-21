@@ -1,0 +1,15 @@
+{
+  "Admin": "Admin",
+  "Login": {
+    "Admin log in to ip": "Adminisztrátori belépés ide: {{ip}}"
+  },
+  "Token Management": {
+    "Token Management": "Tokenek kezelése",
+    "Token Management Subtitle": "Hívj meg másokat is, hogy játsszanak a szervereden",
+    "Request Token": "Új token",
+    "Info Title": "Mi ez?",
+    "Info Description": "<p>Ezen az oldalon megtekintheted a rendelkezésre álló tokeneket, és újakat kérhetsz.</p><p>A token egy speciális kulcs vagy jelszó, melynek segítségével meghívhatsz másokat.</p><p>Csak generálj egy új tokent, és küldd el valakinek, ennyire egyszerű!</p><p><strong>Ne feledd</strong>, hogy a tokenek csak egyszer használatosak, egy tokennel csak egy játékost hívhatsz meg.",
+    "Available Tokens": "Rendelkezésre álló tokenek",
+    "Expiration Date": "Lejárat ideje"
+  }
+}
