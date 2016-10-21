@@ -4,6 +4,7 @@ import ServerIp from '../../common/services/server-ip';
 import { i18n } from '../../common/services/i18n';
 
 import TopMenu from '../../common/components/top-menu';
+import LanguageSelector from '../../common/components/language-selector';
 
 const routes = [
   {
@@ -41,7 +42,7 @@ Menu.view = function view(ctrl) {
       m('a.nav-item', {
         config: m.route, href: '/'
       }, i18n.t('common:Menu.Back to Home'))),
-    m('.nav-right.nav-menu', ctrl.routes.map(routeToOption))
+    m('.nav-right.nav-menu', ctrl.routes.map(routeToOption).concat(LanguageSelector))
   ]);
 
   function routeToOption(route) {

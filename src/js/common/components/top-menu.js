@@ -1,6 +1,8 @@
 import m from 'mithril';
 import { i18n } from '../services/i18n';
 
+import LanguageSelector from './language-selector';
+
 const TopMenu = {
   controller(options) {
     return {
@@ -18,7 +20,7 @@ const TopMenu = {
       m('div.nav-left',
         m('a.nav-item', { config: m.route, href: '/' },
           m('h1.title', 'InfectNet'))),
-      m('div.nav-right.nav-menu', ctrl.routes.map(routeToOption))
+      m('div.nav-right.nav-menu', ctrl.routes.map(routeToOption).concat(LanguageSelector))
     ]);
 
     function routeToOption(route) {
