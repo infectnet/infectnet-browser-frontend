@@ -1,6 +1,7 @@
 import m from 'mithril';
 import mx from '../util/mx';
 import Animation from '../util/animation';
+import { I18nService } from '../services/i18n';
 
 const LanguageSelector = {};
 
@@ -15,9 +16,12 @@ LanguageSelector.controller = function controller() {
   LanguageSelector.vm.init();
 
   return {
-    selectLanguage() {
-      Animation.toggle(null,
-          LanguageSelector.vm.languagesHandle(), LanguageSelector.vm.selectorHandle());
+    selectLanguage(lang) {
+      I18nService.setCurrentLanguage(lang, function cb() {
+        m.redraw.strategy('all');
+
+        m.redraw(true);
+      });
     }
   };
 };
