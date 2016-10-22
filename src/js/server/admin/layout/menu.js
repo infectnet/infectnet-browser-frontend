@@ -1,8 +1,10 @@
 import m from 'mithril';
 
 import ServerIp from '../../../common/services/server-ip';
+import { i18n } from '../../../common/services/i18n';
 
 import TopMenu from '../../../common/components/top-menu';
+import LanguageSelector from '../../../common/components/language-selector';
 
 const routes = [
   {
@@ -31,12 +33,12 @@ Menu.view = function view(ctrl) {
   return m('nav.nav.has-shadow', [
     m('.nav-left',
       m('a.nav-item', { config: m.route, href: '/server/admin' },
-        m('h1.title', `Admin @ ${ctrl.getIp()}`))),
+        m('h1.title', `${i18n.t('admin:Admin')} @ ${ctrl.getIp()}`))),
     m('.nav-center',
       m('a.nav-item', {
         config: m.route, href: '/server'
-      }, 'Back to Server')),
-    m('.nav-right.nav-menu', ctrl.routes.map(routeToOption))
+      }, i18n.t('common:Menu.Back to Server'))),
+    m('.nav-right.nav-menu', ctrl.routes.map(routeToOption).concat(LanguageSelector))
   ]);
 
   function routeToOption(route) {
@@ -44,7 +46,7 @@ Menu.view = function view(ctrl) {
 
     return m('a.nav-item', {
       config: m.route, href: route.path, class: anchorClass
-    }, route.name);
+    }, i18n.t(`common:Menu.${route.name}`));
   }
 };
 

@@ -1,0 +1,27 @@
+{
+  "Home": {
+    "Welcome message": "A legfertőzőbb böngészős-játék!",
+    "Play Now": "Irány a játék!",
+    "Back to server": "Vissza a következőre: {{ip}}",
+    "Scroll down for more": "Görgess lejjebb a további infókért!"
+  },
+  "About": {
+    "About": "Kapcsolat",
+    "The people behind InfectNet": "Akik InfectNet mögött állnak",
+    "About Description": "InfectNetet a Debreceni Egyetemen tanuló programtervező informatikus hallgatók kis csapata fejleszti.",
+    "Marianna Szabó": {
+      "name": "Szabó Marianna",
+      "info": "Az MI és a Java igazi mágusaként Marianna elsősorban az InfectNet üzleti logikáját fejleszti a backenden."
+    },
+    "István Lakatos": {
+      "name": "Lakatos István",
+      "info": "Szenvedélyes Java fejlesztő, aki garantálja a backend stabilitását és magas minőségét. Amikor nem a következő átütő funkción dolgozik, István nagyszerű teszteket ír, ahogy azt minden fejlesztőnek kellene."
+    },
+    "Attila Bagossy": {
+      "name": "Bagossy Attila",
+      "info": "A csapat egyetlen frontend fejlesztője és igazi JavaScript-rajongója. Mindenért él-hal, ami funkcionális programozás és JS lib."
+    },
+    "Backend Developer": "Backend fejlesztő",
+    "Frontend Developer": "Frontend fejlesztő"
+  }
+}

@@ -16,7 +16,7 @@ AdminDashboard.view = function view() {
     m('.hero-head', m('.container', Menu)),
     m('.hero-body', m('.container', [
       m('.heading', [
-        m('h1.title', 'Admin page'),
+        m('h1.title', 'Admin page'), // Not i18n'd yet, because it's under development
         m('h2.subtitle', 'Under development')
       ])
     ])

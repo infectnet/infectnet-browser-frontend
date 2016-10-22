@@ -50,4 +50,10 @@ Animation.fromEvent = function fromEvent(animFunc, callback) {
   };
 };
 
+Animation.toggle = function toggle(callback, outElement, inElement) {
+  Animation.fadesOut(function cb() {
+    Animation.fadesIn(callback, inElement);
+  }, outElement);
+};
+
 export default Animation;

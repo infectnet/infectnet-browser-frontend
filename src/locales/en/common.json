@@ -1,0 +1,32 @@
+{
+  "Play": "Play",
+  "Server IP Address": "Server IP Address",
+  "Menu": {
+    "Home": "Home",
+    "About": "About",
+    "Login": "Login",
+    "Register": "Register",
+    "Admin Dashboard": "Admin Dashboard",
+    "Back to Home": "Back to Home",
+    "Back to Server": "Back to Server",
+    "Manage Tokens": "Manage Tokens",
+    "Dashboard": "Dashboard"
+  },
+  "Error": {
+    "Invalid Address": "Invalid Address!",
+    "The username must not be empty": "The username must not be empty.",
+    "The password must meet the required criteria": "The password must meet the required criteria.",
+    "Must be a valid email address": "Must be a valid email address.",
+    "The token must not be empty": "The token must not be empty."
+  },
+  "Login": {
+    "Username": "Username",
+    "Password": "Password",
+    "Login": "Login"
+  },
+  "Username": "Username",
+  "Password": "Password",
+  "Email Address": "Email Address",
+  "Token": "Token",
+  "Select": "Select"
+}

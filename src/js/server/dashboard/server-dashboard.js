@@ -1,6 +1,7 @@
 import m from 'mithril';
 
 import ServerIp from '../../common/services/server-ip';
+import { i18n } from '../../common/services/i18n';
 
 import Menu from '../layout/menu';
 
@@ -38,18 +39,18 @@ ServerDashboard.view = function view(ctrl) {
         m('.container.is-vcentered', [
           m('.columns',
             m('.column.has-text-centered', [
-              m('p.title.is-2', 'Successfully connected! What\'s next?')
+              m('p.title.is-2', i18n.t('server:Dashboard.Successfully connected'))
             ])),
           m('.columns', m('.column')),
           m('.columns', [
-            columnMenuChoice('Login & Play', 'If you know your way', '/server/login'),
-            columnMenuChoice('Register', 'If you\'re new', '/server/register'),
-            columnMenuChoice('Admin', 'If you own this place', '/server/admin'),
+            columnMenuChoice(i18n.t('server:Dashboard.Login & Play'), i18n.t('server:Dashboard.Login Info'), '/server/login'),
+            columnMenuChoice(i18n.t('server:Dashboard.Register'), i18n.t('server:Dashboard.Register Info'), '/server/register'),
+            columnMenuChoice(i18n.t('server:Dashboard.Admin'), i18n.t('server:Dashboard.Admin Info'), '/server/admin'),
             m('.column.has-text-centered', [
               m('a', {
                 onclick: ctrl.disconnect
-              }, m('h1.heading.title.is-3', 'Disconnect')),
-              m('h1.subtitle.is-5', 'If you\'ve had enough')
+              }, m('h1.heading.title.is-3', i18n.t('server:Dashboard.Disconnect'))),
+              m('h1.subtitle.is-5', i18n.t('server:Dashboard.Disconnect Info'))
             ])
           ])
         ])),
@@ -58,7 +59,7 @@ ServerDashboard.view = function view(ctrl) {
           m('.container',
             m('ul',
               m('li.is-active',
-                m('a', m('strong', 'Scroll down for server info')))))))
+                m('a', m('strong', i18n.t('server:Dashboard.Scroll down for server info'))))))))
     ]),
     ServerInfo
   ]);

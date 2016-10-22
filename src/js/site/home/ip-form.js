@@ -3,6 +3,7 @@ import m from 'mithril';
 import Animation from '../../common/util/animation';
 import Cond from '../../common/util/cond';
 import mx from '../../common/util/mx';
+import { i18n } from '../../common/services/i18n';
 
 const IpForm = {
   vm: {
@@ -81,14 +82,14 @@ const IpForm = {
       m('form.control.has-addons.has-addons-centered', [
         m('input.input.is-medium', {
           type: 'text',
-          placeholder: 'Server IP Address',
+          placeholder: i18n.t('common:Server IP Address'),
           oninput: m.withAttr('value', ctrl.ip),
           class: errCond.ifTrue('is-danger')
         }),
         m('button.button.is-medium', {
           onclick: ctrl.submit,
           class: [errCond.cond('is-danger', 'is-success'), loadCond.ifTrue('is-loading')].join(' ')
-        }, errCond.cond('Invalid Address!', 'Play'))
+        }, errCond.cond(i18n.t('common:Error.Invalid Address'), i18n.t('common:Play')))
       ]),
       messageContainer
     ]);

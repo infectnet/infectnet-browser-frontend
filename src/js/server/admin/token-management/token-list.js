@@ -1,5 +1,7 @@
 import m from 'mithril';
 
+import { i18n } from '../../../common/services/i18n';
+
 const TokenList = {
   vm: {
     init() {
@@ -17,12 +19,12 @@ const TokenList = {
   },
   view(ctrl, args) {
     return m('.container', [
-      m('p.title.is-4', 'Available tokens'),
+      m('p.title.is-4', i18n.t('admin:Token Management.Available Tokens')),
       m('table.table', [
         m('thead.has-text-centered',
           m('tr', [
-            m('th', 'Token'),
-            m('th', 'Expiration Date')
+            m('th', i18n.t('common:Token')),
+            m('th', i18n.t('admin:Token Management.Expiration Date'))
           ])
         ),
         m('tbody', args.tokens().map(function toRow(token) {
@@ -44,7 +46,7 @@ const TokenList = {
           onclick() {
             ctrl.selectInputWithKey(tokenString);
           }
-        }, 'Select')
+        }, i18n.t('common:Select'))
       ]);
     }
   }

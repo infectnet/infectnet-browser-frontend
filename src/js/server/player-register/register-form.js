@@ -3,6 +3,7 @@ import m from 'mithril';
 import Animation from '../../common/util/animation';
 import Cond from '../../common/util/cond';
 import mx from '../../common/util/mx';
+import { i18n } from '../../common/services/i18n';
 
 const RegisterForm = {};
 
@@ -18,16 +19,16 @@ RegisterForm.vm = {
 
     [{
       name: 'username',
-      message: 'The username must not be empty.'
+      message: i18n.t('common:Error.The username must not be empty')
     }, {
       name: 'password',
-      message: 'The password must meet the required criteria.'
+      message: i18n.t('common:Error.The password must meet the required criteria')
     }, {
       name: 'email',
-      message: 'Must be a valid email address.'
+      message: i18n.t('common:Error.Must be a valid email address')
     }, {
       name: 'token',
-      message: 'The token must not be empty.'
+      message: i18n.t('common:Error.The token must not be empty')
     }].forEach(addToVm);
 
     function addToVm(property) {
@@ -87,7 +88,7 @@ RegisterForm.controller = function controller(options) {
 
 RegisterForm.view = function view(ctrl) {
   return m('.container', binds(), [
-    m('p.title.is-4', 'Create your account at this server'),
+    m('p.title.is-4', i18n.t('server:Registration.Create your account at this server')),
     mx.getElement('.notification.is-danger.is-hidden', {
       elementProp: RegisterForm.vm.notificationHandle
     }, [
@@ -98,34 +99,34 @@ RegisterForm.view = function view(ctrl) {
     ]),
     m('div', [
       addInput({
-        label: 'Username',
+        label: i18n.t('common:Username'),
         name: 'username',
-        desc: 'A unique username that will identify you on the server.'
+        desc: i18n.t('server:Registration.Username Info')
       }),
       addInput({
-        label: 'Token',
+        label: i18n.t('common:Token'),
         name: 'token',
-        desc: 'The precious token you\'ve received from the server\'s administrator.'
+        desc: i18n.t('server:Registration.Token Info')
       }),
       addInput({
-        label: 'Email Address',
+        label: i18n.t('common:Email Address'),
         name: 'email',
-        desc: 'You will receive some news about the server, but only when we will add that feature.'
+        desc: i18n.t('server:Registration.Email Address Info')
       }),
       addInput({
-        label: 'Password',
+        label: i18n.t('common:Password'),
         name: 'password',
         type: 'password',
-        desc: 'Use lowercase letters with at least one uppercase letter and one numeral. The minimal length is eight.'
+        desc: i18n.t('server:Registration.Password Info')
       }),
       m('hr'),
-      m('p.content', 'We do not ask you to confirm your password, because we know you type it a few hundred times every day (or we were just lazy to implement that).'),
+      m('p.content', i18n.t('server:Registration.Common Info')),
       m('hr'),
       m('p.control',
         m('button.button.is-medium.is-success', {
           onclick: ctrl.register,
           class: Cond(RegisterForm.vm.isLoading()).ifTrue('is-loading')
-        }, 'Register'))
+        }, i18n.t('server:Registration.Register')))
     ])
   ]);
 

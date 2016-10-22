@@ -4,7 +4,7 @@ module.exports = function build() {
   return function task(callback) {
     runSequence('clean',
       'lint',
-      ['html', 'sass', 'img', 'javascript'],
+      ['html', 'sass', 'img', 'javascript', 'locales'],
       callback);
   };
 };
