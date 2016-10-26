@@ -10,7 +10,9 @@ Animation.fadesIn = function fadesIn(callback, element) {
 
   e.style.opacity = 0;
 
-  e.classList.remove('is-hidden');
+  if (e.classList) {
+    e.classList.remove('is-hidden');
+  }
 
   m.redraw.strategy('none');
 

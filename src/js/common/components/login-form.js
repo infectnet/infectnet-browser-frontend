@@ -11,7 +11,6 @@ const LoginForm = {};
 LoginForm.vm = {
   init() {
     LoginForm.vm.isValid = m.prop(false);
-    LoginForm.vm.shouldDisplayError = m.prop(false);
 
     LoginForm.vm.username = m.prop('');
     LoginForm.vm.password = m.prop('');
@@ -39,11 +38,9 @@ LoginForm.controller = function controller(options) {
       }, function error(message) {
         LoginForm.vm.errorMessage(message);
 
-        LoginForm.vm.shouldDisplayError(true);
-
         LoginForm.vm.isLoading(false);
 
-        Animation.fadesIn(null, LoginForm.vm.notificationHandle);
+        Animation.fadesIn(null, LoginForm.vm.notificationHandle());
 
         m.redraw.strategy('diff');
       });
@@ -53,15 +50,12 @@ LoginForm.controller = function controller(options) {
 
 LoginForm.view = function view(ctrl) {
   return m('div', [
-    mx.getElement('.notification.is-danger', {
-      elementProp: LoginForm.vm.notificationHandle,
-      class: Cond(LoginForm.vm.shouldDisplayError()).ifFalse('is-hidden')
+    mx.getElement('.notification.is-danger.is-hidden', {
+      elementProp: LoginForm.vm.notificationHandle
     }, [
       m('button.delete', {
         onclick() {
-          Animation.fadesOut(null, LoginForm.vm.notificationHandle);
-
-          LoginForm.vm.shouldDisplayError(false);
+          Animation.fadesOut(null, LoginForm.vm.notificationHandle());
         }
       }),
       m.trust(LoginForm.vm.errorMessage())
