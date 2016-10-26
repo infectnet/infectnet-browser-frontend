@@ -13,11 +13,11 @@
     "Dashboard": "Dashboard"
   },
   "Error": {
-    "Invalid Address": "Invalid Address!",
-    "The username must not be empty": "The username must not be empty.",
-    "The password must meet the required criteria": "The password must meet the required criteria.",
-    "Must be a valid email address": "Must be a valid email address.",
-    "The token must not be empty": "The token must not be empty."
+    "Registration failed": "Could not create a new acoount for you! One or more fields contain erroneous data.",
+    "Invalid username": "The entered username is invalid or is already taken!",
+    "Invalid password": "The entered password does not match the requirements!",
+    "Invalid token": "This token's not the one we're looking for.",
+    "Invalid email": "This is not a valid e-mail address, or it's already used in another account."
   },
   "Login": {
     "Username": "Username",

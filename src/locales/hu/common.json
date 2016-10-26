@@ -13,11 +13,11 @@
     "Dashboard": "Nyitólap"
   },
   "Error": {
-    "Invalid Address": "Érvénytelen cím!",
-    "The username must not be empty": "A felhasználónév nem lehet üres!",
-    "The password must meet the required criteria": "A jelszó nem felel meg a követelményeknek!",
-    "Must be a valid email address": "A megadott e-mail cím helytelen!",
-    "The token must not be empty": "A token nem lehet üres!"
+    "Registration failed": "Nem sikerült a regisztráció! Egy vagy több mező hibás adatokat tartalmaz.",
+    "Invalid username": "A megadott felhasználónév érvénytelen vagy már foglalt.",
+    "Invalid password": "A megadott jelszó nem felel meg a követelményeknek.",
+    "Invalid token": "Ez a token nem megfelelő vagy már lejárt.",
+    "Invalid email": "Az e-mail cím érvénytelen vagy már egy másik hozzáféréshez tartozik."
   },
   "Login": {
     "Username": "Felhasználónév",
