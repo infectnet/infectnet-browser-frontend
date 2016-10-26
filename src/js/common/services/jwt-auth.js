@@ -12,6 +12,18 @@ const createJwtAuth = function createJwtAuth(request) {
     return `${request.getAddress()}_token`;
   };
 
+  const cacheExpiration = function cacheExpiration(storedToken) {
+    if (expirationTime === null && storedToken !== null) {
+      const tokenData = jwtDecode(storedToken);
+
+      expirationTime = tokenData.exp;
+
+      return !isExpired();
+    }
+
+    return true;
+  };
+
   const token = function token(...args) {
     if (args.length > 0) {
       localStorage.setItem(storageKey(), args[0]);
@@ -20,17 +32,11 @@ const createJwtAuth = function createJwtAuth(request) {
     let storedToken = localStorage.getItem(storageKey());
 
     // every time the token changes (or on startup) the expiration time gets cached
-    if (expirationTime === null && storedToken !== null) {
-      const tokenData = jwtDecode(storedToken);
+    if (!cacheExpiration(storedToken)) {
+      expirationTime = null;
+      storedToken = null;
 
-      expirationTime = tokenData.exp;
-
-      if (isExpired()) {
-        expirationTime = null;
-        storedToken = null;
-
-        localStorage.removeItem(storageKey());
-      }
+      localStorage.removeItem(storageKey());
     }
 
     return storedToken;
@@ -41,22 +47,27 @@ const createJwtAuth = function createJwtAuth(request) {
   };
 
   const login = function login(credentials) {
-    return request.req({ method: 'POST', url: LOGIN_URL, data: credentials })
-            .then(function success(data) {
-              token(data.token);
+    return request.req({
+      method: 'POST',
+      url: LOGIN_URL,
+      data: credentials
+    }).then(function success(data) {
+      token(data.token);
 
-              return true;
-            }, false);
+      return true;
+    }, false);
   };
 
   const renew = function renew() {
-    // note the use of authFunc -> the old token gets sent
-    return request.req(token, { method: 'POST', url: RENEW_URL, config: authFunc })
-      .then(function success(data) {
-        token(data.token);
+    return request.req(token, {
+      method: 'POST',
+      url: RENEW_URL,
+      config: xhr => xhr.setRequestHeader('Authorization', `Bearer ${token()}`)
+    }).then(function success(data) {
+      token(data.token);
 
-        return true;
-      }, false);
+      return true;
+    }, false);
   };
 
   const authFunc = function authFunc(xhr) {
