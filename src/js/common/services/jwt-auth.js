@@ -43,7 +43,9 @@ const createJwtAuth = function createJwtAuth(request) {
   };
 
   const isExpired = function isExpired() {
-    return expirationTime < (Date.now() / 1000);
+    const THRESHOLD = 600;
+
+    return (expirationTime - THRESHOLD) < (Date.now() / 1000);
   };
 
   const login = function login(credentials) {

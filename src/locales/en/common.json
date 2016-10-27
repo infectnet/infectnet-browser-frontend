@@ -13,6 +13,8 @@
     "Dashboard": "Dashboard"
   },
   "Error": {
+    "Login failed": "The username or password is incorrect!",
+    "Invalid address": "Invalid Address",
     "Registration failed": "Could not create a new acoount for you! One or more fields contain erroneous data.",
     "Invalid username": "The entered username is invalid or is already taken!",
     "Invalid password": "The entered password does not match the requirements!",

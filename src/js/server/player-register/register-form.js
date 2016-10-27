@@ -11,7 +11,7 @@ RegisterForm.vm = {
   init() {
     RegisterForm.vm.isLoading = m.prop(false);
 
-    RegisterForm.vm.errorMessage = m.prop('');
+    RegisterForm.vm.errorMessage = m.prop('Registration failed');
 
     RegisterForm.vm.notificationHandle = m.prop(null);
 

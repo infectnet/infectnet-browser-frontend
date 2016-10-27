@@ -35,8 +35,8 @@ LoginForm.controller = function controller(options) {
       options.login({
         username: LoginForm.vm.username(),
         password: LoginForm.vm.password(),
-      }, function error(message) {
-        LoginForm.vm.errorMessage(message);
+      }, function error(errorObject) {
+        LoginForm.vm.errorMessage(errorObject.code);
 
         LoginForm.vm.isLoading(false);
 
@@ -58,7 +58,7 @@ LoginForm.view = function view(ctrl) {
           Animation.fadesOut(null, LoginForm.vm.notificationHandle());
         }
       }),
-      m.trust(LoginForm.vm.errorMessage())
+      m.trust(i18n.t(`common:Error.${LoginForm.vm.errorMessage()}`))
     ]),
     m('label.label', { for: 'username' }, i18n.t('common:Login.Username')),
     m('p.control',

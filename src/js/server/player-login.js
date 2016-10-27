@@ -30,7 +30,7 @@ PlayerLogin.controller = function controller() {
       // TODO: WebSocket login
 
       // Always error for now
-      error('Incorrect username or password');
+      error({ code: 'Login failed' });
     },
     isFreshRegistration() {
       return m.route.param('freshRegistration') !== undefined;

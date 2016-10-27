@@ -13,6 +13,8 @@
     "Dashboard": "Nyitólap"
   },
   "Error": {
+    "Login failed": "A megadott felhasználónév vagy jelszó helytelen!",
+    "Invalid address": "Érvénytelen cím!",
     "Registration failed": "Nem sikerült a regisztráció! Egy vagy több mező hibás adatokat tartalmaz.",
     "Invalid username": "A megadott felhasználónév érvénytelen vagy már foglalt.",
     "Invalid password": "A megadott jelszó nem felel meg a követelményeknek.",
