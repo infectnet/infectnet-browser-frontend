@@ -1,0 +1,34 @@
+{
+  "Play": "Játék",
+  "Server IP Address": "Szerver IP cím",
+  "Menu": {
+    "Home": "Kezdőlap",
+    "About": "Kapcsolat",
+    "Login": "Bejelentkezés",
+    "Register": "Regisztráció",
+    "Admin Dashboard": "Admin beállítások",
+    "Back to Home": "Vissza az InfectNet kezdőlapra",
+    "Back to Server": "Vissza a szerverre",
+    "Manage Tokens": "Tokenek",
+    "Dashboard": "Nyitólap"
+  },
+  "Error": {
+    "Login failed": "A megadott felhasználónév vagy jelszó helytelen!",
+    "Invalid address": "Érvénytelen cím!",
+    "Registration failed": "Nem sikerült a regisztráció! Egy vagy több mező hibás adatokat tartalmaz.",
+    "Invalid username": "A megadott felhasználónév érvénytelen vagy már foglalt.",
+    "Invalid password": "A megadott jelszó nem felel meg a követelményeknek.",
+    "Invalid token": "Ez a token nem megfelelő vagy már lejárt.",
+    "Invalid email": "Az e-mail cím érvénytelen vagy már egy másik hozzáféréshez tartozik."
+  },
+  "Login": {
+    "Username": "Felhasználónév",
+    "Password": "Jelszó",
+    "Login": "Bejelentkezés"
+  },
+  "Username": "Felhasználónév",
+  "Password": "Jelszó",
+  "Email Address": "E-mail cím",
+  "Token": "Token",
+  "Select": "Kijelölés"
+}

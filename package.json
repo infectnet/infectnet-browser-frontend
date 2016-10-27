@@ -1,0 +1,74 @@
+{
+  "name": "infectnet-browser-frontend",
+  "version": "0.1.0",
+  "description": "InfectNet Browser Frontend",
+  "main": "index.js",
+  "scripts": {
+    "serve": "gulp",
+    "build": "gulp build",
+    "test": "tape -r ./test/mocks/session-storage.js -r babel-register ./test/*.js | faucet",
+    "json-server": "node ./json-server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infectnet/infectnet-browser-frontend.git"
+  },
+  "keywords": [
+    "infectnet"
+  ],
+  "author": "InfectNet",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/infectnet/infectnet-browser-frontend/issues"
+  },
+  "homepage": "https://github.com/infectnet/infectnet-browser-frontend#readme",
+  "dependencies": {
+    "bulma": "^0.2.1",
+    "del": "^2.2.2",
+    "eslint": "^3.6.0",
+    "eslint-config-airbnb": "^11.2.0",
+    "eslint-import-resolver-jspm": "^2.1.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-jspm": "^0.5.13",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "i": "^0.3.5",
+    "jspm": "^0.16.45",
+    "run-sequence": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "body-parser": "^1.15.2",
+    "express-boom": "^1.0.0",
+    "express-jwt": "^5.1.0",
+    "faucet": "0.0.1",
+    "json-server": "^0.8.22",
+    "jsonwebtoken": "^7.1.9",
+    "tape": "^4.6.2"
+  },
+  "jspm": {
+    "dependencies": {
+      "auth0/jwt-decode": "github:auth0/jwt-decode@^2.1.0",
+      "i18next": "npm:i18next@^3.4.4",
+      "i18next-xhr-backend": "npm:i18next-xhr-backend@^1.2.0",
+      "mithril": "npm:mithril@^0.2.5",
+      "velocity": "github:julianshapiro/velocity@^1.3.1"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "Log in to ip": "Log in to {{ip}}",
+
+  "Registration": {
+    "Registration": "Registration",
+    "Register": "Register",
+    "Prepare for trouble!": "Prepare for trouble!",
+    "Create your account at this server": "Create your account at this server",
+    "Register? Again?": "Register? Again?",
+  "Why register again": "<p>You have to create separate accounts on each server you visit. This is required because we do not have a central user database, but each server has its own.</p> <p>So even if you've already registered somewhere else, you cannot use you account here - because servers do not share data.</p> <p>The easiest (and best) way to solve this problem is to use the same credentials on this server too.</p>",
+    "Username Info": "A unique username that will identify you on the server.",
+    "Token Info": "The precious token you've received from the server's administrator.",
+    "Email Address Info": "You will receive some news about the server, but only when we will add that feature.",
+    "Password Info": "Use lowercase letters with at least one uppercase letter and one numeral. The minimal length is eight.",
+    "Common Info": "We do not ask you to confirm your password, because we know you type it a few hundred times every day (or we were just lazy to implement that)."
+  },
+
+  "Dashboard": {
+    "Successfully connected": "Successfully connected! What's next?",
+    "Login & Play": "Login & Play",
+    "Login Info": "If you know your way",
+    "Register": "Register",
+    "Register Info": "If you're new",
+    "Admin": "Admin",
+    "Admin Info": "If you own this place",
+    "Disconnect": "Disconnect",
+    "Disconnect Info": "If you've had enough",
+    "Scroll down for server info": "Scroll down for server info"
+  },
+
+  "Login": {
+    "Fresh registration": "You account is ready! You can log in using your username and password."
+  },
+
+  "Info": {
+    "Server Info": "Server Info",
+    "Server Info Subtitle": "Everything you need to know before battle"
+  }
+}

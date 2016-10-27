@@ -1,0 +1,15 @@
+{
+  "Admin": "Admin",
+  "Login": {
+    "Admin log in to ip": "Admin log in to {{ip}}"
+  },
+  "Token Management": {
+    "Token Management": "Token Management",
+    "Token Management Subtitle": "Invite people to play on your server",
+    "Request Token": "Request Token",
+    "Info Title": "What's this?",
+    "Info Description": "<p>On this page you can view the currently active tokens and request a new one.</p><p>Using tokens you can invite other people to play on your server.</p><p>Just generate a new token and give it someone them, it's that easy.</p><p><strong>Note</strong> that tokens are one-shot, one token can only be used once.</p>",
+    "Available Tokens": "Available Tokens",
+    "Expiration Date": "Expiration Date"
+  }
+}
