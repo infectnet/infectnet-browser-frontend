@@ -89,7 +89,7 @@ const IpForm = {
         m('button.button.is-medium', {
           onclick: ctrl.submit,
           class: [errCond.cond('is-danger', 'is-success'), loadCond.ifTrue('is-loading')].join(' ')
-        }, errCond.cond(i18n.t('common:Error.Invalid Address'), i18n.t('common:Play')))
+        }, errCond.cond(i18n.t('common:Error.Invalid address'), i18n.t('common:Play')))
       ]),
       messageContainer
     ]);

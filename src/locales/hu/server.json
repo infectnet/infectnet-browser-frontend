@@ -28,6 +28,10 @@
     "Scroll down for server info": "Görgess lejjebb a szerver adatokért"
   },
 
+  "Login": {
+    "Fresh registration": "A hozzáférésed elkészült! Most már bejelentkezhetsz a megadott felhasználóneveddel és jelszavaddal."
+  },
+
   "Info": {
     "Server Info": "Szerver adatok",
     "Server Info Subtitle": "Minden, amit tudnod kell, mielőtt harcba szállsz"

@@ -28,6 +28,10 @@
     "Scroll down for server info": "Scroll down for server info"
   },
 
+  "Login": {
+    "Fresh registration": "You account is ready! You can log in using your username and password."
+  },
+
   "Info": {
     "Server Info": "Server Info",
     "Server Info Subtitle": "Everything you need to know before battle"

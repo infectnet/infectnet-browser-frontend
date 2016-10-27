@@ -11,32 +11,20 @@ RegisterForm.vm = {
   init() {
     RegisterForm.vm.isLoading = m.prop(false);
 
-    RegisterForm.vm.errorMessage = m.prop('');
+    RegisterForm.vm.errorMessage = m.prop('Registration failed');
 
     RegisterForm.vm.notificationHandle = m.prop(null);
 
     RegisterForm.vm.fieldErrors = {};
 
-    [{
-      name: 'username',
-      message: i18n.t('common:Error.The username must not be empty')
-    }, {
-      name: 'password',
-      message: i18n.t('common:Error.The password must meet the required criteria')
-    }, {
-      name: 'email',
-      message: i18n.t('common:Error.Must be a valid email address')
-    }, {
-      name: 'token',
-      message: i18n.t('common:Error.The token must not be empty')
-    }].forEach(addToVm);
+    ['username', 'password', 'email', 'token'].forEach(addToVm);
 
     function addToVm(property) {
-      RegisterForm.vm[property.name] = m.prop('');
+      RegisterForm.vm[property] = m.prop('');
 
-      RegisterForm.vm.fieldErrors[property.name] = {
+      RegisterForm.vm.fieldErrors[property] = {
         erroneous: m.prop(false),
-        message() { return property.message; }
+        message: m.prop('')
       };
     }
   }
@@ -45,43 +33,40 @@ RegisterForm.vm = {
 RegisterForm.controller = function controller(options) {
   RegisterForm.vm.init();
 
-  const validate = function validate() {
-    // Just an example, should externalized
-    if (RegisterForm.vm.username() === '') {
-      RegisterForm.vm.fieldErrors.username.erroneous(true);
+  const processErrorObject = function processErrorObject(error) {
+    RegisterForm.vm.errorMessage(error.code);
 
-      return false;
-    }
+    error.details.forEach(function processDetail(detail) {
+      RegisterForm.vm.fieldErrors[detail.target].message(detail.code);
 
-    return true;
+      RegisterForm.vm.fieldErrors[detail.target].erroneous(true);
+    });
   };
 
   return {
     register() {
-      if (validate()) {
-        const userData = {
-          username: RegisterForm.vm.username(),
-          password: RegisterForm.vm.password(),
-          token: RegisterForm.vm.token(),
-          email: RegisterForm.vm.email(),
-        };
+      const userData = {
+        username: RegisterForm.vm.username(),
+        password: RegisterForm.vm.password(),
+        token: RegisterForm.vm.token(),
+        email: RegisterForm.vm.email(),
+      };
 
-        RegisterForm.vm.isLoading(true);
+      RegisterForm.vm.isLoading(true);
+
+      m.redraw.strategy('diff');
+
+      m.redraw(true);
+
+      options.register(userData, function error(errorObject) {
+        processErrorObject(errorObject);
+
+        RegisterForm.vm.isLoading(false);
+
+        Animation.fadesIn(null, RegisterForm.vm.notificationHandle());
 
         m.redraw.strategy('diff');
-
-        m.redraw(true);
-
-        options.register(userData, function error(message) {
-          RegisterForm.vm.errorMessage(message);
-
-          RegisterForm.vm.isLoading(false);
-
-          Animation.fadesIn(null, RegisterForm.vm.notificationHandle());
-
-          m.redraw.strategy('diff');
-        });
-      }
+      });
     }
   };
 };
@@ -95,7 +80,7 @@ RegisterForm.view = function view(ctrl) {
       m('button.delete', {
         onclick() { Animation.fadesOut(null, RegisterForm.vm.notificationHandle()); }
       }),
-      m.trust(RegisterForm.vm.errorMessage())
+      m.trust(asLocalizedMessage(RegisterForm.vm.errorMessage))
     ]),
     m('div', [
       addInput({
@@ -146,9 +131,13 @@ RegisterForm.view = function view(ctrl) {
         }, options.desc),
         m('span.help.is-danger', {
           class: errorCond.ifFalse('is-hidden')
-        }, RegisterForm.vm.fieldErrors[options.name].message())
+        }, asLocalizedMessage(RegisterForm.vm.fieldErrors[options.name].message))
       ])
     ]);
+  }
+
+  function asLocalizedMessage(prop) {
+    return i18n.t(`common:Error.${prop()}`);
   }
 
   function binds() {

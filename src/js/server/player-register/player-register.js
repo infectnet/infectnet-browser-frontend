@@ -4,7 +4,6 @@ import ServerIp from '../../common/services/server-ip';
 import Menu from '../layout/menu';
 import { i18n } from '../../common/services/i18n';
 
-// eslint-disable-next-line no-unused-vars
 import Register from './register';
 import RegisterForm from './register-form';
 
@@ -19,13 +18,11 @@ PlayerRegister.controller = function controller() {
 
   return {
     register(userData, error) {
-      error('Always error for now.');
-
-      /* Register.register(userData).then(function success() {
+      Register.register(userData).then(function success() {
         m.route('/server/login?freshRegistration');
       }, function err(message) {
         error(message);
-      }); */
+      });
     }
   };
 };
