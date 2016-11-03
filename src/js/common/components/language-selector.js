@@ -39,7 +39,7 @@ LanguageSelector.view = function view(ctrl) {
       elementProp: LanguageSelector.vm.languagesHandle
     }, [
       languageIcon('hu'),
-      languageIcon('gb')
+      languageIcon('en')
     ])
   ]);
 
