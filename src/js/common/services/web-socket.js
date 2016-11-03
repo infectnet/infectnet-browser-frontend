@@ -7,8 +7,6 @@ const ofAddress = function ofAddress(address, options) {
 const fromProvider = function fromProvider(addressProvider, options = { useWss: false }) {
   const WS_PATH = 'ws';
 
-  const socketListeners = {};
-
   const actionListeners = {};
 
   let socket;
@@ -25,13 +23,6 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
 
   const connect = function connect() {
     socket = new WebSocket(getAddress());
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const evt in socketListeners) {
-      if (Object.prototype.hasOwnProperty.call(socketListeners, evt)) {
-        socket[evt] = socketListeners[evt];
-      }
-    }
 
     socket.onmessage = dispatcher;
   };
@@ -54,16 +45,12 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
     socket.send(JSON.stringify(message));
   };
 
-  const onclose = function onclose(listener) {
-    socketListeners.onclose = listener;
+  const addEventListener = function addEventListener(...args) {
+    socket.addEventListener(...args);
   };
 
-  const onopen = function onopen(listener) {
-    socketListeners.onopen = listener;
-  };
-
-  const onerror = function onerror(listener) {
-    socketListeners.onerror = listener;
+  const removeEventListener = function removeEventListener(...args) {
+    socket.removeEventListener(...args);
   };
 
   const bindAction = function bindAction(action, listener) {
@@ -74,15 +61,23 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
     delete actionListeners[action];
   };
 
+  const isOpen = function isOpen() {
+    if (socket.readyState) {
+      return socket.readyState === 1;
+    }
+
+    return false;
+  };
+
   return {
     connect,
     getRawSocket,
     send,
-    onclose,
-    onopen,
-    onerror,
+    addEventListener,
+    removeEventListener,
     bindAction,
-    unbindAction
+    unbindAction,
+    isOpen
   };
 };
 
