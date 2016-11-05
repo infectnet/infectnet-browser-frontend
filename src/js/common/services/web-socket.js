@@ -7,7 +7,7 @@ const ofAddress = function ofAddress(address, options) {
 const fromProvider = function fromProvider(addressProvider, options = { useWss: false }) {
   const WS_PATH = 'ws';
 
-  const actionListeners = {};
+  let actionListeners;
 
   let socket;
 
@@ -24,11 +24,13 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
   const connect = function connect() {
     socket = new WebSocket(getAddress());
 
+    actionListeners = {};
+
     socket.onmessage = dispatcher;
   };
 
   const dispatcher = function dispatcher(evt) {
-    const message = evt.data;
+    const message = JSON.parse(evt.data);
 
     if (Object.prototype.hasOwnProperty.call(actionListeners, message.action)) {
       actionListeners[message.action](message);
@@ -62,7 +64,7 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
   };
 
   const isOpen = function isOpen() {
-    if (socket.readyState) {
+    if (socket && socket.readyState) {
       return socket.readyState === 1;
     }
 
