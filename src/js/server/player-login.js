@@ -3,6 +3,7 @@ import m from 'mithril';
 import Menu from './layout/menu';
 import LoginForm from '../common/components/login-form';
 import ServerIp from '../common/services/server-ip';
+import WebSocketService from '../common/services/web-socket';
 import { i18n } from '../common/services/i18n';
 import mx from '../common/util/mx';
 import Cond from '../common/util/cond';
@@ -25,12 +26,31 @@ PlayerLogin.controller = function controller() {
     return null;
   }
 
+  const successListener = function successListener() {
+    m.route('/play');
+  };
+
+  const errorListener = function errorListener(errorCallback, message) {
+    errorCallback({ code: message.arguments.code });
+  };
+
+  const onErrorListener = function onErrorListener(errorCallback) {
+    errorCallback({ code: 'Could not connect to server' });
+  };
+
   return {
     login(credentials, error) {
-      // TODO: WebSocket login
+      WebSocketService.connect();
 
-      // Always error for now
-      error({ code: 'Login failed' });
+      WebSocketService.bindAction('OK', successListener);
+
+      WebSocketService.bindAction('ERROR', errorListener.bind(null, error));
+
+      WebSocketService.addEventListener('error', onErrorListener.bind(null, error));
+
+      WebSocketService.addEventListener('open', function onOpen() {
+        WebSocketService.send('AUTH', credentials);
+      });
     },
     isFreshRegistration() {
       return m.route.param('freshRegistration') !== undefined;

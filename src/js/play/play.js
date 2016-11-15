@@ -1,8 +1,8 @@
 import m from 'mithril';
 
-import PlayLayout from './play-layout';
+import WebSocketService from '../common/services/web-socket';
 
-const Play = Object.create(PlayLayout);
+const Play = {};
 
 Play.getRoutes = function getRoutes() {
   return {
@@ -10,8 +10,16 @@ Play.getRoutes = function getRoutes() {
   };
 };
 
+Play.controller = function controller() {
+  if (!WebSocketService.isOpen()) {
+    m.route('/server/login');
+  }
+};
+
 Play.view = function view() {
-  return this.constructView(m('h1', 'Game Of The Year 2016'));
+  return [m('div', [
+    m('h1', 'Game of the Year 2016')
+  ])];
 };
 
 export default Play;

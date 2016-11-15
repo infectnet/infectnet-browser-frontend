@@ -19,7 +19,11 @@
     "Invalid username": "A megadott felhasználónév érvénytelen vagy már foglalt.",
     "Invalid password": "A megadott jelszó nem felel meg a követelményeknek.",
     "Invalid token": "Ez a token nem megfelelő vagy már lejárt.",
-    "Invalid email": "Az e-mail cím érvénytelen vagy már egy másik hozzáféréshez tartozik."
+    "Invalid email": "Az e-mail cím érvénytelen vagy már egy másik hozzáféréshez tartozik.",
+    "Could not connect to server": "Nem sikerült kapcsolódni a szerverhez! Kérjük, próbáld meg újra!",
+    "Malformed message": "A továbbított üzenet formátuma érvénytelen volt. Ez az üzenet valamilyen belső hiba jele lehet.",
+    "Unsupported action": "A végrehajtani kívánt utasítást a szerver nem támogatja.",
+    "Authentication failed": "Nem sikerült a bejelentkezés! A megadott felhasználónév vagy jelszó helytelen!"
   },
   "Login": {
     "Username": "Felhasználónév",
