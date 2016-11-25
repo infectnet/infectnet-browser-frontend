@@ -21,6 +21,7 @@ System.config({
     "i18next": "npm:i18next@3.4.4",
     "i18next-xhr-backend": "npm:i18next-xhr-backend@1.2.0",
     "mithril": "npm:mithril@0.2.5",
+    "phaser": "github:photonstorm/phaser@2.6.2",
     "velocity": "github:julianshapiro/velocity@1.3.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
