@@ -10,7 +10,8 @@
     "Back to Home": "Back to Home",
     "Back to Server": "Back to Server",
     "Manage Tokens": "Manage Tokens",
-    "Dashboard": "Dashboard"
+    "Dashboard": "Dashboard",
+    "Quit Game": "Quit Game"
   },
   "Error": {
     "Login failed": "The username or password is incorrect!",

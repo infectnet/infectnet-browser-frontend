@@ -10,7 +10,8 @@
     "Back to Home": "Vissza az InfectNet kezdőlapra",
     "Back to Server": "Vissza a szerverre",
     "Manage Tokens": "Tokenek",
-    "Dashboard": "Nyitólap"
+    "Dashboard": "Nyitólap",
+    "Quit Game": "Kilépés a játékból"
   },
   "Error": {
     "Login failed": "A megadott felhasználónév vagy jelszó helytelen!",
