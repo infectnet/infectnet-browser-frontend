@@ -2,6 +2,8 @@ import m from 'mithril';
 import ace from 'ace';
 
 import WebSocketService from '../common/services/web-socket';
+import { i18n } from '../common/services/i18n';
+
 import Menu from './layout/menu';
 import ErrorList from './error-list';
 
@@ -52,8 +54,8 @@ Play.view = function view(ctrl) {
       m('nav.nav.has-shadow',
         m('.container', [
           m('.nav-left', [
-            m('a.nav-item.is-tab.is-active', 'Code Editor'),
-            m('a.nav-item.is-tab', 'Live Status')
+            m('a.nav-item.is-tab.is-active', i18n.t('play:Menu.Code Editor')),
+            m('a.nav-item.is-tab', i18n.t('play:Menu.Live Status'))
           ])
         ])),
       m('.container.is-marginless.is-fluid', { style: { height: '250px' } }, [
@@ -63,14 +65,14 @@ Play.view = function view(ctrl) {
           }, [
             m('span.icon',
               m('i.fa.fa-code')),
-            m('span', 'Upload Code')
+            m('span', i18n.t('play:Editor.Upload Code'))
           ]),
           m('a.button.is-danger.is-medium.custom-max-width.custom-edgy-border', {
             onclick: ctrl.clearErrors
           }, [
             m('span.icon',
               m('i.fa.fa-times')),
-            m('span', 'Clear Errors')
+            m('span', i18n.t('play:Editor.Clear Errors'))
           ]),
           m.component(ErrorList, { errors: Play.vm.errors })
         ]),
