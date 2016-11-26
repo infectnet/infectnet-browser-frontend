@@ -18,14 +18,15 @@ Play.controller = function controller() {
 };
 
 Play.view = function view() {
-  return m('section.hero.is-fullheight.is-black', [
-    m('.hero-head', m('.container.is-fluid', Menu)),
-    m('.hero-body', m('.container.is-fluid', [
-      m('.heading', [
-        m('h1.title', 'Game of the Year 2016')
+  return m('section.hero.is-fullheight.is-dark', [
+    m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
+    m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
+      m('.game-container.custom-text-centered', [
+        m('canvas')
       ])
-    ])
-  )]);
+    ])),
+    m('.bottom-panel.container.is-marginless.is-fluid', 'Bottom Panel')
+  ]);
 };
 
 export default Play;
