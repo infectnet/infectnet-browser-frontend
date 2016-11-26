@@ -1,9 +1,12 @@
 import m from 'mithril';
+import ace from 'ace';
 
 import WebSocketService from '../common/services/web-socket';
 import Menu from './layout/menu';
 
-const Play = {};
+const Play = {
+  editor: null
+};
 
 Play.getRoutes = function getRoutes() {
   return {
@@ -33,9 +36,15 @@ Play.view = function view() {
           m('.nav-left', [
             m('a.nav-item.is-tab.is-active', 'Code Editor')
           ])
-        ]))
+        ])),
+      m('.container.is-marginless.is-fluid', { style: { height: '300px' } },
+        m('#editor', { config: createEditor }))
     ])
   ]);
+
+  function createEditor() {
+    Play.editor = ace.edit('editor');
+  }
 };
 
 export default Play;

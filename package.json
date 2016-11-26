@@ -59,6 +59,7 @@
   },
   "jspm": {
     "dependencies": {
+      "ace": "github:ajaxorg/ace-builds@^1.2.5",
       "auth0/jwt-decode": "github:auth0/jwt-decode@^2.1.0",
       "i18next": "npm:i18next@^3.4.4",
       "i18next-xhr-backend": "npm:i18next-xhr-backend@^1.2.0",
