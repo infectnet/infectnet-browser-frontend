@@ -3,9 +3,16 @@ import ace from 'ace';
 
 import WebSocketService from '../common/services/web-socket';
 import Menu from './layout/menu';
+import ErrorList from './error-list';
 
 const Play = {
   editor: null
+};
+
+Play.vm = {
+  init() {
+    Play.vm.errors = [];
+  }
 };
 
 Play.getRoutes = function getRoutes() {
@@ -15,12 +22,23 @@ Play.getRoutes = function getRoutes() {
 };
 
 Play.controller = function controller() {
+  Play.vm.init();
+
   /* if (!WebSocketService.isOpen()) {
     m.route('/server/login');
   }*/
+
+  return {
+    uploadCode() {
+
+    },
+    clearErrors() {
+      Play.vm.errors = [];
+    }
+  };
 };
 
-Play.view = function view() {
+Play.view = function view(ctrl) {
   return m('section', [
     m('.hero.is-fullheight.is-dark', [
       m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
@@ -34,11 +52,30 @@ Play.view = function view() {
       m('nav.nav.has-shadow',
         m('.container', [
           m('.nav-left', [
-            m('a.nav-item.is-tab.is-active', 'Code Editor')
+            m('a.nav-item.is-tab.is-active', 'Code Editor'),
+            m('a.nav-item.is-tab', 'Live Status')
           ])
         ])),
-      m('.container.is-marginless.is-fluid', { style: { height: '300px' } },
-        m('#editor', { config: createEditor }))
+      m('.container.is-marginless.is-fluid', { style: { height: '250px' } }, [
+        m('div', { style: { width: '350px' } }, [
+          m('a.button.is-success.is-medium.custom-max-width.custom-edgy-border', {
+            onclick: ctrl.uploadCode
+          }, [
+            m('span.icon',
+              m('i.fa.fa-code')),
+            m('span', 'Upload Code')
+          ]),
+          m('a.button.is-danger.is-medium.custom-max-width.custom-edgy-border', {
+            onclick: ctrl.clearErrors
+          }, [
+            m('span.icon',
+              m('i.fa.fa-times')),
+            m('span', 'Clear Errors')
+          ]),
+          m.component(ErrorList, { errors: Play.vm.errors })
+        ]),
+        m('#editor', { style: { left: '350px' }, config: createEditor })
+      ])
     ])
   ]);
 

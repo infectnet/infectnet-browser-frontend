@@ -1,4 +1,6 @@
-$black-light: hsl(0, 0%, 14%) !default
+$black-light: hsl(0, 0%, 14%)
+$red: #ff1f4b
+$white: #ffffff
 
 $bottom-nav-size: 40px;
 
@@ -20,9 +22,23 @@ $bottom-nav-size: 40px;
   .nav-item
     max-height: $bottom-nav-size;
 
+.error-list-container
+  padding-top: 10px
+  overflow: auto
+
+  > .error-box
+    background-color: $red
+    color: $white
+    margin-bottom: 10px
+    padding: 5px
+
+    > .title
+      margin-bottom: 5px
+      color: $white !important
+
 #editor
   position: absolute
   bottom: 0
-  left: 210px
+  left: 0
   right: 0
   top: 0
