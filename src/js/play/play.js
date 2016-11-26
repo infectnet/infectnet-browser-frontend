@@ -18,14 +18,23 @@ Play.controller = function controller() {
 };
 
 Play.view = function view() {
-  return m('section.hero.is-fullheight.is-dark', [
-    m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
-    m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
-      m('.game-container.custom-text-centered', [
-        m('canvas')
-      ])
-    ])),
-    m('.bottom-panel.container.is-marginless.is-fluid', 'Bottom Panel')
+  return m('section', [
+    m('.hero.is-fullheight.is-dark', [
+      m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
+      m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
+        m('.game-container.custom-text-centered', [
+          m('canvas')
+        ])
+      ]))
+    ]),
+    m('.bottom-panel.container.is-marginless.is-fluid', [
+      m('nav.nav.has-shadow',
+        m('.container', [
+          m('.nav-left', [
+            m('a.nav-item.is-tab.is-active', 'Code Editor')
+          ])
+        ]))
+    ])
   ]);
 };
 

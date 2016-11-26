@@ -1,6 +1,21 @@
+$black-light: hsl(0, 0%, 14%) !default
+
+$bottom-nav-size: 40px;
+
 .bottom-panel
   position: absolute
   left: 0
   right: 0
   bottom: 0
   z-index: 30
+
+  > nav
+    background-color: $black-light;
+    cursor: n-resize;
+    min-height: $bottom-nav-size;
+
+    > .container
+      min-height: inherit
+  
+  .nav-item
+    max-height: $bottom-nav-size;
