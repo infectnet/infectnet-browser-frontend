@@ -1,5 +1,7 @@
 import m from 'mithril';
-import ace from 'ace';
+import ace from 'brace';
+import 'brace/theme/ambiance';
+import 'brace/mode/groovy';
 
 import WebSocketService from '../common/services/web-socket';
 import { i18n } from '../common/services/i18n';
@@ -95,6 +97,14 @@ Play.view = function view(ctrl) {
 
   function createEditor() {
     Play.editor = ace.edit('editor');
+
+    Play.editor.setOptions({
+      showPrintMargin: false
+    });
+
+    Play.editor.setTheme('ace/theme/ambiance');
+
+    Play.editor.getSession().setMode('ace/mode/groovy');
   }
 };
 

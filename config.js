@@ -13,11 +13,29 @@ System.config({
     "npm:*": "jspm_packages/npm/*"
   },
 
+  meta: {
+    "brace/theme/chaos": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/theme/ambiance": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/mode/groovy": {
+      "deps": [
+        "brace"
+      ]
+    }
+  },
+
   map: {
-    "ace": "github:ajaxorg/ace-builds@1.2.5",
     "auth0/jwt-decode": "github:auth0/jwt-decode@2.1.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "brace": "npm:brace@0.9.0",
     "core-js": "npm:core-js@1.2.7",
     "i18next": "npm:i18next@3.4.4",
     "i18next-xhr-backend": "npm:i18next-xhr-backend@1.2.0",
@@ -50,6 +68,11 @@ System.config({
     },
     "npm:babel-runtime@5.8.38": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:brace@0.9.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "w3c-blob": "npm:w3c-blob@0.0.1"
     },
     "npm:buffer@3.6.0": {
       "base64-js": "npm:base64-js@0.0.8",
@@ -85,6 +108,10 @@ System.config({
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
+    },
+    "npm:w3c-blob@0.0.1": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }
 });
