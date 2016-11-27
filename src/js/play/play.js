@@ -6,6 +6,7 @@ import { i18n } from '../common/services/i18n';
 
 import Menu from './layout/menu';
 import ErrorList from './error-list';
+import InfectNet from './game/infectnet.js';
 
 const Play = {
   editor: null
@@ -36,6 +37,9 @@ Play.controller = function controller() {
     },
     clearErrors() {
       Play.vm.errors = [];
+    },
+    startGame(containerElement) {
+      InfectNet.play(containerElement);
     }
   };
 };
@@ -45,8 +49,16 @@ Play.view = function view(ctrl) {
     m('.hero.is-fullheight.is-dark', [
       m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
       m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
-        m('.game-container.custom-text-centered', [
-          m('canvas')
+        m('#game-container.custom-text-centered', {
+          config(element, isInitialized) {
+            if (isInitialized) {
+              return;
+            }
+
+            ctrl.startGame(element);
+          }
+        }, [
+          /* Phaser's canvas will be placed here */
         ])
       ]))
     ]),
