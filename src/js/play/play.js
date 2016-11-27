@@ -42,6 +42,17 @@ Play.controller = function controller() {
     },
     startGame(containerElement) {
       InfectNet.play(containerElement);
+    },
+    configureEditor(elementId) {
+      Play.editor = ace.edit(elementId);
+
+      Play.editor.setOptions({
+        showPrintMargin: false
+      });
+
+      Play.editor.setTheme('ace/theme/ambiance');
+
+      Play.editor.getSession().setMode('ace/mode/groovy');
     }
   };
 };
@@ -90,22 +101,10 @@ Play.view = function view(ctrl) {
           ]),
           m.component(ErrorList, { errors: Play.vm.errors })
         ]),
-        m('#editor', { style: { left: '350px' }, config: createEditor })
+        m('#editor', { style: { left: '350px' }, config: ctrl.configureEditor.bind(null, 'editor') })
       ])
     ])
   ]);
-
-  function createEditor() {
-    Play.editor = ace.edit('editor');
-
-    Play.editor.setOptions({
-      showPrintMargin: false
-    });
-
-    Play.editor.setTheme('ace/theme/ambiance');
-
-    Play.editor.getSession().setMode('ace/mode/groovy');
-  }
 };
 
 export default Play;
