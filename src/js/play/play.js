@@ -16,7 +16,7 @@ const Play = {};
 
 Play.vm = {
   init() {
-    Play.vm.errors = [];
+    Play.vm.errors = m.prop([]);
 
     let editorHeight = 250;
 
@@ -35,7 +35,8 @@ Play.vm = {
         return editorHeight;
       },
       ace: m.prop(null),
-      container: m.prop(null)
+      container: m.prop(null),
+      code: m.prop('')
     };
 
     Play.vm.move = {
@@ -53,21 +54,39 @@ Play.getRoutes = function getRoutes() {
 };
 
 Play.controller = function controller() {
-  /* 
-   * if (!WebSocketService.isOpen()) {
-   *   m.route('/server/login');
-   * }
-   */
+  if (!WebSocketService.isOpen()) {
+    m.route('/server/login');
+  }
 
   Play.vm.init();
 
+  const addErrors = function addErrors(errorArray) {
+    errorArray.map(function convertError(error) {
+      return {
+        message: error.message,
+        line: error.lineNumber,
+        column: error.columnNumber
+      };
+    }).forEach(function populateErrors(error) {
+      Play.vm.errors().unshift(error);
+    });
+  };
+
+  const clearErrors = function clearErrors() {
+    Play.vm.errors([]);
+  };
+
+  WebSocketService.bindAction('COMPILATION_RESULTS', function resultListener(data) {
+    clearErrors();
+
+    addErrors(data.arguments.errors);
+  });
+
   return {
     uploadCode() {
-
+      WebSocketService.send('PUT_CODE', { source: Play.vm.editor.code() });
     },
-    clearErrors() {
-      Play.vm.errors = [];
-    },
+    clearErrors,
     startGame(containerElement) {
       InfectNet.play(containerElement);
     },
@@ -81,6 +100,10 @@ Play.controller = function controller() {
       editor.setTheme('ace/theme/ambiance');
 
       editor.getSession().setMode('ace/mode/groovy');
+
+      editor.on('change', function editorContentsChanged() {
+        Play.vm.editor.code(Play.vm.editor.ace().getValue());
+      });
 
       Play.vm.editor.ace(editor);
     }
@@ -210,7 +233,9 @@ Play.view = function view(ctrl) {
           ]),
           m.component(ErrorList, { errors: Play.vm.errors })
         ]),
-        m('#editor', { style: { left: '350px' }, config: ctrl.configureEditor.bind(null, 'editor') })
+        mx.bindOnce(function editorProvider() {
+          return m('#editor', { style: { left: '350px' }, config: ctrl.configureEditor.bind(null, 'editor') });
+        })
       ])
     ])
   ]);

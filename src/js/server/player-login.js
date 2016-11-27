@@ -14,6 +14,8 @@ const PlayerLogin = {};
 PlayerLogin.vm = {
   init() {
     PlayerLogin.vm.registrationMessageHandle = m.prop(null);
+
+    PlayerLogin.vm.eventListeners = {};
   }
 };
 
@@ -27,6 +29,14 @@ PlayerLogin.controller = function controller() {
   }
 
   const successListener = function successListener() {
+    WebSocketService.unbindAction('OK');
+
+    WebSocketService.unbindAction('ERROR');
+
+    WebSocketService.removeEventListener('error', PlayerLogin.vm.eventListeners.error);
+
+    WebSocketService.removeEventListener('open', PlayerLogin.vm.eventListeners.open);
+
     m.route('/play');
   };
 
@@ -38,6 +48,10 @@ PlayerLogin.controller = function controller() {
     errorCallback({ code: 'Could not connect to server' });
   };
 
+  const onOpenListener = function onOpenListener(credentials) {
+    WebSocketService.send('AUTH', credentials);
+  };
+
   return {
     login(credentials, error) {
       WebSocketService.connect();
@@ -46,11 +60,13 @@ PlayerLogin.controller = function controller() {
 
       WebSocketService.bindAction('ERROR', errorListener.bind(null, error));
 
-      WebSocketService.addEventListener('error', onErrorListener.bind(null, error));
+      PlayerLogin.vm.eventListeners.error = onErrorListener.bind(null, error);
 
-      WebSocketService.addEventListener('open', function onOpen() {
-        WebSocketService.send('AUTH', credentials);
-      });
+      PlayerLogin.vm.eventListeners.open = onOpenListener.bind(null, credentials);
+
+      WebSocketService.addEventListener('error', PlayerLogin.vm.eventListeners.error);
+
+      WebSocketService.addEventListener('open', PlayerLogin.vm.eventListeners.open);
     },
     isFreshRegistration() {
       return m.route.param('freshRegistration') !== undefined;

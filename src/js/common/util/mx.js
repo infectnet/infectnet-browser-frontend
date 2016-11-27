@@ -24,4 +24,18 @@ mx.getElement = function getElement(selector, attrs, children) {
   return m(selector, newAttrs, children);
 };
 
+mx.bindOnce = (function bindOnce() {
+  const cache = {};
+
+  return function boundView(view) {
+    if (!cache[view.toString()]) {
+      cache[view.toString()] = true;
+
+      return view();
+    }
+
+    return { subtree: 'retain' };
+  };
+}());
+
 export default mx;
