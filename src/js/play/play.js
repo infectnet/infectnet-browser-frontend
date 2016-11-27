@@ -5,18 +5,44 @@ import 'brace/mode/groovy';
 
 import WebSocketService from '../common/services/web-socket';
 import { i18n } from '../common/services/i18n';
+import mx from '../common/util/mx';
+import Cond from '../common/util/cond';
 
 import Menu from './layout/menu';
 import ErrorList from './error-list';
 import InfectNet from './game/infectnet.js';
 
-const Play = {
-  editor: null
-};
+const Play = {};
 
 Play.vm = {
   init() {
     Play.vm.errors = [];
+
+    let editorHeight = 250;
+
+    Play.vm.editor = {
+      height(...args) {
+        if (args.length === 0) {
+          return editorHeight;
+        }
+
+        editorHeight = Math.max(0, args[0]);
+
+        if (Play.vm.editor.container()) {
+          Play.vm.editor.container().style.height = editorHeight;
+        }
+
+        return editorHeight;
+      },
+      ace: m.prop(null),
+      container: m.prop(null)
+    };
+
+    Play.vm.move = {
+      isActive: m.prop(false),
+      startY: m.prop(0),
+      bar: m.prop(null)
+    };
   }
 };
 
@@ -27,11 +53,13 @@ Play.getRoutes = function getRoutes() {
 };
 
 Play.controller = function controller() {
-  Play.vm.init();
+  /* 
+   * if (!WebSocketService.isOpen()) {
+   *   m.route('/server/login');
+   * }
+   */
 
-  /* if (!WebSocketService.isOpen()) {
-    m.route('/server/login');
-  }*/
+  Play.vm.init();
 
   return {
     uploadCode() {
@@ -44,21 +72,77 @@ Play.controller = function controller() {
       InfectNet.play(containerElement);
     },
     configureEditor(elementId) {
-      Play.editor = ace.edit(elementId);
+      const editor = ace.edit(elementId);
 
-      Play.editor.setOptions({
+      editor.setOptions({
         showPrintMargin: false
       });
 
-      Play.editor.setTheme('ace/theme/ambiance');
+      editor.setTheme('ace/theme/ambiance');
 
-      Play.editor.getSession().setMode('ace/mode/groovy');
+      editor.getSession().setMode('ace/mode/groovy');
+
+      Play.vm.editor.ace(editor);
     }
   };
 };
 
 Play.view = function view(ctrl) {
-  return m('section', [
+  const movablePanelConfig = {
+    mouseDownDrag(e) {
+      e.preventDefault();
+
+      Play.vm.move.isActive(true);
+
+      Play.vm.move.startY(e.screenY);
+    },
+    mouseDownStopPropagation(e) {
+      e.stopPropagation();
+    },
+    onmousemove(e) {
+      if (Play.vm.move.isActive()) {
+        e.preventDefault();
+
+        const diff = Play.vm.move.startY() - e.screenY;
+
+        Play.vm.move.startY(e.screenY);
+
+        Play.vm.editor.height(Play.vm.editor.height() + diff);
+      }
+    },
+    onmouseup(e) {
+      if (Play.vm.move.isActive()) {
+        e.preventDefault();
+
+        Play.vm.move.isActive(false);
+      }
+    },
+    documentMouseOut(e) {
+      if (Play.vm.move.isActive()) {
+        const from = e.relatedTarget || e.toElement;
+
+        if (!from || from.nodeName === 'HTML') {
+          Play.vm.move.isActive(false);
+        }
+      }
+    }
+  };
+
+  const setUpDocumentHandler = function setUpDocumentHandler(element, isInitialized) {
+    if (isInitialized) {
+      return;
+    }
+
+    document.addEventListener('mouseout', movablePanelConfig.documentMouseOut, false);
+  };
+
+  const heightNotZero = Cond(Play.vm.editor.height() > 0);
+
+  return m('section', {
+    onmousemove: movablePanelConfig.onmousemove,
+    onmouseup: movablePanelConfig.onmouseup,
+    config: setUpDocumentHandler
+  }, [
     m('.hero.is-fullheight.is-dark', [
       m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
       m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
@@ -76,14 +160,39 @@ Play.view = function view(ctrl) {
       ]))
     ]),
     m('.bottom-panel.container.is-marginless.is-fluid', [
-      m('nav.nav.has-shadow',
+      mx.getElement('nav.nav.has-shadow', {
+        elementProp: Play.vm.move.bar,
+        onmousedown: movablePanelConfig.mouseDownDrag
+      },
         m('.container', [
           m('.nav-left', [
-            m('a.nav-item.is-tab.is-active', i18n.t('play:Menu.Code Editor')),
-            m('a.nav-item.is-tab', i18n.t('play:Menu.Live Status'))
+            m('a.nav-item.is-tab.is-active', {
+              onmousedown: movablePanelConfig.mouseDownStopPropagation
+            }, i18n.t('play:Menu.Code Editor')),
+            m('a.nav-item.is-tab', {
+              onmousedown: movablePanelConfig.mouseDownStopPropagation
+            }, i18n.t('play:Menu.Live Status'))
+          ]),
+          m('.nav-right', [
+            m('a.nav-item',
+              m('span.icon',
+                m('i.fa', {
+                  class: heightNotZero.cond('fa-chevron-down', 'fa-chevron-up'),
+                  onmousedown: movablePanelConfig.mouseDownStopPropagation,
+                  onclick() {
+                    if (heightNotZero.get()) {
+                      Play.vm.editor.height(0);
+                    } else {
+                      Play.vm.editor.height(250);
+                    }
+                  }
+                })))
           ])
         ])),
-      m('.container.is-marginless.is-fluid', { style: { height: '250px' } }, [
+      mx.getElement('.container.is-marginless.is-fluid', {
+        elementProp: Play.vm.editor.container,
+        style: { height: `${Play.vm.editor.height()}px` }
+      }, [
         m('div', { style: { width: '350px' } }, [
           m('a.button.is-success.is-medium.custom-max-width.custom-edgy-border', {
             onclick: ctrl.uploadCode
