@@ -38,4 +38,8 @@ mx.bindOnce = (function bindOnce() {
   };
 }());
 
+mx.icon = function icon(iconName, attrs) {
+  return m('span.icon', m(`i.fa.${iconName}`, attrs));
+};
+
 export default mx;
