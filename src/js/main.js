@@ -1,4 +1,6 @@
 import m from 'mithril';
+import ace from 'brace';
+
 import Routes from './routes';
 
 import Site from './site/site.js';

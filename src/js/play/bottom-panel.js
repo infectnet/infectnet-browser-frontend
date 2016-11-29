@@ -1,10 +1,12 @@
 import m from 'mithril';
+import PubSub from 'pubsub-js';
 
 import { i18n } from '../common/services/i18n';
 import mx from '../common/util/mx';
 import Cond from '../common/util/cond';
 
 import EditorTab from './editor-tab';
+import Topics from './topics';
 
 const BottomPanel = {};
 
@@ -43,6 +45,29 @@ BottomPanel.vm = {
 BottomPanel.controller = function controller(args) {
   BottomPanel.vm.init();
 
+  const mouseMoveSubscriber = function mouseMoveSubscriber(msg, e) {
+    if (BottomPanel.vm.isMoving()) {
+      e.preventDefault();
+
+      const diff = BottomPanel.vm.moveStartY() - e.screenY;
+
+      BottomPanel.vm.moveStartY(e.screenY);
+
+      BottomPanel.vm.tabHeight(BottomPanel.vm.tabHeight() + diff);
+    }
+  };
+
+  const mouseUpSubscriber = function mouseUpSubscriber(msg, e) {
+    if (BottomPanel.vm.isMoving()) {
+      e.preventDefault();
+
+      BottomPanel.vm.isMoving(false);
+    }
+  };
+
+  PubSub.subscribe(Topics.MOUSE_MOVE, mouseMoveSubscriber);
+  PubSub.subscribe(Topics.MOUSE_UP, mouseUpSubscriber);
+
   const eventConfig = {
     mouseDownDrag(e) {
       e.preventDefault();
@@ -53,24 +78,6 @@ BottomPanel.controller = function controller(args) {
     },
     mouseDownStopPropagation(e) {
       e.stopPropagation();
-    },
-    onmousemove(e) {
-      if (BottomPanel.vm.isMoving()) {
-        e.preventDefault();
-
-        const diff = BottomPanel.vm.moveStartY() - e.screenY;
-
-        BottomPanel.vm.moveStartY(e.screenY);
-
-        BottomPanel.vm.tabHeight(BottomPanel.vm.tabHeight() + diff);
-      }
-    },
-    onmouseup(e) {
-      if (BottomPanel.vm.isMoving()) {
-        e.preventDefault();
-
-        BottomPanel.vm.isMoving(false);
-      }
     },
     documentMouseOut(e) {
       if (BottomPanel.vm.isMoving()) {
@@ -93,8 +100,6 @@ BottomPanel.view = function view(ctrl) {
   const heightNotZero = Cond(BottomPanel.vm.tabHeight() > 0);
 
   return m('.bottom-panel.container.is-marginless.is-fluid', {
-    onmousemove: ctrl.eventConfig.onmousemove,
-    onmouseup: ctrl.eventConfig.onmouseup,
     config(element, isInit) {
       if (!isInit) {
         document.addEventListener('mouseout', ctrl.eventConfig.documentMouseOut, false);

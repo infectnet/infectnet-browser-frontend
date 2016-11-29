@@ -13,24 +13,6 @@ System.config({
     "npm:*": "jspm_packages/npm/*"
   },
 
-  meta: {
-    "brace/theme/chaos": {
-      "deps": [
-        "brace"
-      ]
-    },
-    "brace/theme/ambiance": {
-      "deps": [
-        "brace"
-      ]
-    },
-    "brace/mode/groovy": {
-      "deps": [
-        "brace"
-      ]
-    }
-  },
-
   map: {
     "auth0/jwt-decode": "github:auth0/jwt-decode@2.1.0",
     "babel": "npm:babel-core@5.8.38",
@@ -41,6 +23,7 @@ System.config({
     "i18next-xhr-backend": "npm:i18next-xhr-backend@1.2.0",
     "mithril": "npm:mithril@0.2.5",
     "phaser": "github:photonstorm/phaser@2.6.2",
+    "pubsub-js": "npm:pubsub-js@1.5.4",
     "velocity": "github:julianshapiro/velocity@1.3.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
@@ -102,6 +85,9 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
     },
+    "npm:pubsub-js@1.5.4": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -113,5 +99,23 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
-  }
+  },
+
+  meta: {
+    "brace/theme/chaos": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/theme/ambiance": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/mode/groovy": {
+      "deps": [
+        "brace"
+      ]
+    }
+  },
 });

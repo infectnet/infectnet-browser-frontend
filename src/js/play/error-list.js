@@ -1,11 +1,41 @@
 import m from 'mithril';
+import PubSub from 'pubsub-js';
+
+import Topics from './topics';
 
 const ErrorList = {};
 
-ErrorList.view = function view(ctrl, args) {
-  //return m('.error-list-container', args.errors().map(toErrorBox));
+ErrorList.vm = {
+  init() {
+    ErrorList.vm.errors = m.prop([]);
+  }
+};
 
-  return m('.error-list-container');
+ErrorList.controller = function controller() {
+  ErrorList.vm.init();
+
+  const errorProcessor = function errorProcessor(msg, results) {
+    results.errors.map(function convertError(error) {
+      return {
+        message: error.message,
+        line: error.lineNumber,
+        column: error.columnNumber
+      };
+    }).forEach(function populateErrors(error) {
+      ErrorList.vm.errors().unshift(error);
+    });
+  };
+
+  const clearErrors = function clearErrors() {
+    ErrorList.vm.errors([]);
+  };
+
+  PubSub.subscribe(Topics.COMPILATION_RESULTS, errorProcessor);
+  PubSub.subscribe(Topics.CLEAR_ERRORS, clearErrors);
+};
+
+ErrorList.view = function view() {
+  return m('.error-list-container', ErrorList.vm.errors().map(toErrorBox));
 
   function toErrorBox(error) {
     return m('.box.error-box.custom-edgy-border', [
