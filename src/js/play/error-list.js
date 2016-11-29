@@ -14,20 +14,16 @@ ErrorList.vm = {
 ErrorList.controller = function controller() {
   ErrorList.vm.init();
 
-  const errorProcessor = function errorProcessor(msg, results) {
-    results.errors.map(function convertError(error) {
-      return {
-        message: error.message,
-        line: error.lineNumber,
-        column: error.columnNumber
-      };
-    }).forEach(function populateErrors(error) {
-      ErrorList.vm.errors().unshift(error);
-    });
-  };
-
   const clearErrors = function clearErrors() {
     ErrorList.vm.errors([]);
+  };
+
+  const errorProcessor = function errorProcessor(msg, results) {
+    clearErrors();
+
+    results.errors.forEach(function populateErrors(error) {
+      ErrorList.vm.errors().unshift(error);
+    });
   };
 
   PubSub.subscribe(Topics.COMPILATION_RESULTS, errorProcessor);

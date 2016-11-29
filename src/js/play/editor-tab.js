@@ -1,13 +1,13 @@
 import m from 'mithril';
 import PubSub from 'pubsub-js';
 
-import WebSocketService from '../common/services/web-socket';
 import { i18n } from '../common/services/i18n';
 import mx from '../common/util/mx';
 
 import ErrorList from './error-list';
 import Editor from './editor';
 import Topics from './topics';
+import ServerCommunicator from './server-communicator';
 
 const EditorTab = {};
 
@@ -28,7 +28,7 @@ EditorTab.controller = function controller(args) {
 
   return {
     uploadCode() {
-      WebSocketService.send('PUT_CODE', { source: EditorTab.vm.code() });
+      ServerCommunicator.sendCode(EditorTab.vm.code());
     },
     clearErrors() {
       PubSub.publish(Topics.CLEAR_ERRORS, '');

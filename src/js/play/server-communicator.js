@@ -1,6 +1,6 @@
 import PubSub from 'pubsub-js';
 
-import WebSocketService from '../../common/services/web-socket';
+import WebSocketService from '../common/services/web-socket';
 
 import Topics from './topics';
 
@@ -21,11 +21,25 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
 
   const bindListeners = function bindListeners() {
     webSocketService.bindAction(Actions.COMPILATION_RESULTS, function resultListener(data) {
-      PubSub.publish(Topics.COMPILATION_RESULTS, data.arguments);
+      const results = {};
+
+      results.errors = data.arguments.errors.map(function convertError(error) {
+        return {
+          message: error.message,
+          line: error.lineNumber,
+          column: error.columnNumber
+        };
+      });
+
+      PubSub.publish(Topics.COMPILATION_RESULTS, results);
     });
 
     webSocketService.bindAction(Actions.OK, function resultListener(data) {
       PubSub.publish(Topics.SERVER_OK, data.arguments);
+
+      if (Object.prototype.hasOwnProperty.call(data.arguments, 'source')) {
+        PubSub.publish(Topics.CODE_RETRIEVED, data.arguments.source);
+      }
     });
 
     webSocketService.bindAction(Actions.ERROR, function resultListener(data) {

@@ -7,6 +7,7 @@ import Menu from './layout/menu';
 import InfectNet from './game/infectnet';
 import BottomPanel from './bottom-panel';
 import Topics from './topics';
+import ServerCommunicator from './server-communicator';
 
 const Play = {};
 
@@ -29,6 +30,8 @@ Play.controller = function controller() {
 
   Play.vm.init();
 
+  ServerCommunicator.initialize();
+
   /*
    *  Don't even ask, why this is here...
    */
@@ -37,12 +40,6 @@ Play.controller = function controller() {
 
     editor.getSession().setMode('ace/mode/groovy');
   };
-
-  WebSocketService.bindAction('COMPILATION_RESULTS', function resultListener(data) {
-    PubSub.publish(Topics.CLEAR_ERRORS, '');
-
-    PubSub.publish(Topics.COMPILATION_RESULTS, data.arguments);
-  });
 
   const eventConfig = {
     onmousemove(e) {
@@ -56,6 +53,8 @@ Play.controller = function controller() {
   return {
     startGame(containerElement) {
       InfectNet.play(containerElement);
+
+      ServerCommunicator.getCode();
     },
     editorConfigurator,
     eventConfig

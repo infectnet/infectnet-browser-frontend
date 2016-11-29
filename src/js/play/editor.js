@@ -15,11 +15,20 @@ const DEFAULT_ELEMENT_ID = 'editor';
 Editor.vm = {
   init() {
     Editor.vm.editorElement = m.prop(null);
+    Editor.vm.initCode = m.prop('');
   }
 };
 
 Editor.controller = function controller(args) {
   Editor.vm.init();
+
+  PubSub.subscribe(Topics.CODE_RETRIEVED, function codeRetrieved(msg, source) {
+    Editor.vm.initCode(source);
+
+    if (Editor.vm.editorElement()) {
+      Editor.vm.editorElement().setValue(Editor.vm.initCode(), -1);
+    }
+  });
 
   const configureEditor = function configureEditor(elementId) {
     const editor = ace.edit(elementId);
@@ -33,6 +42,8 @@ Editor.controller = function controller(args) {
     editor.on('change', function editorContentsChanged() {
       PubSub.publish(Topics.CODE_CHANGED, Editor.vm.editorElement().getValue());
     });
+
+    editor.setValue(Editor.vm.initCode(), -1);
 
     Editor.vm.editorElement(editor);
   };
