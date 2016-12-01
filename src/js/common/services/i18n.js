@@ -36,7 +36,8 @@ const init = function init(service, callback) {
         'common',
         'site',
         'server',
-        'admin'
+        'admin',
+        'play'
       ],
       defaultNS: 'common',
       backend: {
