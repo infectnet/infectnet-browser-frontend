@@ -57,7 +57,7 @@ Editor.view = function view(ctrl) {
   return mx.bindOnce(function editorProvider() {
     return m(`#${DEFAULT_ELEMENT_ID}`, {
       style: { left: '350px' },
-      config: ctrl.configureEditor.bind(null, DEFAULT_ELEMENT_ID) 
+      config: ctrl.configureEditor.bind(null, DEFAULT_ELEMENT_ID)
     });
   });
 };
