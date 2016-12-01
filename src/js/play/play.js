@@ -9,6 +9,8 @@ import BottomPanel from './bottom-panel';
 import Topics from './topics';
 import ServerCommunicator from './server-communicator';
 
+const CLIENT_SIZE_FACTOR = 0.8;
+
 const Play = {};
 
 Play.vm = {
@@ -50,9 +52,18 @@ Play.controller = function controller() {
     }
   };
 
+  const calculateGameRect = function calculateGameRect(gameBodyElement) {
+    const rect = {};
+
+    rect.height = CLIENT_SIZE_FACTOR * gameBodyElement.clientHeight;
+    rect.width = (rect.height / 3.0) * 4.0;
+
+    return rect;
+  };
+
   return {
-    startGame(containerElement) {
-      InfectNet.play(containerElement);
+    startGame(containerElement, gameBodyElement) {
+      InfectNet.play(containerElement, calculateGameRect(gameBodyElement));
 
       ServerCommunicator.getCode();
     },
@@ -68,15 +79,16 @@ Play.view = function view(ctrl) {
   }, [
     m('.hero.is-fullheight.is-dark', [
       m('.hero-head', m('.container.is-marginless.is-fluid', Menu)),
-      m('.hero-body.is-paddingless', m('.container.is-marginless.is-fluid', [
-        m('#game-container.custom-text-centered', {
-          config(element, isInitialized) {
-            if (!isInitialized) {
-              ctrl.startGame(element);
+      m('.hero-body.is-paddingless',
+        m('.container.is-marginless.is-fluid', [
+          m('#game-container.custom-text-centered', {
+            config(element, isInitialized) {
+              if (!isInitialized) {
+                ctrl.startGame(element, document.querySelector('.hero-body'));
+              }
             }
-          }
-        })
-      ]))
+          })
+        ]))
     ]),
     m.component(BottomPanel, { editorConfigurator: ctrl.editorConfigurator })
   ]);

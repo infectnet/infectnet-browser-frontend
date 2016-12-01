@@ -9,8 +9,8 @@ const createInfectNet = function createInfectNet() {
 
   let game = null;
 
-  const initGame = function initGame(containerElement) {
-    game = new Game(640, 480, AUTO, containerElement);
+  const initGame = function initGame(containerElement, rect) {
+    game = new Game(rect.width, rect.height, AUTO, containerElement);
 
     game.state.add('Boot', Boot);
     game.state.add('Preload', Preload);
@@ -20,15 +20,12 @@ const createInfectNet = function createInfectNet() {
   };
 
   return {
-    play(containerElement) {
+    play(containerElement, rect) {
       if (!isGameRunning) {
         isGameRunning = true;
 
-        initGame(containerElement);
+        initGame(containerElement, rect);
       }
-    },
-    resize(height, width) {
-
     },
     isRunning() {
       return isGameRunning;
