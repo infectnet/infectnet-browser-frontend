@@ -9,12 +9,14 @@ const createInfectNet = function createInfectNet() {
 
   let game = null;
 
-  const initGame = function initGame(containerElement, rect) {
+  const initGame = function initGame(containerElement, rect, preStartCallback) {
     game = new Game(rect.width, rect.height, AUTO, containerElement);
 
     game.state.add('Boot', Boot);
     game.state.add('Preload', Preload);
     game.state.add('GameState', GameState);
+
+    GameState.setPreStartCallback(preStartCallback);
 
     game.state.start('Boot');
   };

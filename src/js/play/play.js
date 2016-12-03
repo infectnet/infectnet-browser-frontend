@@ -63,7 +63,9 @@ Play.controller = function controller() {
 
   return {
     startGame(containerElement, gameBodyElement) {
-      InfectNet.play(containerElement, calculateGameRect(gameBodyElement));
+      InfectNet.play(containerElement,
+                     calculateGameRect(gameBodyElement),
+                     ServerCommunicator.subscribe);
 
       ServerCommunicator.getCode();
     },

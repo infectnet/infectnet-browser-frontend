@@ -9,7 +9,8 @@ const Actions = {
   ERROR: 'ERROR',
   COMPILATION_RESULTS: 'COMPILATION_RESULTS',
   GET_CODE: 'GET_CODE',
-  PUT_CODE: 'PUT_CODE'
+  PUT_CODE: 'PUT_CODE',
+  SUBSCRIBE: 'SUBSCRIBE'
 };
 
 const createServerCommunicator = function createServerCommunicator(webSocketService) {
@@ -91,11 +92,16 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
     webSocketService.send(Actions.GET_CODE, {});
   };
 
+  const subscribe = function subscribe() {
+    webSocketService.send(Actions.SUBSCRIBE, {});
+  };
+
   return {
     initialize,
     destroy,
     sendCode,
-    getCode
+    getCode,
+    subscribe
   };
 };
 

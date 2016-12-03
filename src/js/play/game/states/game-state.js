@@ -3,33 +3,41 @@ import 'phaser-kinetic-scrolling-plugin';
 
 const TILE_SIZE = 32;
 
-const GameState = {
-  init() {
-    this.game.kineticScrolling = this.game.plugins.add(Plugin.KineticScrolling);
+const GameState = {};
 
-    this.game.kineticScrolling.configure({
-      horizontalScroll: true,
-      verticalScroll: true
-    });
-  },
-  create() {
-    this.game.kineticScrolling.start();
+GameState.init = function init() {
+  this.game.kineticScrolling = this.game.plugins.add(Plugin.KineticScrolling);
 
-    /*
-     * Create a new blank tilemap with 32x32 tiles and 1000x1000 size
-     */
-    const tilemap = this.game.add.tilemap();
-    // this.game.add.tilemap(null, TILE_SIZE, TILE_SIZE, 1000, 1000);
+  this.game.kineticScrolling.configure({
+    horizontalScroll: true,
+    verticalScroll: true
+  });
+};
 
-    tilemap.addTilesetImage('tileset', null, TILE_SIZE, TILE_SIZE, 0, 0, 0);
+GameState.create = function create() {
+  this.game.kineticScrolling.start();
 
-    const layer = tilemap.create('layer', 1000, 1000, TILE_SIZE, TILE_SIZE);
+  /*
+   * Create a new blank tilemap with 32x32 tiles and 1000x1000 size
+   */
+  const tilemap = this.game.add.tilemap();
 
-    layer.resizeWorld();
+  tilemap.addTilesetImage('tileset', null, TILE_SIZE, TILE_SIZE, 0, 0, 0);
 
-    tilemap.putTile(0, 0, 0, 'layer');
-    tilemap.putTile(1, 1, 1, 'layer');
+  const layer = tilemap.create('layer', 1000, 1000, TILE_SIZE, TILE_SIZE);
+
+  layer.resizeWorld();
+
+  tilemap.putTile(0, 0, 0, 'layer');
+  tilemap.putTile(1, 1, 1, 'layer');
+
+  if (GameState.preStartCallback) {
+    GameState.preStartCallback();
   }
+};
+
+GameState.setPreStartCallback = function setPreStartCallback(callback) {
+  GameState.preStartCallback = callback;
 };
 
 export default GameState;
