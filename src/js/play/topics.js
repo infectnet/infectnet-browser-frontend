@@ -7,7 +7,8 @@ const Topics = {
   SERVER_OK: 'play.server_ok',
   SERVER_ERROR: 'play.server_error',
   COMMUNICATION_ERROR: 'play.communication_error',
-  CODE_RETRIEVED: 'play.code_retrieved'
+  CODE_RETRIEVED: 'play.code_retrieved',
+  STATUS_UPDATE: 'play.status_update'
 };
 
 export default Topics;

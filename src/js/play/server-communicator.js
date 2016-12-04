@@ -10,7 +10,8 @@ const Actions = {
   COMPILATION_RESULTS: 'COMPILATION_RESULTS',
   GET_CODE: 'GET_CODE',
   PUT_CODE: 'PUT_CODE',
-  SUBSCRIBE: 'SUBSCRIBE'
+  SUBSCRIBE: 'SUBSCRIBE',
+  STATUS_UPDATE: 'STATUS_UPDATE'
 };
 
 const createServerCommunicator = function createServerCommunicator(webSocketService) {
@@ -47,6 +48,10 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
       PubSub.publish(Topics.SERVER_ERROR, data.arguments);
     });
 
+    webSocketService.bindAction(Actions.STATUS_UPDATE, function resultListener(data) {
+      PubSub.publish(Topics.STATUS_UPDATE, data.arguments);
+    });
+
     webSocketService.addEventListener('error', onErrorListener);
   };
 
@@ -56,6 +61,8 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
     webSocketService.unbindAction(Actions.OK);
 
     webSocketService.unbindAction(Actions.ERROR);
+
+    webSocketService.unbindAction(Actions.STATUS_UPDATE);
 
     webSocketService.removeEventListener('error', onErrorListener);
   };

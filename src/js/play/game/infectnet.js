@@ -21,6 +21,15 @@ const createInfectNet = function createInfectNet() {
     game.state.start('Boot');
   };
 
+  // eslint-disable-next-line no-unused-vars
+  const preprocessStatus = function preprocessStatus(status) {
+    /*
+     * Map tile and entity types to tileset indices.
+     */
+
+    return null;
+  };
+
   return {
     play(containerElement, rect) {
       if (!isGameRunning) {
@@ -31,6 +40,11 @@ const createInfectNet = function createInfectNet() {
     },
     isRunning() {
       return isGameRunning;
+    },
+    update(status) {
+      const tileData = preprocessStatus(status);
+
+      GameState.prepareUpdate(tileData);
     }
   };
 };
