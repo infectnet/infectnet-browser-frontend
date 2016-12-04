@@ -46,7 +46,7 @@ const createInfectNet = function createInfectNet() {
 
   // eslint-disable-next-line no-unused-vars
   const findClosestBaseTo = function findClosestBaseTo(x, y) {
-    return { x: 1, y: 1 };
+    return { x: 0, y: 0 };
   };
 
   return {

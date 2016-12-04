@@ -28,10 +28,6 @@ GameState.init = function init() {
   this.game.zoomCamera = new ZoomCamera(this.game, this.world);
 };
 
-GameState.render = function render() {
-  this.game.debug.cameraInfo(this.game.camera, 32, 32);
-};
-
 GameState.create = function create() {
   const tilemap = this.game.add.tilemap();
 
@@ -40,11 +36,6 @@ GameState.create = function create() {
   GameState.layers.ground = tilemap.create(GROUND_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
 
   GameState.layers.object = tilemap.create(OBJECT_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
-
-  tilemap.putTile(1, 0, 0, GameState.layers.ground);
-  tilemap.putTile(1, 0, 1, GameState.layers.ground);
-  tilemap.putTile(1, 1, 0, GameState.layers.ground);
-  tilemap.putTile(1, 1, 1, GameState.layers.ground);
 
   GameState.layers.ground.resizeWorld();
 
