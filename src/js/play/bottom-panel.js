@@ -120,6 +120,13 @@ BottomPanel.view = function view(ctrl) {
           }, i18n.t('play:Menu.Live Status'))
         ]),
         m('.nav-right', [
+          m('.game-controls', {
+            onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
+          }, [
+            m('a.nav-item', mx.icon('fa-minus')),
+            m('a.nav-item', mx.icon('fa-plus')),
+            m('a.nav-item', mx.icon('fa-crosshairs')),
+          ]),
           m('a.nav-item', {
             onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
             onclick() {
