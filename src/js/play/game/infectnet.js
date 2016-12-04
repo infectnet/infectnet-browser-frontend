@@ -5,9 +5,17 @@ import Preload from './states/preload';
 import GameState from './states/game-state';
 
 const createInfectNet = function createInfectNet() {
+  const ZOOM_DELTA = 0.02;
+  const MIN_ZOOM = 0.5;
+  const MAX_ZOOM = 1.0;
+
+  let currentZoomFactor = 1.0;
+
   let isGameRunning = false;
 
   let game = null;
+
+  let currentStatus = {};
 
   const initGame = function initGame(containerElement, rect, preStartCallback) {
     game = new Game(rect.width, rect.height, AUTO, containerElement);
@@ -30,6 +38,17 @@ const createInfectNet = function createInfectNet() {
     return null;
   };
 
+  const modifyZoom = function modifyZoom(delta) {
+    currentZoomFactor += delta;
+
+    GameState.zoomTo(currentZoomFactor);
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const findClosestBaseTo = function findClosestBaseTo(x, y) {
+    return { x: 0, y: 0 };
+  };
+
   return {
     play(containerElement, rect) {
       if (!isGameRunning) {
@@ -42,9 +61,31 @@ const createInfectNet = function createInfectNet() {
       return isGameRunning;
     },
     update(status) {
-      const tileData = preprocessStatus(status);
+      if (status) {
+        currentStatus = status;
 
-      GameState.prepareUpdate(tileData);
+        const tileData = preprocessStatus(currentStatus);
+
+        GameState.prepareUpdate(tileData);
+      }
+    },
+    increaseZoom() {
+      if (currentZoomFactor < MAX_ZOOM) {
+        modifyZoom(ZOOM_DELTA);
+      }
+    },
+    decreaseZoom() {
+      if (currentZoomFactor > MIN_ZOOM) {
+        modifyZoom(-ZOOM_DELTA);
+      }
+    },
+    getCurrentStatus() {
+      return currentStatus;
+    },
+    jumpToClosestBase() {
+      const basePosition = findClosestBaseTo(game.camera.x, game.camera.y);
+
+      GameState.jumpTo(basePosition);
     }
   };
 };

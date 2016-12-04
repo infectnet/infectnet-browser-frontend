@@ -5,12 +5,19 @@ import { i18n } from '../common/services/i18n';
 import mx from '../common/util/mx';
 import Cond from '../common/util/cond';
 
+import InfectNet from './game/infectnet';
 import EditorTab from './editor-tab';
+import LiveTab from './live-tab';
 import Topics from './topics';
 
 const BottomPanel = {};
 
 const DEFAULT_INNER_HEIGHT = 250;
+
+const Tabs = {
+  EDITOR: 'editor',
+  LIVE: 'live'
+};
 
 BottomPanel.vm = {
   init() {
@@ -90,9 +97,15 @@ BottomPanel.controller = function controller(args) {
     }
   };
 
+  const tab = m.prop(Tabs.EDITOR);
+
   return {
     eventConfig,
-    editorConfigurator: args.editorConfigurator
+    editorConfigurator: args.editorConfigurator,
+    zoomIn: InfectNet.increaseZoom,
+    zoomOut: InfectNet.decreaseZoom,
+    jumpToBase: InfectNet.jumpToClosestBase,
+    tab
   };
 };
 
@@ -112,14 +125,25 @@ BottomPanel.view = function view(ctrl) {
     },
       m('.container', [
         m('.nav-left', [
-          m('a.nav-item.is-tab.is-active', {
-            onmousedown: ctrl.eventConfig.mouseDownStopPropagation
+          m('a.nav-item.is-tab', {
+            class: Cond(ctrl.tab() === Tabs.EDITOR).ifTrue('is-active'),
+            onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
+            onclick() { ctrl.tab(Tabs.EDITOR); }
           }, i18n.t('play:Menu.Code Editor')),
           m('a.nav-item.is-tab', {
-            onmousedown: ctrl.eventConfig.mouseDownStopPropagation
+            class: Cond(ctrl.tab() === Tabs.LIVE).ifTrue('is-active'),
+            onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
+            onclick() { ctrl.tab(Tabs.LIVE); }
           }, i18n.t('play:Menu.Live Status'))
         ]),
         m('.nav-right', [
+          m('.game-controls', {
+            onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
+          }, [
+            m('a.nav-item', { onclick: ctrl.zoomOut }, mx.icon('fa-minus')),
+            m('a.nav-item', { onclick: ctrl.zoomIn }, mx.icon('fa-plus')),
+            m('a.nav-item', { onclick: ctrl.jumpToBase }, mx.icon('fa-crosshairs')),
+          ]),
           m('a.nav-item', {
             onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
             onclick() {
@@ -132,10 +156,17 @@ BottomPanel.view = function view(ctrl) {
           }, mx.icon('', { class: heightNotZero.cond('fa-chevron-down', 'fa-chevron-up') }))
         ])
       ])),
-    m.component(EditorTab, {
+    m('div', {
+      class: Cond(ctrl.tab() === Tabs.EDITOR).ifFalse('is-hidden')
+    }, m.component(EditorTab, {
       editorConfigurator: ctrl.editorConfigurator,
       tabHeight: BottomPanel.vm.tabHeight
-    })
+    })),
+    m('div', {
+      class: Cond(ctrl.tab() === Tabs.LIVE).ifFalse('is-hidden')
+    }, m.component(LiveTab, {
+      tabHeight: BottomPanel.vm.tabHeight
+    }))
   ]);
 };
 
