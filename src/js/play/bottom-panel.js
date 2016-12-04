@@ -5,6 +5,7 @@ import { i18n } from '../common/services/i18n';
 import mx from '../common/util/mx';
 import Cond from '../common/util/cond';
 
+import InfectNet from './game/infectnet';
 import EditorTab from './editor-tab';
 import Topics from './topics';
 
@@ -92,7 +93,10 @@ BottomPanel.controller = function controller(args) {
 
   return {
     eventConfig,
-    editorConfigurator: args.editorConfigurator
+    editorConfigurator: args.editorConfigurator,
+    zoomIn: InfectNet.increaseZoom,
+    zoomOut: InfectNet.decreaseZoom,
+    jumpToBase: InfectNet.jumpToClosestBase
   };
 };
 
@@ -123,9 +127,9 @@ BottomPanel.view = function view(ctrl) {
           m('.game-controls', {
             onmousedown: ctrl.eventConfig.mouseDownStopPropagation,
           }, [
-            m('a.nav-item', mx.icon('fa-minus')),
-            m('a.nav-item', mx.icon('fa-plus')),
-            m('a.nav-item', mx.icon('fa-crosshairs')),
+            m('a.nav-item', { onclick: ctrl.zoomOut }, mx.icon('fa-minus')),
+            m('a.nav-item', { onclick: ctrl.zoomIn }, mx.icon('fa-plus')),
+            m('a.nav-item', { onclick: ctrl.jumpToBase }, mx.icon('fa-crosshairs')),
           ]),
           m('a.nav-item', {
             onmousedown: ctrl.eventConfig.mouseDownStopPropagation,

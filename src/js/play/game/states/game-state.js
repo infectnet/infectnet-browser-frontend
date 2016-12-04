@@ -1,5 +1,4 @@
-import { Plugin } from 'phaser';
-import 'phaser-kinetic-scrolling-plugin';
+import ZoomCamera from '../zoom-camera.js';
 
 const TILE_SIZE = 32;
 
@@ -11,6 +10,11 @@ const OBJECT_LAYER = 'object';
 
 const GameState = {};
 
+GameState.layers = {
+  ground: null,
+  object: null
+};
+
 GameState.currentTileData = {
   ground: [],
   objects: []
@@ -18,27 +22,35 @@ GameState.currentTileData = {
 
 GameState.nextTileData = null;
 
-GameState.init = function init() {
-  this.game.kineticScrolling = this.game.plugins.add(Plugin.KineticScrolling);
+GameState.oldCameraPosition = null;
 
-  this.game.kineticScrolling.configure({
-    horizontalScroll: true,
-    verticalScroll: true
-  });
+GameState.init = function init() {
+  this.game.zoomCamera = new ZoomCamera(this.game, this.world);
+};
+
+GameState.render = function render() {
+  this.game.debug.cameraInfo(this.game.camera, 32, 32);
 };
 
 GameState.create = function create() {
-  this.game.kineticScrolling.start();
-
   const tilemap = this.game.add.tilemap();
 
   tilemap.addTilesetImage('tileset', null, TILE_SIZE, TILE_SIZE, 0, 0, 0);
 
-  const ground = tilemap.create(GROUND_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
+  GameState.layers.ground = tilemap.create(GROUND_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
 
-  tilemap.create(OBJECT_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
+  GameState.layers.object = tilemap.create(OBJECT_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
 
-  ground.resizeWorld();
+  tilemap.putTile(1, 0, 0, GameState.layers.ground);
+  tilemap.putTile(1, 0, 1, GameState.layers.ground);
+  tilemap.putTile(1, 1, 0, GameState.layers.ground);
+  tilemap.putTile(1, 1, 1, GameState.layers.ground);
+
+  GameState.layers.ground.resizeWorld();
+
+  this.game.zoomCamera.add(GameState.layers.ground);
+
+  this.game.zoomCamera.add(GameState.layers.object);
 
   GameState.tilemap = tilemap;
 
@@ -50,6 +62,23 @@ GameState.create = function create() {
 GameState.update = function update() {
   if (GameState.nextTileData) {
     GameState.updateTiles();
+  }
+
+  GameState.updateCameraPosition();
+};
+
+GameState.updateCameraPosition = function updateCameraPosition() {
+  if (this.game.input.activePointer.isDown && !this.game.input.pointer2.isDown) {
+    if (GameState.oldCameraPosition) {
+      this.game.camera.x +=
+        GameState.oldCameraPosition.x - this.game.input.activePointer.position.x;
+      this.game.camera.y +=
+        GameState.oldCameraPosition.y - this.game.input.activePointer.position.y;
+    }
+
+    GameState.oldCameraPosition = this.game.input.activePointer.position.clone();
+  } else {
+    GameState.oldCameraPosition = null;
   }
 };
 
@@ -87,6 +116,18 @@ GameState.updateTiles = function updateTiles() {
 
 GameState.setPreStartCallback = function setPreStartCallback(callback) {
   GameState.preStartCallback = callback;
+};
+
+GameState.zoomTo = function zoomTo(scale) {
+  this.game.zoomCamera.zoomTo(scale);
+
+  GameState.layers.ground.resizeWorld();
+
+  this.game.camera.bounds = this.game.world.bounds;
+};
+
+GameState.jumpTo = function jumpTo(position) {
+  this.game.camera.setPosition(position.x, position.y);
 };
 
 export default GameState;
