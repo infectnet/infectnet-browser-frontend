@@ -34,8 +34,13 @@ Play.controller = function controller() {
 
   ServerCommunicator.initialize();
 
+  PubSub.subscribe(Topics.STATUS_UPDATE, function updateSubscribe(msg, statusUpdate) {
+    InfectNet.update(statusUpdate);
+  });
+
   /*
-   *  Don't even ask, why this is here...
+   * The ACE editor works in some mysterious ways, which forces us to configure
+   * it here instead of the editor.js file.
    */
   const editorConfigurator = function editorConfigurator(editor) {
     editor.setTheme('ace/theme/ambiance');
@@ -63,7 +68,9 @@ Play.controller = function controller() {
 
   return {
     startGame(containerElement, gameBodyElement) {
-      InfectNet.play(containerElement, calculateGameRect(gameBodyElement));
+      InfectNet.play(containerElement,
+                     calculateGameRect(gameBodyElement),
+                     ServerCommunicator.subscribe);
 
       ServerCommunicator.getCode();
     },

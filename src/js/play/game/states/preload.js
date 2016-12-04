@@ -1,8 +1,6 @@
 const Preload = {
   preload() {
-    /*
-     * Load all resources here. Also add a loading bar or something like that.
-     */
+    this.game.load.image('tileset', 'assets/game/tileset.png');
   },
   create() {
     /*

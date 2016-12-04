@@ -13,6 +13,24 @@ System.config({
     "npm:*": "jspm_packages/npm/*"
   },
 
+  meta: {
+    "brace/theme/chaos": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/theme/ambiance": {
+      "deps": [
+        "brace"
+      ]
+    },
+    "brace/mode/groovy": {
+      "deps": [
+        "brace"
+      ]
+    }
+  },
+
   map: {
     "auth0/jwt-decode": "github:auth0/jwt-decode@2.1.0",
     "babel": "npm:babel-core@5.8.38",
@@ -23,6 +41,7 @@ System.config({
     "i18next-xhr-backend": "npm:i18next-xhr-backend@1.2.0",
     "mithril": "npm:mithril@0.2.5",
     "phaser": "github:photonstorm/phaser@2.6.2",
+    "phaser-kinetic-scrolling-plugin": "npm:phaser-kinetic-scrolling-plugin@1.0.4",
     "pubsub-js": "npm:pubsub-js@1.5.4",
     "velocity": "github:julianshapiro/velocity@1.3.1",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -80,6 +99,17 @@ System.config({
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:phaser-kinetic-scrolling-plugin@1.0.4": {
+      "phaser": "npm:phaser@2.6.2",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:phaser@2.6.2": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
+    },
     "npm:process@0.11.9": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -99,23 +129,5 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
-  },
-
-  meta: {
-    "brace/theme/chaos": {
-      "deps": [
-        "brace"
-      ]
-    },
-    "brace/theme/ambiance": {
-      "deps": [
-        "brace"
-      ]
-    },
-    "brace/mode/groovy": {
-      "deps": [
-        "brace"
-      ]
-    }
-  },
+  }
 });
