@@ -32,6 +32,8 @@ const fromProvider = function fromProvider(addressProvider, options = { useWss: 
   const dispatcher = function dispatcher(evt) {
     const message = JSON.parse(evt.data);
 
+    console.log(message);
+
     if (Object.prototype.hasOwnProperty.call(actionListeners, message.action)) {
       actionListeners[message.action](message);
     }

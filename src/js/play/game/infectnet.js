@@ -50,11 +50,11 @@ const createInfectNet = function createInfectNet() {
   };
 
   return {
-    play(containerElement, rect) {
+    play(containerElement, rect, preStartCallback) {
       if (!isGameRunning) {
         isGameRunning = true;
 
-        initGame(containerElement, rect);
+        initGame(containerElement, rect, preStartCallback);
       }
     },
     isRunning() {
