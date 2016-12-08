@@ -36,6 +36,12 @@ const createInfectNet = function createInfectNet() {
     }[type];
   };
 
+  const mapEntityNameToIndex = function mapEntityNameToIndex(typeName) {
+    return {
+      Nest: 2
+    }[typeName];
+  };
+
   const preprocessStatus = function preprocessStatus(status) {
     const processedStatus = {
       ground: [],
@@ -52,6 +58,14 @@ const createInfectNet = function createInfectNet() {
         groundTile.index = mapTileTypeToIndex(tile.type);
 
         processedStatus.ground.push(groundTile);
+
+        if (tile.entity) {
+          const objectTile = Object.assign({}, groundTile);
+
+          objectTile.index = mapEntityNameToIndex(tile.entity.typeComponent.name);
+
+          processedStatus.objects.push(objectTile);
+        }
       });
     }
 
@@ -64,13 +78,11 @@ const createInfectNet = function createInfectNet() {
     GameState.zoomTo(currentZoomFactor);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const findClosestBaseTo = function findClosestBaseTo(x, y) {
     const bases = [];
 
     currentStatus.tileSet.forEach(function getBase(tile) {
       if (tile.entity) {
-        console.log(tile);
         if (tile.entity.typeComponent.name === 'Nest') {
           bases.push({
             x: tile.position.w,
@@ -82,7 +94,10 @@ const createInfectNet = function createInfectNet() {
     });
 
     bases.sort((a, b) => a.distance - b.distance);
-    console.log(bases);
+
+    if (bases.length === 0) {
+      return { x: 0, y: 0 };
+    }
 
     return { x: bases[0].x, y: bases[0].y };
 
