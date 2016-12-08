@@ -29,13 +29,43 @@ const createInfectNet = function createInfectNet() {
     game.state.start('Boot');
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const preprocessStatus = function preprocessStatus(status) {
-    /*
-     * Map tile and entity types to tileset indices.
-     */
+  const mapTileTypeToIndex = function mapTileTypeToIndex(type) {
+    return {
+      CAVE: 0,
+      ROCK: 1
+    }[type];
+  };
 
-    return null;
+  const preprocessStatus = function preprocessStatus(status) {
+    const processedStatus = {
+      ground: [],
+      objects: []
+    };
+
+    if (status.tileSet) {
+      for (let i = 0; i < status.tileSet.length; ++i) {
+        const groundTile = {
+          x: status.tileSet[i].position.w,
+          y: status.tileSet[i].position.h
+        };
+
+        groundTile.index = mapTileTypeToIndex(status.tileSet[i].type);
+
+        processedStatus.ground.push(groundTile);
+      }
+      /*status.tileSet.forEach(function tileProcessor(tile) {
+        const groundTile = {
+          x: tile.position.w,
+          y: tile.position.h
+        };
+
+        groundTile.index = mapTileTypeToIndex(tile.type);
+
+        processedStatus.ground.push(groundTile);
+      });*/
+    }
+
+    return processedStatus;
   };
 
   const modifyZoom = function modifyZoom(delta) {
@@ -65,6 +95,8 @@ const createInfectNet = function createInfectNet() {
         currentStatus = status;
 
         const tileData = preprocessStatus(currentStatus);
+
+        console.log(tileData);
 
         GameState.prepareUpdate(tileData);
       }
