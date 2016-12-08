@@ -8,13 +8,13 @@ const MAP_SIZE = 1000;
 
 const GROUND_LAYER = 'ground';
 
-const OBJECT_LAYER = 'object';
+const OBJECTS_LAYER = 'objectS';
 
 const GameState = {};
 
 GameState.layers = {
   ground: null,
-  object: null
+  objects: null
 };
 
 GameState.currentTileData = {
@@ -38,42 +38,56 @@ GameState.create = function create() {
   GameState.layers.ground =
     tilemap.create(GROUND_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
 
-  GameState.layers.object =
-    tilemap.createBlankLayer(OBJECT_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
+  GameState.layers.objects =
+    tilemap.createBlankLayer(OBJECTS_LAYER, MAP_SIZE, MAP_SIZE, TILE_SIZE, TILE_SIZE);
 
   GameState.layers.ground.resizeWorld();
 
   this.game.zoomCamera.add(GameState.layers.ground);
 
-  this.game.zoomCamera.add(GameState.layers.object);
+  this.game.zoomCamera.add(GameState.layers.objects);
 
   GameState.tilemap = tilemap;
 
-  GameState.monkeyPatch(tilemap);
+  GameState.monkeyPatchTilemap(tilemap);
 
   if (GameState.preStartCallback) {
     GameState.preStartCallback();
   }
 };
 
-GameState.monkeyPatch = function monkeyPatch(tilemap) {
-  tilemap.removeTile = function(x, y, layer) {
-    layer = ((layer === GROUND_LAYER) ? 0 : 1);
+/*
+ * The performane of Phaser's native putTile/removeTile methods was unacceptable for us
+ * so a few changes had to be made.
+ *
+ * New, unsafe implementations were added to the tilemap instance. These function does not
+ * perform the safety checks by the original methods and omit calling Tilemap.calculateFaces().
+ * That method must be called manually.
+ *
+ * We could remove the calculateFaces() method call because it will produce the same results if we
+ * call it after all putTile/removeTile operations have finished.
+ */
+GameState.monkeyPatchTilemap = function monkeyPatchTilemap(tilemap) {
+  /*
+   * Assignment must be done here to patch the original tilemap.
+   * Although we could set it to a local variable, that does not make any sense.
+   */
+  // eslint-disable-next-line no-param-reassign
+  tilemap.removeTile = function removeTile(x, y, layer) {
+    const layerIndex = ((layer === GROUND_LAYER) ? 0 : 1);
 
-    this.layers[layer].data[y][x].index = -1;
-
-    /*this.layers[layer].data[y][x] =
-      new Tile(this.layers[layer], -1, x, y, this.tileWidth, this.tileHeight);*/
+    this.layers[layerIndex].data[y][x].index = -1;
   };
 
+  // eslint-disable-next-line no-param-reassign
   tilemap.putTile = function putTile(tile, x, y, layer) {
-    layer = ((layer === GROUND_LAYER) ? 0 : 1);
+    const layerIndex = ((layer === GROUND_LAYER) ? 0 : 1);
 
     if (this.hasTile(x, y, layer)) {
-      this.layers[layer].data[y][x].index = tile;
+      this.layers[layerIndex].data[y][x].index = tile;
     } else {
-      this.layers[layer].data[y][x] =
-        new Tile(this.layers[layer], tile, x, y, this.tileWidth, this.tileHeight);
+      this.layers[layerIndex].data[y][x] =
+        new Tile(this.layers[layerIndex], tile, x, y, this.tileWidth, this.tileHeight);
     }
   };
 };
@@ -113,35 +127,39 @@ GameState.updateTiles = function updateTiles() {
   /*
      * Remove the tiles from the last tick
    */
-
-  for (let i = 0; i < GameState.currentTileData.ground.length; ++i) {
-    GameState.tilemap.removeTile(GameState.currentTileData.ground[i].x, GameState.currentTileData.ground[i].y, GROUND_LAYER);
+  for (let i = 0; i < GameState.currentTileData.ground.length; i += 1) {
+    GameState.tilemap.removeTile(GameState.currentTileData.ground[i].x,
+                                 GameState.currentTileData.ground[i].y,
+                                 GROUND_LAYER);
   }
 
-  /*GameState.currentTileData.ground.forEach(function groundRemover(groundTile) {
-    GameState.tilemap.removeTile(groundTile.x, groundTile.y, GROUND_LAYER);
-  })
-
-  GameState.currentTileData.objects.forEach(function objectRemover(objectTile) {
-    GameState.tilemap.removeTile(objectTile.x, objectTile.y, OBJECT_LAYER);
-  });*/
+  for (let i = 0; i < GameState.currentTileData.objects.length; i += 1) {
+    GameState.tilemap.removeTile(GameState.currentTileData.objects[i].x,
+                                 GameState.currentTileData.objects[i].y,
+                                 OBJECTS_LAYER);
+  }
 
   /*
    * Add the new tiles to the tilemap
    */
-  /*GameState.nextTileData.ground.forEach(function groundAdder(groundTile) {
-    GameState.tilemap.putTile(groundTile.index, groundTile.x, groundTile.y, GROUND_LAYER);
-  });
-
-  GameState.nextTileData.ground.forEach(function objectAdder(objectTile) {
-    GameState.tilemap.putTile(objectTile.index, objectTile.x, objectTile.y, OBJECT_LAYER);
-  });*/
-
-  for (let i = 0; i < GameState.nextTileData.ground.length; ++i) {
-    GameState.tilemap.putTile(GameState.nextTileData.ground[i].index, GameState.nextTileData.ground[i].x, GameState.nextTileData.ground[i].y, GROUND_LAYER);
+  for (let i = 0; i < GameState.nextTileData.ground.length; i += 1) {
+    GameState.tilemap.putTile(GameState.nextTileData.ground[i].index,
+                              GameState.nextTileData.ground[i].x,
+                              GameState.nextTileData.ground[i].y,
+                              GROUND_LAYER);
   }
 
-  GameState.tilemap.putTile(0, 0, 0, GROUND_LAYER);
+  for (let i = 0; i < GameState.nextTileData.objects.length; i += 1) {
+    GameState.tilemap.putTile(GameState.nextTileData.objects[i].index,
+                              GameState.nextTileData.objects[i].x,
+                              GameState.nextTileData.objects[i].y,
+                              OBJECTS_LAYER);
+  }
+
+  /*
+   * Set layers as dirty to force them to be rendered and execute
+   * the calculateFaces method after the batched tile operations.
+   */
   GameState.tilemap.layers[0].dirty = true;
   GameState.tilemap.layers[1].dirty = true;
 
@@ -166,7 +184,7 @@ GameState.zoomTo = function zoomTo(scale) {
 };
 
 GameState.jumpTo = function jumpTo(position) {
-  this.game.camera.setPosition(position.x, position.y);
+  this.game.camera.focusOnXY(position.x * TILE_SIZE, position.y * TILE_SIZE);
 };
 
-export default GameState;
+export { GameState, MAP_SIZE, TILE_SIZE };

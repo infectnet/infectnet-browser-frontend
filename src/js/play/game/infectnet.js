@@ -2,7 +2,7 @@ import { Game, AUTO } from 'phaser';
 
 import Boot from './states/boot';
 import Preload from './states/preload';
-import GameState from './states/game-state';
+import { GameState, TILE_SIZE } from './states/game-state';
 
 const createInfectNet = function createInfectNet() {
   const ZOOM_DELTA = 0.02;
@@ -43,17 +43,7 @@ const createInfectNet = function createInfectNet() {
     };
 
     if (status.tileSet) {
-      for (let i = 0; i < status.tileSet.length; ++i) {
-        const groundTile = {
-          x: status.tileSet[i].position.w,
-          y: status.tileSet[i].position.h
-        };
-
-        groundTile.index = mapTileTypeToIndex(status.tileSet[i].type);
-
-        processedStatus.ground.push(groundTile);
-      }
-      /*status.tileSet.forEach(function tileProcessor(tile) {
+      status.tileSet.forEach(function tileProcessor(tile) {
         const groundTile = {
           x: tile.position.w,
           y: tile.position.h
@@ -62,7 +52,7 @@ const createInfectNet = function createInfectNet() {
         groundTile.index = mapTileTypeToIndex(tile.type);
 
         processedStatus.ground.push(groundTile);
-      });*/
+      });
     }
 
     return processedStatus;
@@ -76,7 +66,29 @@ const createInfectNet = function createInfectNet() {
 
   // eslint-disable-next-line no-unused-vars
   const findClosestBaseTo = function findClosestBaseTo(x, y) {
-    return { x: 0, y: 0 };
+    const bases = [];
+
+    currentStatus.tileSet.forEach(function getBase(tile) {
+      if (tile.entity) {
+        console.log(tile);
+        if (tile.entity.typeComponent.name === 'Nest') {
+          bases.push({
+            x: tile.position.w,
+            y: tile.position.h,
+            distance: distance2(tile.position.w * TILE_SIZE, tile.position.h * TILE_SIZE)
+          });
+        }
+      }
+    });
+
+    bases.sort((a, b) => a.distance - b.distance);
+    console.log(bases);
+
+    return { x: bases[0].x, y: bases[0].y };
+
+    function distance2(tileX, tileY) {
+      return ((tileX - x) * (tileX - x)) + ((tileY - y) * (tileY - y));
+    }
   };
 
   return {
