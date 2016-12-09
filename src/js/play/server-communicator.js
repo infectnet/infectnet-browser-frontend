@@ -22,7 +22,7 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
     entities: []
   };
 
-  const processStatusUpdate = function processStatusUpdate(statusMessage)  {
+  const processStatusUpdate = function processStatusUpdate(statusMessage) {
     latestStatus.tiles = [];
     latestStatus.entities = [];
 
