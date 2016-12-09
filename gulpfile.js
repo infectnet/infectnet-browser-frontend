@@ -15,6 +15,7 @@ gulp.task('html', getTask('html', config.htmlSettings));
 gulp.task('img', getTask('img'));
 gulp.task('javascript', getTask('javascript', config.javascriptSettings));
 gulp.task('locales', getTask('locales'));
+gulp.task('game', getTask('game'));
 
 gulp.task('watch', ['lint', 'javascript', 'sass', 'html', 'locales'], getTask('watch'));
 

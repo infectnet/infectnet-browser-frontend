@@ -1,4 +1,7 @@
 import m from 'mithril';
+// eslint-disable-next-line no-unused-vars
+import ace from 'brace';
+
 import Routes from './routes';
 
 import Site from './site/site.js';

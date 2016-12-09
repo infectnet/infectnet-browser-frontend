@@ -2,40 +2,40 @@ import m from 'mithril';
 
 import ServerIp from './server-ip';
 
-const ofAddress = function ofAddress(address) {
-  return fromProvider(() => address);
+const ofAddress = function ofAddress(address, options) {
+  return fromProvider(() => address, options);
 };
 
-const fromProvider = function fromProvider(addressProvider, useHttps = false) {
+const fromProvider = function fromProvider(addressProvider, options = { useHttps: false }) {
   const getAddress = function getAddress() {
     let address = addressProvider();
 
     if (!address.startsWith('http://') && !address.startsWith('https://')) {
-      address = `${useHttps ? 'https' : 'http'}://${address}`;
+      address = `${options.useHttps ? 'https' : 'http'}://${address}`;
     }
 
     return address;
   };
 
-  const req = function req(options) {
-    const optionsCopy = Object.assign({}, options);
+  const req = function req(opts) {
+    const optionsCopy = Object.assign({}, opts);
 
-    optionsCopy.url = `${getAddress()}${options.url}`;
+    optionsCopy.url = `${getAddress()}${opts.url}`;
 
     return m.request(optionsCopy);
   };
 
-  const withAuth = function withToken(authProvider, options) {
+  const withAuth = function withToken(authProvider, opts) {
     // We don't want to lose the original config
     const extendedConfig = function extendedConfig(xhr) {
       authProvider.authFunc(xhr);
 
-      if (typeof options.config === 'function') {
-        options.config(xhr);
+      if (typeof opts.config === 'function') {
+        opts.config(xhr);
       }
     };
 
-    const extendedOptions = Object.assign({}, options);
+    const extendedOptions = Object.assign({}, opts);
 
     extendedOptions.config = extendedConfig;
 

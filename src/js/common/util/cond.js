@@ -8,6 +8,16 @@ const Cond = function Cond(condition, defaultTrue, defaultFalse) {
     },
     ifTrue(value) {
       return condition ? value : (defaultFalse || '');
+    },
+    exec(ifTrue, ifFalse) {
+      if (condition) {
+        ifTrue();
+      } else {
+        ifFalse();
+      }
+    },
+    get() {
+      return condition;
     }
   };
 };

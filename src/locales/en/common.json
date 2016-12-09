@@ -10,7 +10,8 @@
     "Back to Home": "Back to Home",
     "Back to Server": "Back to Server",
     "Manage Tokens": "Manage Tokens",
-    "Dashboard": "Dashboard"
+    "Dashboard": "Dashboard",
+    "Quit Game": "Quit Game"
   },
   "Error": {
     "Login failed": "The username or password is incorrect!",
@@ -19,7 +20,11 @@
     "Invalid username": "The entered username is invalid or is already taken!",
     "Invalid password": "The entered password does not match the requirements!",
     "Invalid token": "This token's not the one we're looking for.",
-    "Invalid email": "This is not a valid e-mail address, or it's already used in another account."
+    "Invalid email": "This is not a valid e-mail address, or it's already used in another account.",
+    "Could not connect to server": "Could not establish network connection with the server. Please try again!",
+    "Malformed message": "The message sent to the server was in incorrect format. This message might be a sign of an internal error.",
+    "Unsupported action": "The action is not supported be the server and cannot be executed.",
+    "Authentication failed": "Could not log in to the server, because the username or password is incorrect."
   },
   "Login": {
     "Username": "Username",

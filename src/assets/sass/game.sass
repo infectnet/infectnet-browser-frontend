@@ -1,0 +1,68 @@
+$black-light: hsl(0, 0%, 14%)
+$red: #ff1f4b
+$white: #ffffff
+$grey: hsl(0%, 0%, 29%)
+$turquoise: hsl(171, 100%, 41%)
+
+$bottom-nav-size: 40px;
+
+#game-container > canvas
+  margin: auto
+
+.game-controls
+  display: inherit;
+  margin-right: 2em;
+
+.bottom-panel
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 30
+
+  > nav
+    background-color: $black-light;
+    cursor: n-resize;
+    min-height: $bottom-nav-size;
+
+    > .container
+      min-height: inherit
+  
+  .nav-item
+    max-height: $bottom-nav-size;
+
+.error-list-container
+  padding-top: 10px
+  overflow: auto
+
+  > .error-box
+    background-color: $red
+    color: $white
+    margin-bottom: 10px
+    padding: 5px
+
+    > .title
+      margin-bottom: 5px
+      color: $white !important
+
+#editor
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  top: 0
+
+.status-section
+  overflow-y: auto;
+  height: 100%
+  background-color: $grey;
+
+.status-box
+  display: table;
+  min-width: 20%;
+  background-color: $black-light;
+
+  .content
+    color: $turquoise
+  strong
+    color: $turquoise

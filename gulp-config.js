@@ -5,7 +5,8 @@ const paths = {
     js: './src/js',
     sass: './src/assets/sass',
     img: './src/assets/img',
-    locales: './src/locales'
+    locales: './src/locales',
+    game: './src/assets/game'
   },
   dist: {
     base: './dist',
@@ -13,7 +14,8 @@ const paths = {
     js: './dist/js',
     css: './dist/assets/css',
     img: './dist/assets/img',
-    locales: './dist/locales'
+    locales: './dist/locales',
+    game: './dist/assets/game'
   }
 };
 

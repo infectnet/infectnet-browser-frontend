@@ -1,0 +1,15 @@
+{
+  "Menu": {
+    "Code Editor": "Code Editor",
+    "Live Status": "Live Status"
+  },
+  "Editor": {
+    "Upload Code": "Upload Code",
+    "Clear Errors": "Clear Errors"
+  },
+  "Updates": {
+    "Received": "Status Update Received",
+    "Entities": "Entities",
+    "Tiles": "Tiles"
+  }
+}

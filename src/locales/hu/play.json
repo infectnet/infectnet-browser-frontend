@@ -1,0 +1,15 @@
+{
+  "Menu": {
+    "Code Editor": "Kódszerkesztő",
+    "Live Status": "Státusz"
+  },
+  "Editor": {
+    "Upload Code": "Kód feltöltése",
+    "Clear Errors": "Hibalista törlése"
+  },
+  "Updates": {
+    "Received": "Állapotfrissítés",
+    "Entities": "Objektumok",
+    "Tiles": "Térképdarabok"
+  }
+}
