@@ -38,7 +38,9 @@ const createInfectNet = function createInfectNet() {
 
   const mapEntityNameToIndex = function mapEntityNameToIndex(typeName) {
     return {
-      Nest: 2
+      Nest: 2,
+      Bit: 3,
+      Worm: 4
     }[typeName];
   };
 
