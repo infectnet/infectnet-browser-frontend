@@ -1,6 +1,6 @@
 {
   "name": "infectnet-browser-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "InfectNet Browser Frontend",
   "main": "index.js",
   "scripts": {
