@@ -2,7 +2,7 @@ import { Game, AUTO } from 'phaser';
 
 import Boot from './states/boot';
 import Preload from './states/preload';
-import GameState from './states/game-state';
+import { GameState, TILE_SIZE } from './states/game-state';
 
 const createInfectNet = function createInfectNet() {
   const ZOOM_DELTA = 0.02;
@@ -29,13 +29,50 @@ const createInfectNet = function createInfectNet() {
     game.state.start('Boot');
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const preprocessStatus = function preprocessStatus(status) {
-    /*
-     * Map tile and entity types to tileset indices.
-     */
+  const mapTileTypeToIndex = function mapTileTypeToIndex(type) {
+    return {
+      CAVE: 0,
+      ROCK: 1
+    }[type];
+  };
 
-    return null;
+  const mapEntityNameToIndex = function mapEntityNameToIndex(typeName) {
+    return {
+      Nest: 2,
+      Bit: 3,
+      Worm: 4
+    }[typeName];
+  };
+
+  const preprocessStatus = function preprocessStatus(status) {
+    const processedStatus = {
+      ground: [],
+      objects: []
+    };
+
+    status.tiles.forEach(function tileProcessor(tile) {
+      const groundTile = {
+        x: tile.position.w,
+        y: tile.position.h
+      };
+
+      groundTile.index = mapTileTypeToIndex(tile.type);
+
+      processedStatus.ground.push(groundTile);
+    });
+
+    status.entities.forEach(function entityProcessor(entity) {
+      const objectTile = {
+        x: entity.positionComponent.position.w,
+        y: entity.positionComponent.position.h,
+      };
+
+      objectTile.index = mapEntityNameToIndex(entity.typeComponent.name);
+
+      processedStatus.objects.push(objectTile);
+    });
+
+    return processedStatus;
   };
 
   const modifyZoom = function modifyZoom(delta) {
@@ -44,17 +81,39 @@ const createInfectNet = function createInfectNet() {
     GameState.zoomTo(currentZoomFactor);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const findClosestBaseTo = function findClosestBaseTo(x, y) {
-    return { x: 0, y: 0 };
+    const bases = [];
+
+    currentStatus.entities.forEach(function getBase(entity) {
+      if (entity.typeComponent.name === 'Nest') {
+        bases.push({
+          x: entity.positionComponent.position.w,
+          y: entity.positionComponent.position.h,
+          distance: distance2(entity.positionComponent.position.w * TILE_SIZE,
+                              entity.positionComponent.position.h * TILE_SIZE)
+        });
+      }
+    });
+
+    bases.sort((a, b) => a.distance - b.distance);
+
+    if (bases.length === 0) {
+      return { x: 0, y: 0 };
+    }
+
+    return { x: bases[0].x, y: bases[0].y };
+
+    function distance2(tileX, tileY) {
+      return ((tileX - x) * (tileX - x)) + ((tileY - y) * (tileY - y));
+    }
   };
 
   return {
-    play(containerElement, rect) {
+    play(containerElement, rect, preStartCallback) {
       if (!isGameRunning) {
         isGameRunning = true;
 
-        initGame(containerElement, rect);
+        initGame(containerElement, rect, preStartCallback);
       }
     },
     isRunning() {

@@ -1,6 +1,8 @@
 $black-light: hsl(0, 0%, 14%)
 $red: #ff1f4b
 $white: #ffffff
+$grey: hsl(0%, 0%, 29%)
+$turquoise: hsl(171, 100%, 41%)
 
 $bottom-nav-size: 40px;
 
@@ -49,3 +51,18 @@ $bottom-nav-size: 40px;
   left: 0
   right: 0
   top: 0
+
+.status-section
+  overflow-y: auto;
+  height: 100%
+  background-color: $grey;
+
+.status-box
+  display: table;
+  min-width: 20%;
+  background-color: $black-light;
+
+  .content
+    color: $turquoise
+  strong
+    color: $turquoise

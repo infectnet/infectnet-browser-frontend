@@ -30,6 +30,10 @@ Editor.controller = function controller(args) {
     }
   });
 
+  PubSub.subscribe(Topics.MOUSE_MOVE, function mouseUp() {
+    Editor.vm.editorElement().resize();
+  });
+
   const configureEditor = function configureEditor(elementId) {
     const editor = ace.edit(elementId);
 

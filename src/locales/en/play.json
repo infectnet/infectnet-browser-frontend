@@ -6,5 +6,10 @@
   "Editor": {
     "Upload Code": "Upload Code",
     "Clear Errors": "Clear Errors"
+  },
+  "Updates": {
+    "Received": "Status Update Received",
+    "Entities": "Entities",
+    "Tiles": "Tiles"
   }
 }
