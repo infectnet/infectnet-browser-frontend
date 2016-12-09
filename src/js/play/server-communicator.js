@@ -17,6 +17,30 @@ const Actions = {
 const createServerCommunicator = function createServerCommunicator(webSocketService) {
   let isInitialized = false;
 
+  const latestStatus = {
+    tiles: [],
+    entities: []
+  };
+
+  const processStatusUpdate = function processStatusUpdate(statusMessage)  {
+    latestStatus.tiles = [];
+    latestStatus.entities = [];
+
+    statusMessage.tileSet.forEach(function processTile(tile) {
+      latestStatus.tiles.push(tile);
+
+      if (tile.entity) {
+        latestStatus.entities.push(tile.entity);
+      }
+    });
+  };
+
+  const publishStatusUpdate = function publishStatusUpdate(statusMessage) {
+    processStatusUpdate(statusMessage);
+
+    PubSub.publish(Topics.STATUS_UPDATE, latestStatus);
+  };
+
   const onErrorListener = function errorListener() {
     PubSub.publish(Topics.COMMUNICATION_ERROR, '');
   };
@@ -49,7 +73,7 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
     });
 
     webSocketService.bindAction(Actions.STATUS_UPDATE, function resultListener(data) {
-      PubSub.publish(Topics.STATUS_UPDATE, data.arguments);
+      publishStatusUpdate(data.arguments);
     });
 
     webSocketService.addEventListener('error', onErrorListener);
@@ -103,12 +127,17 @@ const createServerCommunicator = function createServerCommunicator(webSocketServ
     webSocketService.send(Actions.SUBSCRIBE, {});
   };
 
+  const getLatestStatus = function getLatestStatus() {
+    return latestStatus;
+  };
+
   return {
     initialize,
     destroy,
     sendCode,
     getCode,
-    subscribe
+    subscribe,
+    getLatestStatus
   };
 };
 

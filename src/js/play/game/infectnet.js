@@ -48,26 +48,27 @@ const createInfectNet = function createInfectNet() {
       objects: []
     };
 
-    if (status.tileSet) {
-      status.tileSet.forEach(function tileProcessor(tile) {
-        const groundTile = {
-          x: tile.position.w,
-          y: tile.position.h
-        };
+    status.tiles.forEach(function tileProcessor(tile) {
+      const groundTile = {
+        x: tile.position.w,
+        y: tile.position.h
+      };
 
-        groundTile.index = mapTileTypeToIndex(tile.type);
+      groundTile.index = mapTileTypeToIndex(tile.type);
 
-        processedStatus.ground.push(groundTile);
+      processedStatus.ground.push(groundTile);
+    });
 
-        if (tile.entity) {
-          const objectTile = Object.assign({}, groundTile);
+    status.entities.forEach(function entityProcessor(entity) {
+      const objectTile = {
+        x: entity.positionComponent.position.w,
+        y: entity.positionComponent.position.h,
+      };
 
-          objectTile.index = mapEntityNameToIndex(tile.entity.typeComponent.name);
+      objectTile.index = mapEntityNameToIndex(entity.typeComponent.name);
 
-          processedStatus.objects.push(objectTile);
-        }
-      });
-    }
+      processedStatus.objects.push(objectTile);
+    });
 
     return processedStatus;
   };
@@ -81,15 +82,14 @@ const createInfectNet = function createInfectNet() {
   const findClosestBaseTo = function findClosestBaseTo(x, y) {
     const bases = [];
 
-    currentStatus.tileSet.forEach(function getBase(tile) {
-      if (tile.entity) {
-        if (tile.entity.typeComponent.name === 'Nest') {
-          bases.push({
-            x: tile.position.w,
-            y: tile.position.h,
-            distance: distance2(tile.position.w * TILE_SIZE, tile.position.h * TILE_SIZE)
-          });
-        }
+    currentStatus.entities.forEach(function getBase(entity) {
+      if (entity.typeComponent.name === 'Nest') {
+        bases.push({
+          x: entity.positionComponent.position.w,
+          y: entity.positionComponent.position.h,
+          distance: distance2(entity.positionComponent.position.w * TILE_SIZE,
+                              entity.positionComponent.position.h * TILE_SIZE)
+        });
       }
     });
 
@@ -122,8 +122,6 @@ const createInfectNet = function createInfectNet() {
         currentStatus = status;
 
         const tileData = preprocessStatus(currentStatus);
-
-        console.log(tileData);
 
         GameState.prepareUpdate(tileData);
       }
