@@ -119,10 +119,6 @@ GameState.prepareUpdate = function prepareUpdate(tileData) {
   GameState.nextTileData = tileData;
 };
 
-GameState.render = function render() {
-  this.game.debug.cameraInfo(this.game.camera, 32, 32);
-};
-
 GameState.updateTiles = function updateTiles() {
   /*
      * Remove the tiles from the last tick
